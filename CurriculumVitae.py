@@ -46,7 +46,9 @@ class _NestedHTML():
 
     @abstractmethod
     def __repr_html__(self, depth=1, **kwargs):
-        if self._compare_exporting(kwargs.get("jinja2_render_args", dict())):
+        kwargs.setdefault("jinja2_render_args", dict())
+
+        if self._compare_exporting(kwargs["jinja2_render_args"]):
             obj_attrs = {}
             for attr_name, attr in self.__dict__.copy().items():
                 # print("\t"*depth + f"Class {self.__class__.__name__} converting attr {attr_name}: '{attr}':")
