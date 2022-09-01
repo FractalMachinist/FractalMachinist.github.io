@@ -1,0 +1,8 @@
+<div class="{{className}}">
+    <div class="details_heading">
+        <h{{depth}} class="entry_title">{{title}}</h{{depth}}>
+        {% if website is not none %}<a href="{{website}}"><p class="subtle">link</p></a>{% endif %}
+    </div>
+
+    {% include 'Effort_body.html' %}
+</div>

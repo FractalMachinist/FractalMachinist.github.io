@@ -1,0 +1,20 @@
+.Person {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.Person>.person_identity{
+    display:flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.Person>.ContactInfo {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.Person>.ContactInfo>* {
+    margin-inline-end: 5px;
+}

@@ -1,0 +1,41 @@
+.Skill {
+    display:block;
+    float:left;
+    margin:1px;
+    padding:1px 5px;
+    width: max-content;
+    user-select: none;
+
+
+    border:2px solid rgba(var(--skill-color),0);
+    box-shadow: 0px 0px 6px 0px rgba(var(--skill-color),0.1);
+    border-radius:5px;
+    border-width: 0px 0px 2px 0px;
+    color:rgba(var(--skill-color),0.3);
+    transition:color 0.1s, border-color 0.1s;
+}
+
+
+.Skill>.skill_text {
+    margin:0px;
+}
+
+.Skill.Expanded {
+    border-color:rgba(var(--skill-color),1);
+    color:rgba(var(--skill-color),1);   
+    border-radius:0px;
+    /* box-shadow:none; */
+}
+
+.Skill.Skill_Selected {
+    --skill-color: var(--skill-color-selected);
+    border-color:rgba(var(--skill-color),1);
+    color:rgba(var(--skill-color),1);   
+    border-radius:0px;
+    box-shadow: none;
+}
+
+.Skill.Skill_Selected:hover{
+    box-shadow: 0px 0px 6px 0px rgba(var(--skill-color), 0.5);
+    
+}

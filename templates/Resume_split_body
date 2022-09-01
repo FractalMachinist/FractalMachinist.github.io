@@ -1,0 +1,28 @@
+    <!-- <div class="resume_split_body">
+      <div class="resume_column resume_column_left">
+        <div class="resume_person_header">
+          {{person}}
+          {% if 'pdf' in jinja2_render_args.export %}
+          <p>Full, interactive resume <a>here</a></p>
+          {% endif %}
+          <h{{depth+2}}>ABOUT ME</h{{depth+2}}>
+          <p>{{headline}}</p>
+        </div>
+        {% if not 'pdf' in jinja2_render_args.export %}
+        {{skills if skills}}
+        {% endif %}
+        
+        <div>
+          <h{{depth+1}} class="main_heading">EDUCATION</h{{depth+1}}>
+          {{education}}
+        </div>
+        <div>
+          <h{{depth+1}} class="main_heading">PROJECTS</h{{depth+1}}>
+          {{projects}}
+        </div>
+      </div>
+      <div class="resume_column resume_column_right">
+        
+        <h{{depth+1}} class="main_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
+        {{employment if employment}}
+      </div> -->

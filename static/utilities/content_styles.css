@@ -1,0 +1,38 @@
+._list_to_ul {
+    display:flex;
+    flex-wrap:wrap;
+}
+
+._list_to_ul>*{
+    flex: 1 1 20%;
+    margin-inline-end:30px;
+}
+
+.supervisor_under_text{
+    flex: 0 1 min-content;
+    /* margin-inline-end:5px; */
+}
+
+.effort_body_sub {
+    margin-block-start:10px;
+}
+
+.effort_body_achievements {
+    flex: 1 0.5 30%;
+}
+
+.effort_body_achievements>._list_to_ul>* {
+    flex-basis: 40%;
+}
+
+.resume_section_body>._list_to_ul>*{
+    flex: 1 0 calc(100% - 20px);
+}
+
+.resume_section_body>._list_to_ul>*:not(:last-child){
+    margin-block-end:5px;
+}
+
+._list_to_ul>li:not(:last-child)>._li_inner_div{
+    margin-block-end:10px;
+}

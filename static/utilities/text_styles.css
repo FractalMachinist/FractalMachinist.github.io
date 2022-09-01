@@ -1,0 +1,4 @@
+.subtle {
+    font-style:italic;
+    color:var(--subtle-color);
+}

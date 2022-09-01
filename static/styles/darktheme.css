@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(30,30,30);
+    color:white;
+
+    --skill-color:255,255,255;
+    --skill-color-selected: 25, 249, 115;
+
+    --subtle-color:rgba(255,255,255,0.3)
+}

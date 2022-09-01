@@ -1,0 +1,43 @@
+.occupation_details {
+    display:flex;
+    align-items: baseline;
+    flex-wrap:wrap;
+}
+
+.occupation_summary {
+    display:flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    flex: 3 1 min-content;
+}
+
+.details_heading {
+    display:flex;
+    align-items: baseline;
+    flex-wrap:wrap;
+
+    flex: 1 1 20%;
+}
+
+
+
+.details_heading>*, .details_heading p, .occupation_details>p.date{
+    flex: 0 4 max-content;
+    margin-block:0;
+    margin-inline-end:5px;
+}
+
+.occupation_details>p.date{
+    text-align: end;
+    white-space: nowrap;
+    margin-left:auto;
+    flex: 1;
+}
+
+.headline_4, .headline_5, ._achievement>p {
+    margin-block: 0px;
+}
+
+.location {
+    white-space: nowrap;
+}

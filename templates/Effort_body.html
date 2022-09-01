@@ -1,0 +1,11 @@
+<div><h{{depth+1}} class="headline headline_{{depth+1}}">{{headline}}</h{{depth+1}}></div>
+<div class="_list_to_ul">
+    {% if sub_tasks %}<div class="effort_body_sub effort_body_sub_tasks">
+        {% if achievements %}<i class="effort_body_subtitle">SUB-TASKS:</i>{% endif %}
+        {{sub_tasks}}
+    </div>{% endif %}
+    {% if achievements %}<div class="effort_body_sub effort_body_achievements">
+        {% if sub_tasks %}<i class="effort_body_subtitle">ACHIEVEMENTS:</i>{% endif %}
+        {{achievements}}
+    </div>{% endif %}
+</div>

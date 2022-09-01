@@ -1,0 +1,30 @@
+@import url("/utilities/_layout.css");
+
+.resume_wrap_elem {
+    flex: 1 1 49%;
+}
+
+.resume_wrap_elem.resume_person_header {
+    flex-basis:30%;
+}
+
+.resume_wrap_elem.resume_summary {
+    flex-basis:60%;
+}
+
+.resume_skills {
+    flex-basis: 1%;
+}
+
+.resume_impact_n_experience {
+    flex-basis: 80%;
+}
+
+.effort_body_sub>ul._list_to_ul>li {
+    flex: 2;
+}
+
+
+.resume_wrap_elem {
+    /* margin-inline-start: 15px; */
+}

@@ -1,0 +1,26 @@
+<div class="{{className}}">
+    <div class="occupation_details">
+        <div class="occupation_summary">
+            <div class="details_heading">
+                <h{{depth}} class="entry_title">{{title}}</h{{depth}}>
+
+                <div style="display:flex;"><p class="subtle">at</p><p>{{subtitle}}</p></div>
+                {% if location is not none %}<p class="subtle location">in {{location}}</p>{% endif %}
+
+                {% if website is not none %}<a href="{{website}}"><p class="subtle">link</p></a>{% endif %}
+            </div>
+
+            {% if supervisor is not none %}
+            <div class="details_heading supervisor_under_text">
+                <p class="subtle">under</p>
+            </div>
+            <div class="details_heading">
+                
+                {{supervisor}}
+            </div>
+            {% endif %}
+        </div>
+        {{timespan if timespan}}
+    </div>
+    {% include 'Effort_body.html' %}
+</div>

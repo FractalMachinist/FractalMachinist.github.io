@@ -1,0 +1,17 @@
+<div class="{{className}}">
+    {% if email %}<div>
+        <a href='mailto:{{email}}'>{% set email_parts = email.split('@') %}{{ email_parts[0] }}@<wbr>{{ ''.join(email_parts[1:]) }}</a>
+    </div>{% endif %}
+
+    {% if phone %}<div>
+        <a href='tel:{{phone}}'>{{phone}}</a>
+    </div>{% endif %}
+
+    {% if link %}<div>
+        <a href='{{link}}'>{{link}}</a>
+    </div>{% endif %}
+
+    {% if link2 %}<div>
+        <a href='{{link2}}'>{{link2}}</a>
+    </div>{% endif %}
+</div>

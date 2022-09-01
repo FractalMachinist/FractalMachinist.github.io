@@ -1,0 +1,53 @@
+<?xml-model href="cv.xsd"?>
+<resume revision_date="2022-08-26">
+    <person>
+        <name>Zach Allen</name>
+        <pronouns>He/Him</pronouns>
+        <email>fractalmachinist@gmail.com</email>
+        <phone>+1 (509)438-8146</phone>
+        <link>https://linkedin.com/in/zachallen-fractalmachinist/</link>
+    </person>
+    <headline>Computer Scientist with 3 years experience in leadership, Data Science, and problem-solving. Reliably fast learner across all topics. Independently implemented and deployed terabyte-scale AWS genomics pipeline in 4 months part-time. Developed novel ML architectures for unbalanced datasets (>1000:1), raising rare-case detection from 15% to 90% with no loss in accuracy. Leverages communication and Project Management skills to integrate SME, business, and stakeholder needs.</headline>
+
+    <educations>
+        <occupation>
+            <effort title="Bachelor's in Computer Science">
+                <headline>Thrived in a self-directed remote envirionment</headline>
+
+                <achievements>
+                    <achievement headline="Developed appointment scheduling and customer database tool in Java.">
+                        <skills><skill key="Java"/><skill key="SQL"/><skill key="OOP"/></skills>
+                    </achievement>
+                    <certification name="CompTIA Project+">
+                        <achievement headline="Demonstrated understanding of Project Management roles, processes, and documentation.">
+                            <skills>
+                                <skill key="Project Management"/>
+                                <skill key="Technical Communication"/>
+                                <skill key="Requirement Management"/>
+                                <skill key="SDLC"/>
+                            </skills>
+                        </achievement>
+                    </certification>
+                </achievements>
+
+                <sub_tasks>
+                    <effort title="Advanced Java Concepts">
+                        <headline>Developed appointment scheduling and customer database tool in Java.</headline>
+                        <achievements>
+                            <achievement headline="Demonstrated tight integration with JavaFX, JDBC, and MySQL.">
+                                <skills>Java SQL OOP JavaFX JDBC MySQL</skills>
+                            </achievement>
+                        </achievements>
+                    </effort>
+                </sub_tasks>
+
+            </effort>
+            <timespan><start>2019-02-01</start><end>2022-08-31</end></timespan>
+            <subtitle>Western Governors University</subtitle>
+            <location>Utah, USA (Online)</location>
+        </occupation>
+    </educations>
+
+
+
+</resume>
