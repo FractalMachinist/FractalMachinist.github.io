@@ -234,7 +234,7 @@ class Resume(_NestedHTML):
         return new
 
 
-    def write_html_to_file(self, filepath="static/resume.html", **kwargs):
+    def write_html_to_file(self, filepath="docs/resume.html", **kwargs):
         with open(filepath, "w+") as f:
             f.write(self.__repr_html__(**kwargs))
 
@@ -254,7 +254,7 @@ class JobListing:
     def export(self, resume:Resume):
         # Write the HTML-based hosted resume
         resume.write_html_to_file(
-            filepath=f"static/resumes/{self.name}.html",
+            filepath=f"docs/resumes/{self.name}.html",
             jinja2_render_args = {
                 "exports": self.exports,
                 "stylesheet":self.stylesheet,
@@ -265,15 +265,15 @@ class JobListing:
 
         # Write the to-be-a-pdf resume
         resume.write_html_to_file(
-            filepath=f"static/pdf_sources/{self.name}.html",
+            filepath=f"docs/pdf_sources/{self.name}.html",
             alt_template_prefixes = {"*": "pdf"},
             jinja2_render_args = {
                 "exports": self.exports,
-                "resume_link": f"http://fractalmachini.st:8080/resumes/{self.name}.html",
+                "resume_link": f"http://fractalmachini.st/resumes/{self.name}.html",
                 "stylesheet":self.stylesheet,
                 **self.jinja2_render_args
             },
             popularity_dict = {Skill: self.skills_ranking}
         )
-        return f"http://fractalmachini.st:8080/pdf_sources/{self.name}.html"
+        return f"http://fractalmachini.st/pdf_sources/{self.name}.html"
 
