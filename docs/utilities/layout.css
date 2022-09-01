@@ -1,4 +1,4 @@
-@import url("/utilities/_layout.css");
+@import url("/utilities/common_layout.css");
 
 .resume_wrap_elem {
     flex: 1 1 49%;
