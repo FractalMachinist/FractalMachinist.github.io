@@ -31,7 +31,7 @@
     text-align: end;
     white-space: nowrap;
     margin-left:auto;
-    flex: 1;
+    flex: 0 1 max-content;
 }
 
 .headline_4, .headline_5, ._achievement>p {

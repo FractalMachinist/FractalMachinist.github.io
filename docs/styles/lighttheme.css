@@ -1,7 +1,7 @@
 body {
     --skill-color:0, 0, 0;
-    --skill-color-selected: rgb(33, 134, 73);
-    --skill-color-selected: 33, 134, 73;
+    --skill-color-selected: rgb(20, 233, 77);
+    --skill-color-selected: 20, 233, 77;
 
     --subtle-color:rgba(0, 0, 0, 0.3);
 }

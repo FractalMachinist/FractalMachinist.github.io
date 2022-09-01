@@ -1,0 +1,4 @@
+pdf_renders/
+docs/pdf_sources/
+.ipynb_checkpoints/
+__pycache__/

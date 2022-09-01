@@ -1,0 +1,34 @@
+.resume_body {
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.resume_body>.resume_main {
+    flex: 5 1 60%;
+}
+
+.resume_body>.personal {
+    position: relative;
+    margin-inline: 20px;
+    flex: 1 1 400px;
+}
+
+.resume_body>.personal>.personal_float{
+    height:fit-content;
+    position: sticky;
+    top:20px;
+}
+
+.resume_section.experience>._list_to_ul>li {
+    flex: 1 1 70%;
+    margin-block: 15px;
+}
+
+.skills_head {
+    display:flex;
+    align-items:baseline;
+}
+
+.skills_head>.heading {
+    margin: 5px 5px 5px 0px;
+}

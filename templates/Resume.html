@@ -17,29 +17,52 @@
   </head>
   <body>
 	  
-    <header class="resume_header">
-      {{person}}
-    </header>
 
-    <aside class="personal">
-      <h{{depth+2}} class="resume_subsection_heading">ABOUT ME</h{{depth+2}}>
-      <p>{{headline}}</p>
-      {{skills if skills}}
-    </aside>
 
-    <section class="resume_section education">
-      <h{{depth+1}} class="resume_subsection_heading">EDUCATION</h{{depth+1}}>
-      {{education}}
+    <section class="resume_body">
+
+      <aside class="personal">
+        <div class="personal_float">
+          <header class="resume_header">
+            {{person}}
+          </header>
+          <h{{depth+2}} class="resume_subsection_heading">ABOUT ME</h{{depth+2}}>
+          <p>{{headline}}</p>
+          {% if skills is defined %}
+          <section class="about_skills">
+            <div class="skills_head">
+              <h{{depth+3}} class="heading heading_{{depth+3}}">SKILLS</h{{depth+3}}>
+              <i class="subtle">click to highlight</i>
+            </div>
+
+            {{skills}}
+          </section>
+          {% endif %}
+          
+        </div>
+
+      </aside>
+
+      <section class="resume_main">
+        <section class="resume_section education">
+          <h{{depth+1}} class="resume_subsection_heading">EDUCATION</h{{depth+1}}>
+          {{education}}
+        </section>
+    
+        <section class="resume_section experience">
+          <h{{depth+1}} class="resume_subsection_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
+          {{employment if employment}}
+        </section>
+    
+        <section class="resume_section projects">
+          <h{{depth+1}} class="resume_subsection_heading">PROJECTS</h{{depth+1}}>
+          {{projects}}
+        </section>
+      </section>
     </section>
 
-    <section class="resume_section experience">
-      <h{{depth+1}} class="resume_subsection_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
-      {{employment if employment}}
-    </section>
 
-    <section class="resume_section projects">
-      <h{{depth+1}} class="resume_subsection_heading">PROJECTS</h{{depth+1}}>
-      {{projects}}
-    </section>
+
+
   </body>
 </html>
