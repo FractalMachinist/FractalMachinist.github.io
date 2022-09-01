@@ -34,5 +34,5 @@
 }
 
 ._list_to_ul>li:not(:last-child)>._li_inner_div{
-    margin-block-end:10px;
+    margin-block-end:8px;
 }

@@ -1,3 +1,8 @@
+.resume_header {
+    margin-block-end: 10px;
+}
+
+
 .resume_header>.Person {
     display:block;
     align-items: unset;

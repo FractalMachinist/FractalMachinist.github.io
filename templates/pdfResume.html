@@ -18,6 +18,8 @@
     <body>
         <header class="resume_header">
             {{person}}
+            {% if jinja2_render_args.resume_link is defined %}
+            <div style="margin-inline: auto; width:max-content;"><a href="{{jinja2_render_args.resume_link}}">interactive resume</a></div>{% endif %}
         </header>
 
         <div class="resume_body">

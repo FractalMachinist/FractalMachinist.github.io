@@ -1,8 +1,15 @@
-.resume_body {
+body {
     --vertical-highlight: rgb(62, 117, 246);
     --breathing-room: 10px;
+}
+
+.resume_body {
     display:grid;
     grid-template-columns: minmax(min-content, 0) auto;
+}
+
+a {
+    color: var(--vertical-highlight);
 }
 
 .resume_section_heading {
