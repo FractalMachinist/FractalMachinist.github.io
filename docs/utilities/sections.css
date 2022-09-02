@@ -13,12 +13,6 @@
     flex: 1 1 400px;
 }
 
-.resume_body>.personal>.personal_float{
-    height:fit-content;
-    position: sticky;
-    top:20px;
-}
-
 .resume_section.experience>._list_to_ul>li {
     flex: 1 1 70%;
     margin-block: 15px;
@@ -31,4 +25,29 @@
 
 .skills_head>.heading {
     margin: 5px 5px 5px 0px;
+}
+
+
+@media screen and (max-height: 1000px) {
+    .resume_body>.personal{
+        flex-basis:100%;
+    }
+
+    .resume_body>.personal>.personal_float>.personal_about{
+        display:flex;
+        flex-wrap:wrap;
+        flex-direction: row;
+    }
+
+    .resume_body>.personal>.personal_float>.personal_about>*{
+        flex: 1 1 50%;
+    }
+}
+
+@media screen and (min-height: 1000px) {
+    .resume_body>.personal>.personal_float{
+        height:fit-content;
+        position: sticky;
+        top:20px;
+    }
 }

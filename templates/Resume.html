@@ -26,19 +26,23 @@
           <header class="resume_header">
             {{person}}
           </header>
-          <h{{depth+2}} class="resume_subsection_heading">ABOUT ME</h{{depth+2}}>
-          <p>{{headline}}</p>
-          {% if skills is defined %}
-          <section class="about_skills">
-            <div class="skills_head">
-              <h{{depth+3}} class="heading heading_{{depth+3}}">SKILLS</h{{depth+3}}>
-              <i class="subtle">click to highlight</i>
-            </div>
+          <section class="personal_about">
+            <section>
+              <h{{depth+2}} class="resume_subsection_heading">ABOUT ME</h{{depth+2}}>
+              <p>{{headline}}</p>
+            </section>
 
-            {{skills}}
-          </section>
-          {% endif %}
-          
+            {% if skills is defined %}
+            <section class="about_skills">
+              <div class="skills_head">
+                <h{{depth+3}} class="heading heading_{{depth+3}}">SKILLS</h{{depth+3}}>
+                <i class="subtle">click to highlight</i>
+              </div>
+  
+              {{skills}}
+            </section>
+            {% endif %}
+          </section>          
         </div>
 
       </aside>
