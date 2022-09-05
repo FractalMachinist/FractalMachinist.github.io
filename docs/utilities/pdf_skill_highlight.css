@@ -4,6 +4,7 @@
     margin-inline-end: 2px;
     font-size:xx-small;
     line-height: 0;
+    user-select: none;
 }
 
 

@@ -3,6 +3,10 @@
     display:flex;
 }
 
+.resume_header>*:not(:last-child) {
+    margin-inline-end: 20px;
+}
+
 .header_personal {
     flex: 1 1 30%;
 }
@@ -52,7 +56,7 @@
     font-weight:bold;
     margin-block-start:0em;
     margin-block-end:0px;
-    white-space: wrap;
+    white-space: break-spaces;
     
 }
 

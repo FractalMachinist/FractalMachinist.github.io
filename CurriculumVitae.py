@@ -2,21 +2,33 @@ from dataclasses import dataclass, field
 from abc import abstractmethod
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 import cv_host
+import os
 
 
 from datetime import date
 
-def _list_to_ul(listed:list['_NestedHTML'], depth=1, **kwargs):
-    if not listed:
-        return ""
-    listed = map(lambda e: e.__repr_html__(depth=depth, **kwargs), 
-                    filter(lambda e: e._compare_exporting(kwargs.get("jinja2_render_args", dict())), listed))
 
-    return _NestedHTML.get_template("_list_to_ul", **kwargs).render(
-        listed=listed,
-        depth=depth,
-        **kwargs
+def _grouper(to_group:list['_NestedHTML'], template_name, group_arg_name, **kwargs):
+    groupies = list(filter(None, map(lambda groupie: groupie.__repr_html__(**kwargs), to_group)))
+    if not len(groupies):
+        return ""
+        
+    return _NestedHTML.get_template(template_name, **kwargs).render(
+        **kwargs,
+        **{group_arg_name: groupies}
     )
+
+def _list_to_ul(listed:list['_NestedHTML'], **kwargs):
+    return _grouper(listed, '_list_to_ul', 'listed', **kwargs)
+
+def skills_div(skills:list['Skill'], **kwargs):
+    return _grouper(skills, '_skills_div', 'skills', **kwargs)
+
+
+def Skills(*args):
+    return [Skill(name=skill) for skill in args]
+
+
 
 @dataclass(kw_only=True)
 class _NestedHTML():
@@ -34,26 +46,23 @@ class _NestedHTML():
             return _NestedHTML._template_env.get_template(classname + ".html")
 
 
-    def _compare_exporting(self, jinja2_render_args:dict):
-        if hasattr(self, "exports") and len(self.exports): # For some reason, Skill objects don't have an 'exports' attribute, but do have consumed_depth. WTF. I think I'm modifying a reference somewhere.
-            if "exports" in jinja2_render_args:
-                if len(jinja2_render_args["exports"]):
-                    return bool(set(jinja2_render_args["exports"]) & set(self.exports))
-                else:
-                    return True
-            else:
-                return True
-        else:
+    def _should_render(self, jinja2_render_args:dict={}, **kwargs):
+        j2_exports = jinja2_render_args.get("exports", [])
+
+        if not self.exports or not j2_exports: # If any of them are empty or undefined:
             return True
+        else:
+            return bool(set(j2_exports) & set(self.exports))
+            
+
 
     @abstractmethod
     def __repr_html__(self, depth=1, **kwargs):
-        kwargs.setdefault("jinja2_render_args", dict())
-
-        if self._compare_exporting(kwargs["jinja2_render_args"]):
+        if self._should_render(**kwargs):
             obj_attrs = {}
             for attr_name, attr in self.__dict__.copy().items():
-                # print("\t"*depth + f"Class {self.__class__.__name__} converting attr {attr_name}: '{attr}':")
+                if kwargs.get("debug", False):
+                    print(">\t"*depth + f"Class {self.__class__.__name__} converting attr '{attr_name}': '{attr}':")
 
                 attr = list(attr) if isinstance(attr, set) else attr
 
@@ -61,68 +70,63 @@ class _NestedHTML():
                     case _NestedHTML():
                         attr = attr.__repr_html__(depth=depth+self.consumed_depth, **kwargs)
 
-                    case [*skills] if len(skills) > 0 and all(isinstance(skill, Skill) for skill in skills):
-                        attr = skills_div(skills, depth=depth+self.consumed_depth, **kwargs)
-
-                    case [*nHTMLs] if len(nHTMLs) > 0 and all(isinstance(nHTML, _NestedHTML) for nHTML in nHTMLs):
-                        attr = _list_to_ul(nHTMLs, depth=depth+self.consumed_depth, **kwargs)
+                    case [*nHTMLs] if all(isinstance(nHTML, _NestedHTML) for nHTML in nHTMLs):
+                        grouper = skills_div if all(isinstance(nHTML, Skill) for nHTML in nHTMLs) else _list_to_ul
+                        attr = grouper(nHTMLs, depth=depth+self.consumed_depth, **kwargs)
                     
-                    case str() as string_attr:
+                    case str() as string_attr if len(attr):
                         obj_attrs[f"clean_{attr_name.replace(' ', '_')}"] = string_attr.lower().replace(" ", "_")
 
-                # print("\t"*depth + f"Class {self.__class__.__name__} converted  attr {attr_name} to '{attr}'")
 
-                obj_attrs[attr_name] = attr
+
+                if attr != "":
+                    obj_attrs[attr_name] = attr
             obj_attrs.update(kwargs)
 
-
-
-            return _NestedHTML.get_template(self.__class__.__name__, **kwargs).render(
+            product = _NestedHTML.get_template(self.__class__.__name__, **kwargs).render(
                 depth=depth, 
                 className=self.__class__.__name__, 
                 **obj_attrs,
             )
+
+            if kwargs.get("debug", False) and isinstance(self, Effort):
+                print(f"<\t"*depth + f"Occupation {self.title} converted to '{product}'")
+            return product
         else:
+            if kwargs.get("debug", False) and isinstance(self, Effort):
+                print(f"<\t"*depth + f"Occupation {self.title} converted to ''")
             return ""
 
 
 @dataclass(kw_only=True)
-class _NamedSingleton:
-    _NS_by_class = dict()
-    _count_by_class = dict()
+class Skill(_NestedHTML):
+    _instances_and_counts = dict()
     name:str
+
+    @staticmethod
+    def _clean_name(name):
+        return name.lower()
+
     def __new__(cls, name, *args, **kwargs):
-        """Enforce all NamedSingletons with identical names and classes refer to the same object."""
-        # If `name.lower()` is a new name for the class, continue calling super().__new__ to construct a new instance
-        #   and assign that instance to be the owner of name.lower() in the class's dict.
-        # Else, return the pre-existing instance from the class-wide dict.
-
-        # Why do I feel comfortable dynamically constructing singletons?
-        #   Because this tool is a proof of concept. If this were to end up on multi-threaded code,
-        #   it should have already been converted into a Relational Database, 
-        #   and Type().name would become a unique column.
-
-        _NamedSingleton._count_by_class.setdefault(cls, dict()).setdefault(name.lower(), 0)
-        _NamedSingleton._count_by_class[cls][name.lower()] += 1
-
-        return _NamedSingleton._NS_by_class.setdefault(cls, dict()).setdefault(name.lower(), super().__new__(cls))
+        # Why am I comfortable making singleton instances at runtime?
+        # Because this is a prototype, and if we wanted it to be bigger, we'd make a database with a uniqueness constraint.
+        instance, count = Skill._instances_and_counts.setdefault(cls._clean_name(name), (super().__new__(cls), 0))
+        count += 1
+        return instance
 
     def __hash__(self):
-        return hash(self.name)
-    
-    def _get_popularity(self, popularity_dict=None, **kwargs):
-        lname = self.name.lower()
+        return hash(self._clean_name(self.name))
 
-        if (popularity_dict is None) or (len(popularity_dict[self.__class__]) == 0):
-            popularity = 1
-        else:
-            # print(f"Live Popularity Dict: {self.__class__}, {popularity_dict}, {popularity_dict[self.__class__]}")
-            popularity = popularity_dict.get(self.__class__, dict()).get(self.name, 0)
-        instances = _NamedSingleton._count_by_class[self.__class__][lname]
-
-        popularity_tuple = (popularity, instances, lname)
-        # print(popularity_tuple)
+    def _get_popularity(self, popularity_dict:dict={}, **kwargs):
+        clean_name = self._clean_name(self.name)
+        instances = self._instances_and_counts[clean_name][1]
+        popularity = popularity_dict.get(clean_name, 0)
+        
+        popularity_tuple = (popularity, instances, clean_name)
         return popularity_tuple
+    
+    def _should_render(self, suppress_popularity_threshold=(0, 0, ""), **kwargs):
+        return self._get_popularity(**kwargs) > suppress_popularity_threshold
 
 
 @dataclass(kw_only=True)
@@ -139,25 +143,6 @@ class Person(_NestedHTML):
     pronouns:str
     contact_info:ContactInfo
 
-class Skill(_NamedSingleton, _NestedHTML):
-    pass
-
-def Skills(*args):
-    return [Skill(name=skill) for skill in args]
-
-def skills_div(skills_list:list[Skill], depth=1, suppress_popularity_threshold=-1e10, **kwargs):
-    if not skills_list:
-        print("\n\nskills_div exiting early\n\n")
-        return
-
-    popularities_and_skills = sorted(filter(
-        lambda ps: ps[0][0] >= suppress_popularity_threshold, 
-        [(skill._get_popularity(**kwargs), skill) for skill in skills_list]
-        ), reverse=True)
-
-    return _NestedHTML.get_template("_skills_div", **kwargs).render(
-        skills=map(lambda s: s[1].__repr_html__(depth=depth, **kwargs),
-                    popularities_and_skills), **kwargs)
 
 @dataclass(kw_only=True)
 class Achievement(_NestedHTML):
@@ -186,14 +171,12 @@ class Occupation(Effort):
     location:str = None
 
 @dataclass(kw_only=True)
-class Certification(_NamedSingleton, Achievement):
+class Certification(Achievement):
+    name:str
     issuer:str
     issue_date:date
     website:str = None
     confirmation_info:dict = field(default_factory=dict)
-
-    def __hash__(self):
-        return _NamedSingleton.__hash__(self)
 
 @dataclass(kw_only=True)
 class Resume(_NestedHTML):
@@ -203,7 +186,6 @@ class Resume(_NestedHTML):
     education:list[Occupation] = field(default_factory=list)
     employment:list[Occupation] = field(default_factory=list)
     projects:list[Effort] = field(default_factory=list)
-    certifications:set[Certification] = field(default_factory=set)
     skills:set[Skill] = field(default_factory=set)
     consumed_depth:int = 2
 
@@ -223,11 +205,6 @@ class Resume(_NestedHTML):
     #   This approach is more transparent to the user, with the downside of double-referencing the skills and certs,
     #       and obfuscating how to add objects to multiple resumes.
 
-    def Certification(self, *args, **kwargs):
-        """Construct a certification and store it in this resume."""
-        new = Certification(*args, **kwargs)
-        self.certifications.add(new)
-        return new
     
     def Skill(self, *args, **kwargs):
         """Construct a skill and store it in this resume."""
@@ -350,38 +327,57 @@ class JobListing:
             return cls(**kwargs)
 
 
-    def export(self, resume:Resume):
+    def export(self, resume:Resume, **kwargs):
         # Write the HTML-based hosted resume
         
+    
         # name = urllib.parse.quote(self.name)
-        if self.name != "index":
-            name = hashlib.md5(self.name.encode()).hexdigest()
+        if self.name == "index":
+            public_name = self.name
+            private_name = self.name
+
+            public_path = f"resumes/{public_name}"
+            private_path= f"pdf_sources/{private_name}"
         else:
-            name = self.name
+            public_name = hashlib.md5(self.name.encode()).hexdigest()
+            private_name = self.name
+
+            public_path = f"resumes/{public_name}"
+            private_path= f"pdf_sources/{private_name}/Zach_Allen_Resume"
+
+            os.makedirs(f"docs/pdf_sources/{private_name}", exist_ok=True)
+
+        
+
+        urlsafe_private_path = urllib.parse.quote(private_path)
         
         resume.write_html_to_file(
-            filepath=f"docs/resumes/{name}.html",
+            filepath=f"docs/{public_path}.html",
             jinja2_render_args = {
                 "exports": self.exports,
                 "stylesheet":self.stylesheet,
                 **self.jinja2_render_args
             },
             popularity_dict = {Skill: self.skills_ranking},
-            suppress_popularity_threshold=1,
+            suppress_popularity_threshold=(1, 0, ""),
+            **kwargs
         )
 
         # Write the to-be-a-pdf resume
+        
         resume.write_html_to_file(
-            filepath=f"docs/pdf_sources/{name}.html",
+            filepath=f"docs/{private_path}.html",
             alt_template_prefixes = {"*": "pdf"},
             jinja2_render_args = {
                 "exports": self.exports,
-                "resume_link": f"http://fractalmachini.st/resumes/{name}.html",
+                "resume_link": f"http://fractalmachini.st/{public_path}.html",
                 "stylesheet":self.stylesheet,
                 **self.jinja2_render_args
             },
             popularity_dict = {Skill: self.skills_ranking},
-            suppress_popularity_threshold=1,
+            suppress_popularity_threshold=(1, 0, ""),
+            **kwargs
         )
-        return f"http://alex:32180/pdf_sources/{name}.html"
+
+        return urlsafe_private_path
 

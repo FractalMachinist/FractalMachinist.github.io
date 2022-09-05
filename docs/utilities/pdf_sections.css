@@ -17,6 +17,7 @@ body {
     flex: 1 1 95%;
     display:grid;
     grid-template-columns: minmax(min-content, 0) auto;
+    grid-template-rows: .5fr auto;
 }
 
 a {
@@ -67,6 +68,7 @@ a {
 
 .resume_section_body>* {
     margin:0;
+    height: 100%;
 }
 
 .resume_section_body>ul._list_to_ul {
@@ -84,3 +86,12 @@ a {
     font-size:1.5em;
 }
 
+@media print {
+    .resume_section_heading::after {
+        right: -0.5em;
+    }
+
+    .resume_section_body>ul._list_to_ul {
+        margin-inline-start: -0.04em;
+    }
+}
