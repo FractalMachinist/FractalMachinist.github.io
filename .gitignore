@@ -2,3 +2,4 @@ pdf_renders/
 docs/pdf_sources/
 .ipynb_checkpoints/
 __pycache__/
+personal_track/*

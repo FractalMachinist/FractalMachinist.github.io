@@ -1,0 +1,19 @@
+.Skill {
+    display:block;
+    margin-block:0;
+    margin-inline-end: 2px;
+    font-size:xx-small;
+    line-height: 0;
+}
+
+
+.Skill>.skill_text {
+    margin:0px;
+    color: rgba(0, 0, 0, 0);
+}
+
+
+._skills_div{
+    display:flex;
+    flex-wrap:wrap;
+}

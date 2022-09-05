@@ -10,7 +10,7 @@
 .resume_body>.personal {
     position: relative;
     margin-inline: 20px;
-    flex: 1 1 400px;
+    flex: 1 1 500px;
 }
 
 .resume_section.experience>._list_to_ul>li {

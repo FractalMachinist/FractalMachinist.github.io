@@ -1,0 +1,10 @@
+collaboration,collaborate,collaborative
+innovation,innovative
+implementation,implement
+artificial intelligence,ai
+optimization,optimize
+analysis,analytical
+communication skills,communication,communications
+machine learning,deep learning
+mathematics,calculus
+statistics,probability,probability and statistics

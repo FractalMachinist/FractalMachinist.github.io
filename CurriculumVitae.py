@@ -37,8 +37,10 @@ class _NestedHTML():
     def _compare_exporting(self, jinja2_render_args:dict):
         if hasattr(self, "exports") and len(self.exports): # For some reason, Skill objects don't have an 'exports' attribute, but do have consumed_depth. WTF. I think I'm modifying a reference somewhere.
             if "exports" in jinja2_render_args:
-                # return jinja2_render_args["export"] in self.exports
-                return bool(set(jinja2_render_args["exports"]) & set(self.exports))
+                if len(jinja2_render_args["exports"]):
+                    return bool(set(jinja2_render_args["exports"]) & set(self.exports))
+                else:
+                    return True
             else:
                 return True
         else:
@@ -110,10 +112,12 @@ class _NamedSingleton:
     
     def _get_popularity(self, popularity_dict=None, **kwargs):
         lname = self.name.lower()
-        if popularity_dict is None:
+
+        if (popularity_dict is None) or (len(popularity_dict[self.__class__]) == 0):
             popularity = 1
         else:
-            popularity = popularity_dict.get(self.__class__, dict()).get(lname, 0)
+            # print(f"Live Popularity Dict: {self.__class__}, {popularity_dict}, {popularity_dict[self.__class__]}")
+            popularity = popularity_dict.get(self.__class__, dict()).get(self.name, 0)
         instances = _NamedSingleton._count_by_class[self.__class__][lname]
 
         popularity_tuple = (popularity, instances, lname)
@@ -143,15 +147,17 @@ def Skills(*args):
 
 def skills_div(skills_list:list[Skill], depth=1, suppress_popularity_threshold=-1e10, **kwargs):
     if not skills_list:
+        print("\n\nskills_div exiting early\n\n")
         return
-    
-    popularities_and_skills = filter(
-        lambda ps: ps[0][0] > suppress_popularity_threshold, 
-        [(skill._get_popularity(**kwargs), skill) for skill in skills_list])
+
+    popularities_and_skills = sorted(filter(
+        lambda ps: ps[0][0] >= suppress_popularity_threshold, 
+        [(skill._get_popularity(**kwargs), skill) for skill in skills_list]
+        ), reverse=True)
 
     return _NestedHTML.get_template("_skills_div", **kwargs).render(
         skills=map(lambda s: s[1].__repr_html__(depth=depth, **kwargs),
-                    sorted(popularities_and_skills, reverse=True)), **kwargs)
+                    popularities_and_skills), **kwargs)
 
 @dataclass(kw_only=True)
 class Achievement(_NestedHTML):
@@ -244,8 +250,90 @@ class Resume(_NestedHTML):
         self.write_html_to_file(*args, **kwargs)
         cv_host.start_hosting()
 
+categories = {
+    "ML":     {"TensorFlow", 
+               "Feature Engineering",
+               "Neural Networks", 
+               "Machine Learning", 
+               "Algorithms",
+               "Testing",
+               "Mathematics",
+               "Optimization",
+               "Experimentation",
+               "Statistics",
+               "NLP",
+               "Data",
+               "Data Engineering",
+               "Data Science",
+              },
+    "Data":   {"Data",
+               "Data Engineering",
+               "Data Science",
+               "AWS",
+               "SQL",
+               "MongoDB",
+               "MySQL",
+               "JDBC",
+              },
+    "Code":   {"Python",
+    	       "Algorithms",
+               "Software Engineering",
+               "Implementation",
+               "Linux","Bash",
+               "Optimization",
+               "OOP",
+               "Java",
+               "C++",
+              },
+    "Admin":  {"Docker","Kubernets",
+               "Infrastructure",
+               "Testing",
+               "Linux","Bash",
+               "Service Management",
+               "SDLC",
+               "AWS",
+               "Network Administration",
+               "CI/CD",
+               "Git",
+               "Integration",
+              },
+    "Bio":    {"Bioinformatics"},
+    "Project":{"Collaboration",
+               "Communication",
+               "Project Management",
+               "Product Requirements",
+               "Service Management",
+               "Value Creation",
+               "SDLC",
+               "Business Requirements",
+              },
+    "Soft":   {"Curious",
+               "Teamwork",
+               "Motivated",
+               "Leadership",
+               "Collaboration",
+               "Ownership",
+               "Communication Skills",
+               "Innovation",
+              },
+    "Writing":{"Technical Communication",
+               "Documentation",
+               "Communication",
+              },
+    "Visual": {"Graphic Design"},
+    "WebDev": {"Web Development",
+               "React",
+               "Flask",
+              },
+    "Java":   {"JDBC",
+               "Java",
+               "JavaFX",
+              },
+}
 
-@dataclass
+import hashlib, urllib
+
+@dataclass(kw_only=True)
 class JobListing:
     name:str
     skills_ranking:dict[str] = field(default_factory=dict)
@@ -253,29 +341,47 @@ class JobListing:
     stylesheet:str = "lighttheme"
     jinja2_render_args:dict = field(default_factory=dict)
 
+    @classmethod
+    def FromCats(cls, exports=None, **kwargs):
+        if exports is not None:
+            skills_ranking = {skill: weight for c_category, weight in exports.items() for skill in categories[c_category]}
+            return cls(skills_ranking=skills_ranking, exports=[key for key, value in exports.items() if value], **kwargs)
+        else:
+            return cls(**kwargs)
+
+
     def export(self, resume:Resume):
         # Write the HTML-based hosted resume
+        
+        # name = urllib.parse.quote(self.name)
+        if self.name != "index":
+            name = hashlib.md5(self.name.encode()).hexdigest()
+        else:
+            name = self.name
+        
         resume.write_html_to_file(
-            filepath=f"docs/resumes/{self.name}.html",
+            filepath=f"docs/resumes/{name}.html",
             jinja2_render_args = {
                 "exports": self.exports,
                 "stylesheet":self.stylesheet,
                 **self.jinja2_render_args
             },
-            popularity_dict = {Skill: self.skills_ranking}
+            popularity_dict = {Skill: self.skills_ranking},
+            suppress_popularity_threshold=1,
         )
 
         # Write the to-be-a-pdf resume
         resume.write_html_to_file(
-            filepath=f"docs/pdf_sources/{self.name}.html",
+            filepath=f"docs/pdf_sources/{name}.html",
             alt_template_prefixes = {"*": "pdf"},
             jinja2_render_args = {
                 "exports": self.exports,
-                "resume_link": f"http://fractalmachini.st/resumes/{self.name}.html",
+                "resume_link": f"http://fractalmachini.st/resumes/{name}.html",
                 "stylesheet":self.stylesheet,
                 **self.jinja2_render_args
             },
-            popularity_dict = {Skill: self.skills_ranking}
+            popularity_dict = {Skill: self.skills_ranking},
+            suppress_popularity_threshold=1,
         )
-        return f"http://fractalmachini.st/pdf_sources/{self.name}.html"
+        return f"http://alex:32180/pdf_sources/{name}.html"
 

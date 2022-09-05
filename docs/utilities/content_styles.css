@@ -17,8 +17,12 @@
     margin-block-start:10px;
 }
 
+.effort_body_sub_tasks {
+    flex: 1 1 20%;
+}
+
 .effort_body_achievements {
-    flex: 1 0.5 30%;
+    flex: 1 0.5 60%;
 }
 
 .effort_body_achievements>._list_to_ul>* {
