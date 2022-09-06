@@ -32,14 +32,18 @@
             </header>
 
             <div class="resume_body">
+
+                <!-- <h{{depth+1}} class="resume_section_heading">ABOUT ME</h{{depth+1}}>
+                <div class="resume_section"><p>{{headline}}</p></div> -->
+
                 <h{{depth+1}} class="resume_section_heading">EDUCATION</h{{depth+1}}>
-                <div class="resume_section_body">{{education}}</div>
+                <div class="resume_section">{{education}}</div>
 
                 <h{{depth+1}} class="resume_section_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
-                <div class="resume_section_body">{{employment if employment}}</div>
+                <div class="resume_section">{{employment if employment}}</div>
 
                 <h{{depth+1}} class="resume_section_heading">PROJECTS</h{{depth+1}}>
-                <div class="resume_section_body">{{projects}}</div>
+                <div class="resume_section">{{projects}}</div>
             </div>
         </div>
     </body>

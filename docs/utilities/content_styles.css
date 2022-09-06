@@ -1,53 +1,26 @@
-._list_to_ul {
-    display:flex;
-    flex-direction: column;
-    list-style:none;
-    column-gap: 30px;
-    padding-inline-start:20px;
-}
+@import url('/utilities/debug.css');
+@import url('/utilities/efforts.css');
 
-.Occupation {
+.resume_section>._list_to_ul {
     display:flex;
     flex-direction: column;
 }
 
-.effort_body {
-    flex: 1;
+.resume_section>._list_to_ul>li{
     display:flex;
     flex-direction: column;
-}
-
-.effort_body_sub_entries{
-    flex:1;
-    display:flex;
-    flex-wrap:wrap;
-}
-
-.effort_body_sub {
-    display:flex;
-}
-
-._list_to_ul>*{
-    position: relative;
-    flex: 1 1 min-content;
+    flex:1 1 min-content;
     padding-inline-start: 10px;
 }
 
-
-._list_to_ul>*::marker{
-    content:"◇";
-    color: var(--vertical-highlight);
+._list_to_ul>li>div:only-child{
+    height:100%;
+    display:flex;
+    flex-direction: column;
 }
+
 
 .supervisor_under_text{
     flex: 0 1 min-content;
 }
 
-.effort_body_sub {
-    /* margin-block-start:10px; */
-    flex: 1 1 min-content;
-}
-
-.effort_body_achievements>._list_to_ul>* {
-    flex-basis: max(40%, 30vw);
-}

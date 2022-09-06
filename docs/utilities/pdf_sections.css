@@ -18,7 +18,7 @@ body {
     flex: 1 1 95%;
     display:grid;
     grid-template-columns: minmax(min-content, 0) auto;
-    grid-template-rows: .5fr auto;
+    grid-template-rows: minmax(min-content, 0.4fr) 1fr minmax(min-content, 0.5fr);
 }
 
 a {
@@ -36,7 +36,7 @@ a {
     border-inline-end-color: var(--vertical-highlight);
 }
 
-.resume_section_heading, .resume_section_body {
+.resume_section_heading, .resume_section {
     position: relative;
     border-block-start-style:solid;
     border-block-start-width: var(--section-border-w);
@@ -44,7 +44,7 @@ a {
 }
 
 /* .resume_section_heading::after,
-.resume_section_body::after {
+.resume_section::after {
     content:" ";
     position:absolute;
     z-index: -1;
@@ -65,44 +65,57 @@ a {
 }
 
 
-.resume_section_body {
+.resume_section{
     margin:0;
-    padding-inline-start:calc(1.5 * var(--breathing-room));
-    padding-block:var(--breathing-room);
+    padding-inline-start:calc(var(--breathing-room));
+    padding-block-start:var(--breathing-room);    
 }
 
-.resume_section_body>* {
+.resume_section:not(:last-of-type) {
+    padding-block-end:var(--breathing-room);
+}
+
+.resume_section>* {
     margin:0;
     height: 100%;
 }
 
-.resume_section_body>ul._list_to_ul {
+/* .resume_section>ul._list_to_ul {
     flex-direction: column;
     flex-wrap:nowrap;
-    /* margin-inline-start:calc(-0.2 * var(--breathing-room)); */
-    
     padding-inline-start:0em;
-
     list-style: none;
-}
+} */
 
-.resume_section_body>ul._list_to_ul>li {
+/* .resume_section>ul._list_to_ul>li {
     padding-inline-start: 0px;
     display:flex;
-    /* margin-inline-start: 1em; */
-    /* padding-inline-start: 0; */
+} */
+
+.resume_section>._list_to_ul {
+    padding-inline-start:0; 
 }
 
-.resume_section_body>ul._list_to_ul>li::marker {
+.resume_section>._list_to_ul>li {
+    position: relative;
+}
+
+.resume_section>ul._list_to_ul>li::marker {
     content:none;
 }
 
-.resume_section_body>ul._list_to_ul>li::before {
+.resume_section>ul._list_to_ul>li::before {
     position: absolute;
     content:"⬗";
     font-size:1.5em;
-    left: calc(-0.48em - 1.5 * var(--breathing-room) + var(--section-border-w)/3);
+    left: calc(-0.48em - var(--breathing-room) + var(--section-border-w)/3);
     top:calc(-1.5em/7);
 
+    color: var(--vertical-highlight);
+}
+
+
+._list_to_ul>*::marker{
+    content:"◇";
     color: var(--vertical-highlight);
 }

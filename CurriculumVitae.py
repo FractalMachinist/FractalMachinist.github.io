@@ -22,7 +22,7 @@ def _list_to_ul(listed:list['_NestedHTML'], **kwargs):
     return _grouper(listed, '_list_to_ul', 'listed', **kwargs)
 
 def skills_div(skills:list['Skill'], **kwargs):
-    return _grouper(skills, '_skills_div', 'skills', **kwargs)
+    return _grouper(sorted(skills, key=lambda skl: skl._get_popularity(**kwargs), reverse=True), '_skills_div', 'skills', **kwargs)
 
 
 def Skills(*args):
@@ -126,7 +126,16 @@ class Skill(_NestedHTML):
         return popularity_tuple
     
     def _should_render(self, suppress_popularity_threshold=(0, 0, ""), **kwargs):
-        return self._get_popularity(**kwargs) > suppress_popularity_threshold
+        # If no popularity dict is given, or if an empty popularity dict is given,
+        # assume every skill passes the popularity test.
+        if kwargs.get("popularity_dict", False):
+            p = self._get_popularity(**kwargs) > suppress_popularity_threshold
+
+            if kwargs.get("debug", False):
+                print(f"{'will' if p else 'will not'} render Skill {self.name}.")
+            return p
+        else:
+            return self._get_popularity(**kwargs)[1:] > suppress_popularity_threshold[1:]
 
 
 @dataclass(kw_only=True)
@@ -251,6 +260,9 @@ categories = {
                "MongoDB",
                "MySQL",
                "JDBC",
+               "Neo4J",
+               "Apache TinkerPop",
+               "AWS Neptune",
               },
     "Code":   {"Python",
     	       "Algorithms",
@@ -319,9 +331,12 @@ class JobListing:
     jinja2_render_args:dict = field(default_factory=dict)
 
     @classmethod
-    def FromCats(cls, exports=None, **kwargs):
+    def FromCats(cls, exports=None, debug=False, **kwargs):
         if exports is not None:
-            skills_ranking = {skill: weight for c_category, weight in exports.items() for skill in categories[c_category]}
+            skills_ranking = {Skill._clean_name(skill): weight for c_category, weight in exports.items() for skill in categories[c_category]}
+
+            if debug:
+                print(f"\n{kwargs} FromCats constructing a skills_ranking: {skills_ranking}")
             return cls(skills_ranking=skills_ranking, exports=[key for key, value in exports.items() if value], **kwargs)
         else:
             return cls(**kwargs)
@@ -358,7 +373,7 @@ class JobListing:
                 "stylesheet":self.stylesheet,
                 **self.jinja2_render_args
             },
-            popularity_dict = {Skill: self.skills_ranking},
+            popularity_dict = self.skills_ranking,
             suppress_popularity_threshold=(1, 0, ""),
             **kwargs
         )
@@ -374,7 +389,7 @@ class JobListing:
                 "stylesheet":self.stylesheet,
                 **self.jinja2_render_args
             },
-            popularity_dict = {Skill: self.skills_ranking},
+            popularity_dict = self.skills_ranking,
             suppress_popularity_threshold=(1, 0, ""),
             **kwargs
         )

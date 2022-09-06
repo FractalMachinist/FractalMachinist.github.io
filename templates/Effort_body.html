@@ -1,13 +1,29 @@
 <div class="effort_body">
     <h{{depth+1}} class="headline headline_{{depth+1}}">{{headline}}</h{{depth+1}}>
-    <div class="effort_body_sub_entries">
-        {% if sub_tasks is defined %}<div class="effort_body_sub effort_body_sub_tasks">
-            {% if achievements is defined %}<i class="effort_body_subtitle">SUB-TASKS:</i>{% endif %}
-            {{sub_tasks}}
-        </div>{% endif %}
-        {% if achievements is defined %}<div class="effort_body_sub effort_body_achievements">
-            {% if sub_tasks is defined %}<i class="effort_body_subtitle">ACHIEVEMENTS:</i>{% endif %}
-            {{achievements}}
+    <div class="effort_body_sections">
+
+        {% if sub_tasks is defined %}
+        <div class="effort_body_section effort_body_section_tasks">
+
+            {% if achievements is defined %}
+            <i class="effort_body_subtitle">SUB-TASKS:</i>
+            {% endif %}
+
+            <div class="effort_body_section_content effort_body_section_content_tasks">
+                {{sub_tasks}}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if achievements is defined %}
+        <div class="effort_body_section effort_body_section_achievements">
+            {% if sub_tasks is defined %}
+            <i class="effort_body_subtitle">ACHIEVEMENTS:</i>
+            {% endif %}
+
+            <div class="effort_body_section_content effort_body_section_content_achievements">
+                {{achievements}}
+            </div>
         </div>{% endif %}
     </div>
 </div>

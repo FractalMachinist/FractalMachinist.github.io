@@ -1,0 +1,31 @@
+/* .Effort, .Occupation {
+    display:flex;
+    flex-direction: column;
+    flex:1;
+} */
+
+
+.effort_body, .effort_body_sections, .effort_body_section, .effort_body_section_content, .effort_body_section_content>ul{
+    display:flex;
+    flex: 1 1 min-content;
+}
+
+.effort_body, .effort_body_sections, .effort_body_section, .effort_body_section_content, .effort_body_section_content>ul{
+    flex-direction: column;
+}
+
+.effort_body_section_content>ul {
+    flex-grow:0.5;
+}
+
+.effort_body_sections{
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 30px;
+}
+
+.effort_body_section_content>ul>li {
+    flex:1 1 min-content;
+    margin-block-start:10px;
+    padding-inline-start:5px;
+}

@@ -1,0 +1,46 @@
+/* .resume_section_body>._list_to_ul {
+    border: 3px solid red;
+}
+
+.resume_section_body>._list_to_ul>li{
+    border:2px solid green;
+}
+
+._list_to_ul>li>div:only-child{
+    border:2px dashed lightseagreen
+}
+
+.effort_body{
+    border: 3px solid blue;
+}
+
+.effort_body_sections{
+    border: 3px solid blueviolet;
+}
+
+.effort_body_section {
+    border: 3px solid violet;
+}
+
+.effort_body_section_content {
+    border: 3px solid magenta;
+} */
+
+
+/* 
+html {
+    border: 3px solid red;
+    height:fit-content;
+}
+
+body {
+    border: 3px solid green;
+}
+
+div.resume_flex_vertical {
+    border: 3px solid blue;
+}
+
+div.resume_body {
+    border: 3px dashed black;
+} */
