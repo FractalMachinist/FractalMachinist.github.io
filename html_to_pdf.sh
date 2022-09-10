@@ -1,7 +1,7 @@
 mkdir -p docs/pdf_sources;
 cd docs/pdf_sources;
 
-for job_path in */to_pdf.html;
+for job_path in */Zach_Allen_Resume.html;
 do
 	job_name=$(dirname "$job_path");
 	url="http://alex:32180/pdf_sources/$job_path";

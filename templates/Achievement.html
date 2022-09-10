@@ -1,4 +1,10 @@
 <div class="{{className}} _achievement">
-    <p>{{headline}}</p>
+    <div class="details_heading">
+        <p>{{headline}}</p>
+        {% if portfolio_link %}
+        <a href="{{portfolio_link}}" target="_blank" rel="noopener noreferrer"><p class="subtle achievement_portfolio_link">link</p></a>
+        {% endif %}
+    </div>
+
     {{skills if skills}}
 </div>

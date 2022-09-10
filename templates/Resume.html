@@ -19,22 +19,22 @@
 	  
 
 
-    <section class="resume_body">
+    <section id="resume_body">
 
-      <aside class="personal">
-        <div class="personal_float">
-          <header class="resume_header">
+      <aside id="personal">
+        <div id="personal_float">
+          <header id="resume_header">
             {{person}}
           </header>
-          <section class="personal_about">
+          <section id="personal_about">
             <section>
               <h{{depth+2}} class="resume_subsection_heading">ABOUT ME</h{{depth+2}}>
               <p>{{headline}}</p>
             </section>
 
             {% if skills is defined %}
-            <section class="about_skills">
-              <div class="skills_head">
+            <section id="about_skills">
+              <div id="skills_head">
                 <h{{depth+3}} class="heading heading_{{depth+3}}">SKILLS</h{{depth+3}}>
                 <i class="subtle">click to highlight</i>
               </div>
@@ -47,7 +47,7 @@
 
       </aside>
 
-      <section class="resume_main">
+      <section id="resume_main">
         <section class="resume_section education">
           <h{{depth+1}} class="resume_subsection_heading">EDUCATION</h{{depth+1}}>
           {{education}}

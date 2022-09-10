@@ -7,7 +7,7 @@
             </div>
             {% if confirmation_info %}
             <div class="details_heading subtle">
-                <a href={{website}}><p>Validate</p></a>
+                <a href={{website}} target="_blank" rel="noopener noreferrer"><p>Validate</p></a>
                 <p> with {% for k, v in confirmation_info.items() %}{{k}}: {{v}} {% endfor %}</p>
             </div>
         </div>

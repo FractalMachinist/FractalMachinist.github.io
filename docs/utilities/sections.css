@@ -1,13 +1,13 @@
-.resume_body {
+#resume_body {
     display:flex;
     flex-wrap:wrap;
 }
 
-.resume_body>.resume_main {
+#resume_main {
     flex: 5 1 60%;
 }
 
-.resume_body>.personal {
+#personal {
     position: relative;
     margin-inline: 20px;
     flex: 1 1 500px;
@@ -18,34 +18,34 @@
     margin-block: 15px;
 }
 
-.skills_head {
+#skills_head {
     display:flex;
     align-items:baseline;
 }
 
-.skills_head>.heading {
+#skills_head>.heading {
     margin: 5px 5px 5px 0px;
 }
 
 
 @media screen and (max-height: 1000px) {
-    .resume_body>.personal{
+    #personal{
         flex-basis:100%;
     }
 
-    .resume_body>.personal>.personal_float>.personal_about{
+    #personal_about{
         display:flex;
         flex-wrap:wrap;
         flex-direction: row;
     }
 
-    .resume_body>.personal>.personal_float>.personal_about>*{
+    #personal_about>*{
         flex: 1 1 50%;
     }
 }
 
 @media screen and (min-height: 1000px) {
-    .resume_body>.personal>.personal_float{
+    #personal_float{
         height:fit-content;
         position: sticky;
         top:20px;

@@ -7,7 +7,7 @@
                 <div style="display:flex;"><p class="subtle">at</p><p>{{subtitle}}</p></div>
                 {% if location is not none %}<p class="subtle location">in {{location}}</p>{% endif %}
 
-                {% if website is not none %}<a href="{{website}}"><p class="subtle">link</p></a>{% endif %}
+                {% if website is not none %}<a href="{{website}}" target="_blank" rel="noopener noreferrer"><p class="subtle">link</p></a>{% endif %}
             </div>
 
             {% if supervisor is not none %}

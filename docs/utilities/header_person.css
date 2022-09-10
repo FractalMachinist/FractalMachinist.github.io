@@ -1,26 +1,26 @@
-.resume_header {
+#resume_header {
     margin-block-end: 10px;
     display:flex;
 }
 
-.resume_header>*:not(:last-child) {
+#resume_header>*:not(:last-child) {
     margin-inline-end: 20px;
 }
 
-.header_personal {
+#header_personal {
     flex: 1 1 30%;
 }
 
-.header_about_me {
+#header_about_me {
     flex: 1 1 60%;
 }
 
-.header_about_me h2 {
+#header_about_me h2 {
     color: var(--vertical-highlight);
 }
 
 
-.resume_header .Person {
+#resume_header .Person {
     display:block;
     align-items: unset;
     position: relative;
@@ -30,7 +30,7 @@
     text-align: center;
 }
 
-.resume_header .Person>.ContactInfo {
+#resume_header .Person>.ContactInfo {
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -38,11 +38,11 @@
     max-width: 40vw;
 }
 
-.resume_header .Person>.ContactInfo>div {
+#resume_header .Person>.ContactInfo>div {
     margin: 5px;
 }
 
-.resume_header .Person>.person_identity {
+#resume_header .Person>.person_identity {
     display:block;
     align-items: center;
     width:fit-content;
@@ -50,7 +50,7 @@
 }
 
 
-.resume_header .Person>.person_identity>.person_name {
+#resume_header .Person>.person_identity>.person_name {
     position: relative;
     font-size: 4em;
     font-weight:bold;
@@ -60,7 +60,7 @@
     
 }
 
-.resume_header .Person>.person_identity>.person_name:before {
+#resume_header .Person>.person_identity>.person_name:before {
     content:' ';
     position: absolute;
     top: 0;
@@ -73,7 +73,7 @@
 
 }
 
-.resume_header .Person>.person_identity>.person_name:after {
+#resume_header .Person>.person_identity>.person_name:after {
     content:' ';
     position: absolute;
     top: 0;
@@ -86,7 +86,7 @@
 }
 
 
-.resume_header .Person>.person_identity>.person_pronouns {
+#resume_header .Person>.person_identity>.person_pronouns {
     position: relative;
     top:-0.6em;
     margin-block:0px;

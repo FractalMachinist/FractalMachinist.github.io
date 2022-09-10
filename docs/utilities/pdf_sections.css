@@ -4,17 +4,17 @@ body {
     --section-border-w: 3px;
 }
 
-.resume_flex_vertical {
+#resume_flex_vertical {
     height:99vh;
     display:flex;
     flex-direction: column;
 }
 
-.resume_header {
+#resume_header {
     flex: 1 1 max-content;
 }
 
-.resume_body {
+#resume_body {
     flex: 1 1 95%;
     display:grid;
     grid-template-columns: minmax(min-content, 0) auto;

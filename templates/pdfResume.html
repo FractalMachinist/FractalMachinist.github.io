@@ -16,22 +16,22 @@
         {% endif %}
     </head>
     <body>
-        <div class="resume_flex_vertical">
-            <header class="resume_header">
-                <div class="header_personal">
+        <div id="resume_flex_vertical">
+            <header id="resume_header">
+                <div id="header_personal">
                     {{person}}
                     {% if jinja2_render_args.resume_link is defined %}
-                    <div style="margin-inline: auto; width:max-content;"><a href="{{jinja2_render_args.resume_link}}"><i>interactive resume</i></a></div>{% endif %}
+                    <div style="margin-inline: auto; width:max-content;"><a href="{{jinja2_render_args.resume_link}}" target="_blank" rel="noopener noreferrer"><i>interactive resume</i></a></div>{% endif %}
                 </div>
 
-                <div class="header_about_me">
+                <div id="header_about_me">
                     <h{{depth+1}}>ABOUT ME</h{{depth+1}}>
                     <div><p>{{headline}}</p></div>
                 </div>
 
             </header>
 
-            <div class="resume_body">
+            <div id="resume_body">
 
                 <!-- <h{{depth+1}} class="resume_section_heading">ABOUT ME</h{{depth+1}}>
                 <div class="resume_section"><p>{{headline}}</p></div> -->

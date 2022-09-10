@@ -110,8 +110,8 @@ class Skill(_NestedHTML):
     def __new__(cls, name, *args, **kwargs):
         # Why am I comfortable making singleton instances at runtime?
         # Because this is a prototype, and if we wanted it to be bigger, we'd make a database with a uniqueness constraint.
-        instance, count = Skill._instances_and_counts.setdefault(cls._clean_name(name), (super().__new__(cls), 0))
-        count += 1
+        instance, old_count = Skill._instances_and_counts.setdefault(cls._clean_name(name), (super().__new__(cls), 0))
+        Skill._instances_and_counts[cls._clean_name(name)] = (instance, old_count + 1)
         return instance
 
     def __hash__(self):
@@ -136,6 +136,9 @@ class Skill(_NestedHTML):
             return p
         else:
             return self._get_popularity(**kwargs)[1:] > suppress_popularity_threshold[1:]
+    
+    def __repr_html__(self, *args, **kwargs):
+        return super().__repr_html__(*args, skill_popularity=self._get_popularity(**kwargs), **kwargs)
 
 
 @dataclass(kw_only=True)
@@ -157,6 +160,7 @@ class Person(_NestedHTML):
 class Achievement(_NestedHTML):
     headline:str
     skills:list[Skill] = field(default_factory=list)
+    portfolio_link:str = None
 
 @dataclass(kw_only=True)
 class Between(_NestedHTML):
@@ -281,7 +285,6 @@ categories = {
                "Service Management",
                "SDLC",
                "AWS",
-               "Network Administration",
                "CI/CD",
                "Git",
                "Integration",
@@ -366,33 +369,31 @@ class JobListing:
 
         urlsafe_private_path = urllib.parse.quote(private_path)
         
-        resume.write_html_to_file(
-            filepath=f"docs/{public_path}.html",
-            jinja2_render_args = {
+        # Write the to-be-public resume
+        publish_j2_args = {
                 "exports": self.exports,
-                "stylesheet":self.stylesheet,
-                **self.jinja2_render_args
-            },
-            popularity_dict = self.skills_ranking,
-            suppress_popularity_threshold=(1, 0, ""),
-            **kwargs
-        )
+                "stylesheet":self.stylesheet}
+        publish_j2_args.update(self.jinja2_render_args)
+        publish_args = {"filepath":f"docs/{public_path}.html",
+            "jinja2_render_args":publish_j2_args,
+            "popularity_dict":self.skills_ranking,
+            "suppress_popularity_threshold":(-1, 0, "")}
+        publish_args.update(kwargs)
+        resume.write_html_to_file(**publish_args)
 
         # Write the to-be-a-pdf resume
-        
-        resume.write_html_to_file(
-            filepath=f"docs/{private_path}.html",
-            alt_template_prefixes = {"*": "pdf"},
-            jinja2_render_args = {
-                "exports": self.exports,
+        pdf_j2_args = {"exports": self.exports,
                 "resume_link": f"http://fractalmachini.st/{public_path}.html",
-                "stylesheet":self.stylesheet,
-                **self.jinja2_render_args
-            },
-            popularity_dict = self.skills_ranking,
-            suppress_popularity_threshold=(1, 0, ""),
-            **kwargs
-        )
+                "stylesheet":self.stylesheet}
+        
+        pdf_j2_args.update(self.jinja2_render_args)
+        pdf_args = {"filepath":f"docs/{private_path}.html",
+            "alt_template_prefixes":{"*": "pdf"},
+            "jinja2_render_args":pdf_j2_args,
+            "popularity_dict":self.skills_ranking,
+            "suppress_popularity_threshold":(-1, 0, "")}
+        pdf_args.update(kwargs)
+        resume.write_html_to_file(**pdf_args)
 
         return urlsafe_private_path
 
