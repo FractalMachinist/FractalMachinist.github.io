@@ -3,6 +3,9 @@ from abc import abstractmethod
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 import cv_host
 import os
+import json
+import hashlib, urllib, skill_cat
+import abc
 
 
 from datetime import date
@@ -96,6 +99,7 @@ class _NestedHTML():
             if kwargs.get("debug", False) and isinstance(self, Effort):
                 print(f"<\t"*depth + f"Occupation {self.title} converted to ''")
             return ""
+
 
 
 @dataclass(kw_only=True)
@@ -240,90 +244,6 @@ class Resume(_NestedHTML):
         self.write_html_to_file(*args, **kwargs)
         cv_host.start_hosting()
 
-categories = {
-    "ML":     {"TensorFlow", 
-               "Feature Engineering",
-               "Neural Networks", 
-               "Machine Learning", 
-               "Algorithms",
-               "Testing",
-               "Mathematics",
-               "Optimization",
-               "Experimentation",
-               "Statistics",
-               "NLP",
-               "Data",
-               "Data Engineering",
-               "Data Science",
-              },
-    "Data":   {"Data",
-               "Data Engineering",
-               "Data Science",
-               "AWS",
-               "SQL",
-               "MongoDB",
-               "MySQL",
-               "JDBC",
-               "Neo4J",
-               "Apache TinkerPop",
-               "AWS Neptune",
-              },
-    "Code":   {"Python",
-    	       "Algorithms",
-               "Software Engineering",
-               "Implementation",
-               "Linux","Bash",
-               "Optimization",
-               "OOP",
-               "Java",
-               "C++",
-              },
-    "Admin":  {"Docker","Kubernets",
-               "Infrastructure",
-               "Testing",
-               "Linux","Bash",
-               "Service Management",
-               "SDLC",
-               "AWS",
-               "CI/CD",
-               "Git",
-               "Integration",
-              },
-    "Bio":    {"Bioinformatics"},
-    "Project":{"Collaboration",
-               "Communication",
-               "Project Management",
-               "Product Requirements",
-               "Service Management",
-               "Value Creation",
-               "SDLC",
-               "Business Requirements",
-              },
-    "Soft":   {"Curious",
-               "Teamwork",
-               "Motivated",
-               "Leadership",
-               "Collaboration",
-               "Ownership",
-               "Communication Skills",
-               "Innovation",
-              },
-    "Writing":{"Technical Communication",
-               "Documentation",
-               "Communication",
-              },
-    "Visual": {"Graphic Design"},
-    "WebDev": {"Web Development",
-               "React",
-               "Flask",
-              },
-    "Java":   {"JDBC",
-               "Java",
-               "JavaFX",
-              },
-}
-
-import hashlib, urllib
 
 @dataclass(kw_only=True)
 class JobListing:
@@ -333,22 +253,9 @@ class JobListing:
     stylesheet:str = "lighttheme"
     jinja2_render_args:dict = field(default_factory=dict)
 
-    @classmethod
-    def FromCats(cls, exports=None, debug=False, **kwargs):
-        if exports is not None:
-            skills_ranking = {Skill._clean_name(skill): weight for c_category, weight in exports.items() for skill in categories[c_category]}
-
-            if debug:
-                print(f"\n{kwargs} FromCats constructing a skills_ranking: {skills_ranking}")
-            return cls(skills_ranking=skills_ranking, exports=[key for key, value in exports.items() if value], **kwargs)
-        else:
-            return cls(**kwargs)
-
 
     def export(self, resume:Resume, **kwargs):
         # Write the HTML-based hosted resume
-        
-    
         # name = urllib.parse.quote(self.name)
         if self.name == "index":
             public_name = self.name
