@@ -1,10 +1,19 @@
 collaboration,collaborate,collaborative
-innovation,innovative
-implementation,implement
-artificial intelligence,ai
-optimization,optimize
-analysis,analytical
-communication skills,communication,communications
-machine learning,deep learning
-mathematics,calculus
-statistics,probability,probability and statistics
+scale,scalable
+analytics,analysis,analytical,analyzing
+sdlc,software development
+machine learning,artificial intelligence
+scale,large scale
+frameworks,libraries
+implementation,implementing,implement,implement solutions
+optimization,optimizing,high performance
+machine learning,machine learning algorithms
+integration,integrations
+genetics,genetic
+multidisciplinary,cross functional
+git,github,version control
+business requirements,business needs
+pipelines,pipeline
+computer science,cs
+research,research and development
+data,data acquisition
