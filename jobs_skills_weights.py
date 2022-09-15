@@ -17,6 +17,7 @@ def download_user_job_posts(*args, enforce_bookmarked:bool=True, **kwargs):
         requests.get(f"https://company.service.tealhq.com/user_job_posts{'?include_states=bookmarked' if enforce_bookmarked else ''}", headers={"Authorization":auth_header}).json()["data"]))
 
 
+
 def get_jobs_skills_weights(*args, **kwargs):
     jobs_skills = pd.DataFrame([
         {
@@ -36,7 +37,12 @@ def get_jobs_skills_weights(*args, **kwargs):
     jobs_skills[("skill", "share")] = jobs_skills.apply(lambda js: js[("skill", "count")] / jobs_skill_total.loc[js[("post", "id")]], axis=1)
     jobs_skills = jobs_skills.drop(("skill", "count"), axis=1)
     
-    
+    # jobs_skills = jobs_skills.join(pd.DataFrame({
+    #     ("export", export_name): [
+    #             (name_stem in skill_cat.category_to_skills[export_name])
+    #             for name_stem in jobs_skills[("skill", "name_stem")]
+    #         ] for export_name in skill_cat.category_to_skills.keys()
+    #     }))
     
     jobs_skills[("resume", "category")] = [
         skill_cat.skill_to_categories.get(js, set()) 

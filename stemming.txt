@@ -16,4 +16,5 @@ business requirements,business needs
 pipelines,pipeline
 computer science,cs
 research,research and development
-data,data acquisition
+data,data acquisition,data processing
+statistics,bayesian statistics

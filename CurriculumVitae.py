@@ -254,7 +254,7 @@ class JobListing:
     jinja2_render_args:dict = field(default_factory=dict)
 
 
-    def export(self, resume:Resume, **kwargs):
+    def export(self, resume:Resume, public_name:str=None, **kwargs):
         # Write the HTML-based hosted resume
         # name = urllib.parse.quote(self.name)
         if self.name == "index":
@@ -264,7 +264,10 @@ class JobListing:
             public_path = f"resumes/{public_name}"
             private_path= f"pdf_sources/{private_name}"
         else:
-            public_name = hashlib.md5(self.name.encode()).hexdigest()
+            if public_name is None:
+                public_name = hashlib.md5(self.name.encode()).hexdigest()
+            else:
+                public_name = urllib.parse.quote(public_name)
             private_name = self.name
 
             public_path = f"resumes/{public_name}"
