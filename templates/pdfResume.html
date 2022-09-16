@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="/utilities/pdf_skill_highlight.css">
         <script src="/utilities/skill_highlights.js" defer></script>
 
-        {% if jinja2_render_args.stylesheet is defined %}
-        <link rel="stylesheet" href="/styles/{{jinja2_render_args.stylesheet}}.css">
+        {% if stylesheet is defined %}
+        <link rel="stylesheet" href="/styles/{{stylesheet}}.css">
         {% else %}
         <link rel="stylesheet" href="/styles/lighttheme.css">
         {% endif %}
@@ -20,8 +20,8 @@
             <header id="resume_header">
                 <div id="header_personal">
                     {{person}}
-                    {% if jinja2_render_args.resume_link is defined %}
-                    <div style="margin-inline: auto; width:max-content;"><a href="{{jinja2_render_args.resume_link}}" target="_blank" rel="noopener noreferrer"><i>interactive resume</i></a></div>{% endif %}
+                    {% if resume_link is defined %}
+                    <div style="margin-inline: auto; width:max-content;"><a href="{{resume_link}}" target="_blank" rel="noopener noreferrer"><i>interactive resume</i></a></div>{% endif %}
                 </div>
 
                 <div id="header_about_me">

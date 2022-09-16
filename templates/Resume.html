@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="/utilities/layout.css">
     <link rel="stylesheet" href="/utilities/skill_highlight.css">
 
-    {% if jinja2_render_args.stylesheet is defined %}
-    <link rel="stylesheet" href="/styles/{{jinja2_render_args.stylesheet}}.css">
+    {% if stylesheet is defined %}
+    <link rel="stylesheet" href="/styles/{{stylesheet}}.css">
     {% else %}
     <link rel="stylesheet" href="/styles/lighttheme.css">
     {% endif %}

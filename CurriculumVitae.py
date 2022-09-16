@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from abc import abstractmethod
-from jinja2 import Environment, FileSystemLoader, TemplateNotFound
+from jinja2 import Environment, FileSystemLoader, TemplateNotFound, Template
 import cv_host
 import os
 import json
@@ -25,7 +25,7 @@ def _list_to_ul(listed:list['_NestedHTML'], **kwargs):
     return _grouper(listed, '_list_to_ul', 'listed', **kwargs)
 
 def skills_div(skills:list['Skill'], **kwargs):
-    return _grouper(sorted(skills, key=lambda skl: skl._get_popularity(**kwargs), reverse=True), '_skills_div', 'skills', **kwargs)
+    return _grouper(sorted(skills, key=lambda skl: skl._sort_key(**kwargs)), '_skills_div', 'skills', **kwargs)
 
 
 def Skills(*args):
@@ -40,7 +40,7 @@ class _NestedHTML():
     exports:list = field(default_factory=list)
 
     @staticmethod
-    def get_template(classname, alt_template_prefixes={}, **kwargs):
+    def get_template(classname, alt_template_prefixes={}, **kwargs) -> Template:
         prefix = alt_template_prefixes.get(classname, alt_template_prefixes.get("*", ""))
 
         try:
@@ -49,66 +49,62 @@ class _NestedHTML():
             return _NestedHTML._template_env.get_template(classname + ".html")
 
 
-    def _should_render(self, jinja2_render_args:dict={}, **kwargs):
-        j2_exports = jinja2_render_args.get("exports", [])
-
-        if not self.exports or not j2_exports: # If any of them are empty or undefined:
-            return True
-        else:
-            return bool(set(j2_exports) & set(self.exports))
-            
-
-
     @abstractmethod
-    def __repr_html__(self, depth=1, **kwargs):
-        if self._should_render(**kwargs):
-            obj_attrs = {}
-            for attr_name, attr in self.__dict__.copy().items():
-                if kwargs.get("debug", False):
-                    print(">\t"*depth + f"Class {self.__class__.__name__} converting attr '{attr_name}': '{attr}':")
+    def __repr_html__(self, depth=1, **kwargs) -> str:
+        obj_attrs = {}
+        for attr_name, attr in self.__dict__.copy().items():
+            if kwargs.get("debug", False):
+                print(">\t"*depth + f"Class {self.__class__.__name__} converting attr '{attr_name}': '{attr}':")
 
-                attr = list(attr) if isinstance(attr, set) else attr
+            attr = list(attr) if isinstance(attr, set) else attr
 
-                match attr:
-                    case _NestedHTML():
-                        attr = attr.__repr_html__(depth=depth+self.consumed_depth, **kwargs)
+            match attr:
+                case _NestedHTML():
+                    attr = attr.__repr_html__(depth=depth+self.consumed_depth, **kwargs)
 
-                    case [*nHTMLs] if all(isinstance(nHTML, _NestedHTML) for nHTML in nHTMLs):
-                        grouper = skills_div if all(isinstance(nHTML, Skill) for nHTML in nHTMLs) else _list_to_ul
-                        attr = grouper(nHTMLs, depth=depth+self.consumed_depth, **kwargs)
-                    
-                    case str() as string_attr if len(attr):
-                        obj_attrs[f"clean_{attr_name.replace(' ', '_')}"] = string_attr.lower().replace(" ", "_")
-
+                case [*nHTMLs] if all(isinstance(nHTML, _NestedHTML) for nHTML in nHTMLs):
+                    grouper = skills_div if all(isinstance(nHTML, Skill) for nHTML in nHTMLs) else _list_to_ul
+                    attr = grouper(nHTMLs, depth=depth+self.consumed_depth, **kwargs)
+                
+                case str() as string_attr if len(attr):
+                    obj_attrs[f"clean_{attr_name.replace(' ', '_')}"] = string_attr.lower().replace(" ", "_")
 
 
-                if attr != "":
-                    obj_attrs[attr_name] = attr
-            obj_attrs.update(kwargs)
 
-            product = _NestedHTML.get_template(self.__class__.__name__, **kwargs).render(
-                depth=depth, 
-                className=self.__class__.__name__, 
-                **obj_attrs,
-            )
+            if attr != "":
+                obj_attrs[attr_name] = attr
+        obj_attrs.update(kwargs)
 
-            if kwargs.get("debug", False) and isinstance(self, Effort):
-                print(f"<\t"*depth + f"Occupation {self.title} converted to '{product}'")
-            return product
-        else:
-            if kwargs.get("debug", False) and isinstance(self, Effort):
-                print(f"<\t"*depth + f"Occupation {self.title} converted to ''")
-            return ""
+        product = _NestedHTML.get_template(self.__class__.__name__, **kwargs).render(
+            depth=depth, 
+            className=self.__class__.__name__, 
+            **obj_attrs,
+        )
 
+        if kwargs.get("debug", False) and isinstance(self, Effort):
+            print(f"<\t"*depth + f"Occupation {self.title} converted to '{product}'")
+        return product
 
 
 @dataclass(kw_only=True)
-class Skill(_NestedHTML):
+class _Conditional_nHTML(_NestedHTML):    
+    @abstractmethod
+    def _should_render(self, *children:'_Conditional_nHTML', **kwargs) -> bool:
+        return any(child._should_render(**kwargs) for child in children)
+
+    def __repr_html__(self, **kwargs):
+        if kwargs.get("should_render_all", False) or self._should_render(**kwargs):
+            return super().__repr_html__(**kwargs)
+        else:
+            return ""
+
+@dataclass(kw_only=True)
+class Skill(_Conditional_nHTML):
     _instances_and_counts = dict()
     name:str
 
     @staticmethod
-    def _clean_name(name):
+    def _clean_name(name:str) -> str:
         return name.lower()
 
     def __new__(cls, name, *args, **kwargs):
@@ -121,28 +117,17 @@ class Skill(_NestedHTML):
     def __hash__(self):
         return hash(self._clean_name(self.name))
 
-    def _get_popularity(self, popularity_dict:dict={}, **kwargs):
-        clean_name = self._clean_name(self.name)
-        instances = self._instances_and_counts[clean_name][1]
-        popularity = popularity_dict.get(clean_name, 0)
-        
-        popularity_tuple = (popularity, instances, clean_name)
-        return popularity_tuple
+    def _should_render(self, skill_weights:dict[str,float]={}, **kwargs) -> bool:
+        return self._clean_name(self.name) in skill_weights
     
-    def _should_render(self, suppress_popularity_threshold=(0, 0, ""), **kwargs):
-        # If no popularity dict is given, or if an empty popularity dict is given,
-        # assume every skill passes the popularity test.
-        if kwargs.get("popularity_dict", False):
-            p = self._get_popularity(**kwargs) > suppress_popularity_threshold
-
-            if kwargs.get("debug", False):
-                print(f"{'will' if p else 'will not'} render Skill {self.name}.")
-            return p
-        else:
-            return self._get_popularity(**kwargs)[1:] > suppress_popularity_threshold[1:]
+    def _sort_key(self, skill_weights:dict[str,float]={}, **kwargs) -> float:
+        name = self._clean_name(self.name)
+        weight = skill_weights.get(name, 0)
+        instances = self._instances_and_counts[name][1]
+        return (-weight, -instances, name) # Allow sorting ascending
     
-    def __repr_html__(self, *args, **kwargs):
-        return super().__repr_html__(*args, skill_popularity=self._get_popularity(**kwargs), **kwargs)
+    def __repr_html__(self, **kwargs) -> str:
+        return super().__repr_html__(skill_sort_key=self._sort_key(**kwargs), **kwargs)
 
 
 @dataclass(kw_only=True)
@@ -161,10 +146,13 @@ class Person(_NestedHTML):
 
 
 @dataclass(kw_only=True)
-class Achievement(_NestedHTML):
+class Achievement(_Conditional_nHTML):
     headline:str
     skills:list[Skill] = field(default_factory=list)
     portfolio_link:str = None
+
+    def _should_render(self, **kwargs) -> bool:
+        return super()._should_render(*self.skills, **kwargs)
 
 @dataclass(kw_only=True)
 class Between(_NestedHTML):
@@ -172,13 +160,16 @@ class Between(_NestedHTML):
     end:date = None
 
 @dataclass(kw_only=True)
-class Effort(_NestedHTML):
+class Effort(_Conditional_nHTML):
     title:str
     headline:str
     website:str = None
 
     achievements:list[Achievement] = field(default_factory=list)
     sub_tasks:list['Effort'] = field(default_factory=list)
+
+    def _should_render(self, **kwargs) -> bool:
+        return super()._should_render(*self.achievements, *self.sub_tasks, **kwargs)
 
 @dataclass(kw_only=True)
 class Occupation(Effort):
@@ -248,10 +239,9 @@ class Resume(_NestedHTML):
 @dataclass(kw_only=True)
 class JobListing:
     name:str
-    skills_ranking:dict[str] = field(default_factory=dict)
+    skill_weights:dict[str,float] = field(default_factory=dict)
     exports:list[str] = field(default_factory=list)
     stylesheet:str = "lighttheme"
-    jinja2_render_args:dict = field(default_factory=dict)
 
 
     def export(self, resume:Resume, public_name:str=None, **kwargs):
@@ -280,28 +270,20 @@ class JobListing:
         urlsafe_private_path = urllib.parse.quote(private_path)
         
         # Write the to-be-public resume
-        publish_j2_args = {
-                "exports": self.exports,
-                "stylesheet":self.stylesheet}
-        publish_j2_args.update(self.jinja2_render_args)
-        publish_args = {"filepath":f"docs/{public_path}.html",
-            "jinja2_render_args":publish_j2_args,
-            "popularity_dict":self.skills_ranking,
-            "suppress_popularity_threshold":(-1, 0, "")}
+        publish_args = {
+            "filepath":f"docs/{public_path}.html",
+            "stylesheet":self.stylesheet,
+            "skill_weights":self.skill_weights}
         publish_args.update(kwargs)
         resume.write_html_to_file(**publish_args)
 
         # Write the to-be-a-pdf resume
-        pdf_j2_args = {"exports": self.exports,
-                "resume_link": f"http://fractalmachini.st/{public_path}.html",
-                "stylesheet":self.stylesheet}
-        
-        pdf_j2_args.update(self.jinja2_render_args)
-        pdf_args = {"filepath":f"docs/{private_path}.html",
+        pdf_args = {
+            "filepath":f"docs/{private_path}.html",
             "alt_template_prefixes":{"*": "pdf"},
-            "jinja2_render_args":pdf_j2_args,
-            "popularity_dict":self.skills_ranking,
-            "suppress_popularity_threshold":(-1, 0, "")}
+            "resume_link": f"http://fractalmachini.st/{public_path}.html",
+            "stylesheet":self.stylesheet,
+            "skill_weights":self.skill_weights}
         pdf_args.update(kwargs)
         resume.write_html_to_file(**pdf_args)
 
