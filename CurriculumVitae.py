@@ -87,7 +87,7 @@ class _NestedHTML():
 
 
 @dataclass(kw_only=True)
-class _Conditional_nHTML(_NestedHTML):    
+class _Conditional_nHTML(_NestedHTML):
     @abstractmethod
     def _should_render(self, *children:'_Conditional_nHTML', **kwargs) -> bool:
         return any(child._should_render(**kwargs) for child in children)
@@ -118,7 +118,8 @@ class Skill(_Conditional_nHTML):
         return hash(self._clean_name(self.name))
 
     def _should_render(self, skill_weights:dict[str,float]={}, **kwargs) -> bool:
-        return self._clean_name(self.name) in skill_weights
+        return skill_weights.get(self._clean_name(self.name), False) # Let falsy (ie 0) weights get interpreted as non rendering
+        # return self._clean_name(self.name) in skill_weights
     
     def _sort_key(self, skill_weights:dict[str,float]={}, **kwargs) -> float:
         name = self._clean_name(self.name)

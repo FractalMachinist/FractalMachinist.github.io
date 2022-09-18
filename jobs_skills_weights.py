@@ -1,4 +1,4 @@
-import json, requests, pandas as pd, multiprocessing.dummy, pathlib, stemming, skill_cat
+import requests, pandas as pd, multiprocessing.dummy, pathlib, stemming
 __location__ = pathlib.Path(__file__).parent
 
 # TODO: I should/could probably directly use the tool Teal is using. They support it on GitHub.
@@ -29,17 +29,13 @@ def get_jobs(*args, bookmarked:bool=True, **kwargs):
 def get_job_details(job_id, *args, auth_header=None, **kwargs):
     if auth_header is None:
         auth_header = teal_auth_header(*args, **kwargs)
-    
     return requests.get(f"https://company.service.tealhq.com/user_job_posts/{job_id}", headers={'Authorization':auth_header}).json()["data"]
 
-# def job_skills(job_id, *args, auth_header=None, **kwargs):
-#     if auth_header is None:
-#         auth_header = teal_auth_header(*args, **kwargs)
-    
-#     skills_data = requests.get(f"https://company.service.tealhq.com/user_job_posts/{job_id}", headers={'Authorization':auth_header}).json()["data"]["attributes"]["skills"]["tealPhrases"]
-    
-#     return skills_data
-
+def get_raw_job_details(jobs:pd.DataFrame, *args, pool=None, **kwargs) -> dict:
+    if pool is None:
+        pool = multiprocessing.dummy.Pool()
+    auth_header = teal_auth_header(*args, **kwargs)
+    return dict(zip(jobs.index, pool.map(lambda job_id: get_job_details(job_id=job_id, auth_header=auth_header), jobs.index)))
 
 def extract_skills_data(job_details):
     return pd.DataFrame([{
