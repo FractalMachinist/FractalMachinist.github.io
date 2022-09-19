@@ -24,12 +24,12 @@ def _grouper(to_group:list['_NestedHTML'], template_name, group_arg_name, **kwar
 def _list_to_ul(listed:list['_NestedHTML'], **kwargs):
     return _grouper(listed, '_list_to_ul', 'listed', **kwargs)
 
-def skills_div(skills:list['Skill'], **kwargs):
+def skills_div(skills:list['SkillSynonymGroup'], **kwargs):
     return _grouper(sorted(skills, key=lambda skl: skl._sort_key(**kwargs)), '_skills_div', 'skills', **kwargs)
 
 
 def Skills(*args):
-    return [Skill(name=skill) for skill in args]
+    return [SkillSynonymGroup(name=skill) for skill in args]
 
 
 
@@ -63,7 +63,7 @@ class _NestedHTML():
                     attr = attr.__repr_html__(depth=depth+self.consumed_depth, **kwargs)
 
                 case [*nHTMLs] if all(isinstance(nHTML, _NestedHTML) for nHTML in nHTMLs):
-                    grouper = skills_div if all(isinstance(nHTML, Skill) for nHTML in nHTMLs) else _list_to_ul
+                    grouper = skills_div if all(isinstance(nHTML, SkillSynonymGroup) for nHTML in nHTMLs) else _list_to_ul
                     attr = grouper(nHTMLs, depth=depth+self.consumed_depth, **kwargs)
                 
                 case str() as string_attr if len(attr):
@@ -90,7 +90,7 @@ class _NestedHTML():
 class _Conditional_nHTML(_NestedHTML):
 
     @abstractmethod
-    def _should_render(self,*args,**kwargs) -> bool:
+    def _should_render(self,**kwargs) -> bool:
         pass
 
     def __repr_html__(self, **kwargs):
@@ -102,18 +102,20 @@ class _Conditional_nHTML(_NestedHTML):
 @dataclass(kw_only=True)
 class _Nested_Conditional(_NestedHTML):
     @abstractmethod
-    def _get_children(self) -> list['_Conditional_nHTML']:
+    def _get_conditional_children(self, **kwargs) -> list['_Conditional_nHTML']:
         pass
 
 
 
 @dataclass(kw_only=True)
 class _Nested_Conditional_nHTML(_Conditional_nHTML, _Nested_Conditional):
-    def _should_render(self,*args,**kwargs) -> bool:
-        return any(child._should_render(*args, **kwargs) for child in self._get_children())
+    def _should_render(self,**kwargs) -> bool:
+        return any(child._should_render(**kwargs) for child in self._get_conditional_children(**kwargs))
 
+
+# It's very possible this should be expanded to a `_Nested_Conditional_nHTML` to better support ignoring synonyms. For the moment, I won't do that.
 @dataclass(kw_only=True)
-class Skill(_Conditional_nHTML):
+class SkillSynonymGroup(_Conditional_nHTML):
     _instances_and_counts = dict()
     name:str
 
@@ -127,25 +129,21 @@ class Skill(_Conditional_nHTML):
     def __new__(cls, name, *args, **kwargs):
         # Why am I comfortable making singleton instances at runtime?
         # Because this is a prototype, and if we wanted it to be bigger, we'd make a database with a uniqueness constraint.
-        instance, old_count = Skill._instances_and_counts.setdefault(cls._clean_name(name), (super().__new__(cls), 0))
-        Skill._instances_and_counts[cls._clean_name(name)] = (instance, old_count + 1)
+        instance, old_count = SkillSynonymGroup._instances_and_counts.setdefault(cls._clean_name(name), (super().__new__(cls), 0))
+        SkillSynonymGroup._instances_and_counts[cls._clean_name(name)] = (instance, old_count + 1)
         return instance
 
     def __hash__(self):
         return hash(self.clean_name())
     
-    def _should_render(self, skill_text_shares:dict[str,float]={}, **kwargs) -> bool:
-        return skill_text_shares.get(self.clean_name(), False) # Let falsy (ie 0) weights get interpreted as non rendering
-        # return self._clean_name(self.name) in skill_text_shares
+    def _should_render(self, skill_text_shares:dict[str,dict[str,float]]={}, **kwargs) -> bool:
+        return sum(skill_text_shares.get(self.clean_name(), {}).values()) > 0
     
-    def _sort_key(self, skill_text_shares:dict[str,float]={}, **kwargs) -> float:
-        name = self.clean_name()
-        weight = skill_text_shares.get(name, 0)
-        instances = self._instances_and_counts[name][1]
-        return (-weight, -instances, name) # Allow sorting ascending
+    def __repr_html__(self, skill_text_shares:dict[str,dict[str,float]]={}, **kwargs):
+        synonyms = skill_text_shares.get(self.clean_name(), {})
+        return super().__repr_html__(**kwargs)
     
-    def __repr_html__(self, **kwargs) -> str:
-        return super().__repr_html__(skill_sort_key=self._sort_key(**kwargs), **kwargs)
+
 
 
 @dataclass(kw_only=True)
@@ -166,10 +164,10 @@ class Person(_NestedHTML):
 @dataclass(kw_only=True)
 class Achievement(_Nested_Conditional_nHTML):
     headline:str
-    skills:list[Skill] = field(default_factory=list)
+    skills:list[SkillSynonymGroup] = field(default_factory=list)
     portfolio_link:str = None
 
-    def _get_children(self) -> list['_Conditional_nHTML']:
+    def _get_conditional_children(self, *args, **kwargs) -> list['_Conditional_nHTML']:
         return self.skills
     
     def __repr__(self) -> str:
@@ -189,7 +187,7 @@ class Effort(_Nested_Conditional_nHTML):
     achievements:list[Achievement] = field(default_factory=list)
     sub_tasks:list['Effort'] = field(default_factory=list)
 
-    def _get_children(self) -> list['_Conditional_nHTML']:
+    def _get_conditional_children(self, *args, **kwargs) -> list['_Conditional_nHTML']:
         return self.achievements + self.sub_tasks
     
     def __repr__(self) -> str:
@@ -221,7 +219,7 @@ class Resume(_Nested_Conditional):
     education:list[Occupation] = field(default_factory=list)
     employment:list[Occupation] = field(default_factory=list)
     projects:list[Effort] = field(default_factory=list)
-    skills:set[Skill] = field(default_factory=set)
+    skills:set[SkillSynonymGroup] = field(default_factory=set)
     consumed_depth:int = 2
 
 
@@ -243,7 +241,7 @@ class Resume(_Nested_Conditional):
     
     def Skill(self, *args, **kwargs):
         """Construct a skill and store it in this resume."""
-        new = Skill(*args, **kwargs)
+        new = SkillSynonymGroup(*args, **kwargs)
         self.skills.add(new)
         return new
     
@@ -258,7 +256,7 @@ class Resume(_Nested_Conditional):
         with open(filepath, "w+") as f:
             f.write(self.__repr_html__(**kwargs))
 
-    def _get_children(self) -> list['_Conditional_nHTML']:
+    def _get_conditional_children(self, *args, **kwargs) -> list['_Conditional_nHTML']:
         return self.education + self.employment + self.projects + list(self.skills)
 
     def host(self, *args, **kwargs):
