@@ -134,13 +134,13 @@ class Skill(_Conditional_nHTML):
     def __hash__(self):
         return hash(self.clean_name())
     
-    def _should_render(self, skill_weights:dict[str,float]={}, **kwargs) -> bool:
-        return skill_weights.get(self.clean_name(), False) # Let falsy (ie 0) weights get interpreted as non rendering
-        # return self._clean_name(self.name) in skill_weights
+    def _should_render(self, skill_text_shares:dict[str,float]={}, **kwargs) -> bool:
+        return skill_text_shares.get(self.clean_name(), False) # Let falsy (ie 0) weights get interpreted as non rendering
+        # return self._clean_name(self.name) in skill_text_shares
     
-    def _sort_key(self, skill_weights:dict[str,float]={}, **kwargs) -> float:
+    def _sort_key(self, skill_text_shares:dict[str,float]={}, **kwargs) -> float:
         name = self.clean_name()
-        weight = skill_weights.get(name, 0)
+        weight = skill_text_shares.get(name, 0)
         instances = self._instances_and_counts[name][1]
         return (-weight, -instances, name) # Allow sorting ascending
     
@@ -269,7 +269,7 @@ class Resume(_Nested_Conditional):
 @dataclass(kw_only=True)
 class JobListing:
     name:str
-    skill_weights:dict[str,float] = field(default_factory=dict)
+    skill_text_shares:dict[str,float] = field(default_factory=dict)
     exports:list[str] = field(default_factory=list)
     stylesheet:str = "lighttheme"
 
@@ -303,7 +303,7 @@ class JobListing:
         publish_args = {
             "filepath":f"docs/{public_path}.html",
             "stylesheet":self.stylesheet,
-            "skill_weights":self.skill_weights}
+            "skill_text_shares":self.skill_text_shares}
         publish_args.update(kwargs)
         resume.write_html_to_file(**publish_args)
 
@@ -313,7 +313,7 @@ class JobListing:
             "alt_template_prefixes":{"*": "pdf"},
             "resume_link": f"http://fractalmachini.st/{public_path}.html",
             "stylesheet":self.stylesheet,
-            "skill_weights":self.skill_weights}
+            "skill_text_shares":self.skill_text_shares}
         pdf_args.update(kwargs)
         resume.write_html_to_file(**pdf_args)
 
