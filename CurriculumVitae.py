@@ -88,15 +88,29 @@ class _NestedHTML():
 
 @dataclass(kw_only=True)
 class _Conditional_nHTML(_NestedHTML):
+
     @abstractmethod
-    def _should_render(self, *children:'_Conditional_nHTML', **kwargs) -> bool:
-        return any(child._should_render(**kwargs) for child in children)
+    def _should_render(self,*args,**kwargs) -> bool:
+        pass
 
     def __repr_html__(self, **kwargs):
         if kwargs.get("should_render_all", False) or self._should_render(**kwargs):
             return super().__repr_html__(**kwargs)
         else:
             return ""
+
+@dataclass(kw_only=True)
+class _Nested_Conditional(_NestedHTML):
+    @abstractmethod
+    def _get_children(self) -> list['_Conditional_nHTML']:
+        pass
+
+
+
+@dataclass(kw_only=True)
+class _Nested_Conditional_nHTML(_Conditional_nHTML, _Nested_Conditional):
+    def _should_render(self,*args,**kwargs) -> bool:
+        return any(child._should_render(*args, **kwargs) for child in self._get_children())
 
 @dataclass(kw_only=True)
 class Skill(_Conditional_nHTML):
@@ -106,6 +120,9 @@ class Skill(_Conditional_nHTML):
     @staticmethod
     def _clean_name(name:str) -> str:
         return name.lower()
+    
+    def clean_name(self) -> str:
+        return self._clean_name(self.name)
 
     def __new__(cls, name, *args, **kwargs):
         # Why am I comfortable making singleton instances at runtime?
@@ -115,14 +132,14 @@ class Skill(_Conditional_nHTML):
         return instance
 
     def __hash__(self):
-        return hash(self._clean_name(self.name))
-
+        return hash(self.clean_name())
+    
     def _should_render(self, skill_weights:dict[str,float]={}, **kwargs) -> bool:
-        return skill_weights.get(self._clean_name(self.name), False) # Let falsy (ie 0) weights get interpreted as non rendering
+        return skill_weights.get(self.clean_name(), False) # Let falsy (ie 0) weights get interpreted as non rendering
         # return self._clean_name(self.name) in skill_weights
     
     def _sort_key(self, skill_weights:dict[str,float]={}, **kwargs) -> float:
-        name = self._clean_name(self.name)
+        name = self.clean_name()
         weight = skill_weights.get(name, 0)
         instances = self._instances_and_counts[name][1]
         return (-weight, -instances, name) # Allow sorting ascending
@@ -147,13 +164,16 @@ class Person(_NestedHTML):
 
 
 @dataclass(kw_only=True)
-class Achievement(_Conditional_nHTML):
+class Achievement(_Nested_Conditional_nHTML):
     headline:str
     skills:list[Skill] = field(default_factory=list)
     portfolio_link:str = None
 
-    def _should_render(self, **kwargs) -> bool:
-        return super()._should_render(*self.skills, **kwargs)
+    def _get_children(self) -> list['_Conditional_nHTML']:
+        return self.skills
+    
+    def __repr__(self) -> str:
+        return f"<Achievement '{self.headline}' with {len(self.skills)} skills and {'a' if self.portfolio_link is not None else 'no'} portfolio link>"
 
 @dataclass(kw_only=True)
 class Between(_NestedHTML):
@@ -161,7 +181,7 @@ class Between(_NestedHTML):
     end:date = None
 
 @dataclass(kw_only=True)
-class Effort(_Conditional_nHTML):
+class Effort(_Nested_Conditional_nHTML):
     title:str
     headline:str
     website:str = None
@@ -169,8 +189,11 @@ class Effort(_Conditional_nHTML):
     achievements:list[Achievement] = field(default_factory=list)
     sub_tasks:list['Effort'] = field(default_factory=list)
 
-    def _should_render(self, **kwargs) -> bool:
-        return super()._should_render(*self.achievements, *self.sub_tasks, **kwargs)
+    def _get_children(self) -> list['_Conditional_nHTML']:
+        return self.achievements + self.sub_tasks
+    
+    def __repr__(self) -> str:
+        return f"<Effort '{self.title}' ({self.headline}) with {len(self.achievements)} achievements and {len(self.sub_tasks)} subtasks>"
 
 @dataclass(kw_only=True)
 class Occupation(Effort):
@@ -178,6 +201,9 @@ class Occupation(Effort):
     subtitle:str
     supervisor:Person = None
     location:str = None
+
+    def __repr__(self) -> str:
+        return f"<Occupation '{self.title}' ({self.headline} at {self.location} under {self.supervisor}) with {len(self.achievements)} achievements and {len(self.sub_tasks)} subtasks>"
 
 @dataclass(kw_only=True)
 class Certification(Achievement):
@@ -188,7 +214,7 @@ class Certification(Achievement):
     confirmation_info:dict = field(default_factory=dict)
 
 @dataclass(kw_only=True)
-class Resume(_NestedHTML):
+class Resume(_Nested_Conditional):
     person:Person
     headline:str
     # about:dict
@@ -231,6 +257,9 @@ class Resume(_NestedHTML):
     def write_html_to_file(self, filepath="docs/resume.html", **kwargs):
         with open(filepath, "w+") as f:
             f.write(self.__repr_html__(**kwargs))
+
+    def _get_children(self) -> list['_Conditional_nHTML']:
+        return self.education + self.employment + self.projects + list(self.skills)
 
     def host(self, *args, **kwargs):
         self.write_html_to_file(*args, **kwargs)

@@ -9,10 +9,10 @@ def get_job_descriptions(raw_job_details:dict) -> pd.DataFrame:
         } for key, data in raw_job_details.items()
     ]).set_index("id")
 
-def get_job_skills_data(raw_job_details:dict) -> pd.DataFrame:
+def get_job_skills_data(raw_job_details:dict, *args, **kwargs) -> pd.DataFrame:
     return pd.concat(
-            {key: jsw.extract_skills_data(value) for key, value in raw_job_details.items()},
-        names=["id", "teal category", "skill name"]
+        {key: jsw.extract_skills_data(value, *args, **kwargs) for key, value in raw_job_details.items()},
+        names=["id"]
     )
 
 category_biases = pd.Series({
@@ -28,12 +28,12 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
     # Construct dataframe from raw job details, 
     #   summing between skills listed under multiple teal categories, 
     #   and filtered by skills I have categories for (a loose standin for skills present on the resume).
-    jobs_skills_data = get_job_skills_data(raw_job_details=raw_job_details)\
+    job_skills_data = get_job_skills_data(raw_job_details=raw_job_details)\
         .groupby(level=[0,2]).sum()\
-        .query("`skill name`.isin(@skill_cat.skill_to_categories.keys())")
+        .query("`skill`.isin(@skill_cat.skill_to_categories.keys())")
 
     # Compute the share of each job a skill appears to represent.
-    jobs_skills_data["share of job"] = jobs_skills_data["count"] / jobs_skills_data["count"].groupby("id").sum()
+    job_skills_data["share of job"] = job_skills_data["count"] / job_skills_data["count"].groupby("id").sum()
 
     # Prepare a dataframe of every combination of (job, category, skill-in-category), 
     #   prefilled with the share of the job listing each skill represents or zero if not present, 
@@ -44,12 +44,12 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
     jobs_categories_skills_data = pd.DataFrame([{
             "id":job_id,
             "category":category,
-            "skill name":skill_name,
-            "share of job":jobs_skills_data["share of job"].get((job_id, skill_name), 0)/float(len(categories_skill_is_in)),
+            "skill":skill_name,
+            "share of job":job_skills_data["share of job"].get((job_id, skill_name), 0)/float(len(categories_skill_is_in)),
         } for job_id in raw_job_details.keys()
             for skill_name, categories_skill_is_in in skill_cat.skill_to_categories.items()
                 for category in categories_skill_is_in
-    ]).set_index(["id", "category", "skill name"]).sort_index() # Sort the index so it's easy to read. Not a requirement.
+    ]).set_index(["id", "category", "skill"]).sort_index() # Sort the index so it's easy to read. Not a requirement.
     
 
     # This relies on pandas' implicit joins.
@@ -60,7 +60,7 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
     #
     # For each (job, category, skill) nicknamed `jcs`:
     #   - `list_weight` * `share of job` contributes directly to that `jcs`'s final weight. I would call this the `listed contribution`,
-    #       because it stems directly from whether a skill was listed in the job posting.
+    #       because it arises directly from whether a skill was listed in the job posting.
     #   - `1-list_weight`*`share of job` is divided equally among all `jcs`s in that (job, category). 
     #       This is done by grouping by (job, category) and taking the mean. I would call this the `implicit contribution`.
     #
