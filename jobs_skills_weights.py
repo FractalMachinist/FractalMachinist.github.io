@@ -1,4 +1,4 @@
-import requests, pandas as pd, multiprocessing.dummy, pathlib, homonyms
+import requests, pandas as pd, multiprocessing.dummy, pathlib, synonyms
 __location__ = pathlib.Path(__file__).parent
 
 # TODO: I should/could probably directly use the tool Teal is using. They support it on GitHub.
@@ -37,11 +37,11 @@ def get_raw_job_details(jobs:pd.DataFrame, *args, pool=None, **kwargs) -> dict:
     auth_header = teal_auth_header(*args, **kwargs)
     return dict(zip(jobs.index, pool.map(lambda job_id: get_job_details(job_id=job_id, auth_header=auth_header), jobs.index)))
 
-def extract_skills_data(job_details, *args, collapse_teal_names=True, collapse_teal_categories=True, **kwargs):
+def extract_skills_data(job_details):
     return pd.DataFrame([{
-            "skill":homonyms.homonym(skill_name.lower()),
-            "tealPhrase":skill_name,
+            "skill":synonyms.synonym(skill_name.lower()),
+            "skill text":skill_name,
             "count":max(1, len(skill_data["positions"])),
             "teal category":skill_data["category"]
         } for skill_name, skill_data in job_details["attributes"]["skills"]["tealPhrases"].items()
-        ], columns=["skill", "tealPhrase", "count", "teal category"]).set_index(["teal category", "skill", "tealPhrase"])
+        ], columns=["skill", "skill text", "count", "teal category"]).set_index(["teal category", "skill", "skill text"])

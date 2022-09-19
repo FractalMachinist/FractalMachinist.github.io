@@ -12,7 +12,6 @@ optimization,optimizing,optimizations,optimize
 
 # Specificity Homonyms
 agile,agile team,agile teams,agile methodology
-business requirements,business needs,business problems
 git,github,version control
 implementation,implement solutions
 machine learning,machine learning algorithms,artificial intelligence,ai
@@ -26,7 +25,7 @@ problem solving,solving problems,problem solvers,problem solver
 prototyping,rapid prototyping
 research,research and development,researching
 
-managing requirements,requirements,product requirements,business requirements
+managing requirements,requirements,product requirements,business requirements,business needs,business problems
 
 scale,scalable,large scale
 sdlc,software development

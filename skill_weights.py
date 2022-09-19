@@ -9,9 +9,9 @@ def get_job_descriptions(raw_job_details:dict) -> pd.DataFrame:
         } for key, data in raw_job_details.items()
     ]).set_index("id")
 
-def get_job_skills_data(raw_job_details:dict, *args, **kwargs) -> pd.DataFrame:
+def get_job_skills_data(raw_job_details:dict) -> pd.DataFrame:
     return pd.concat(
-        {key: jsw.extract_skills_data(value, *args, **kwargs) for key, value in raw_job_details.items()},
+        {key: jsw.extract_skills_data(value) for key, value in raw_job_details.items()},
         names=["id"]
     )
 
