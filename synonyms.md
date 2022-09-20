@@ -1,53 +1,52 @@
-# Gramatical Homonyms
-analysis,analytical,analyzing,analytics
-automation,automating,automate
-collaboration,collaborate,collaborative,collaborating
+# Gramatical Synonyms
+Analysis,Analytics,Analytical
+Automation,Automating
 
-experimentation,experimenting
-genetics,genetic
-implementation,implementing,implement
-integration,integrations
-optimization,optimizing,optimizations,optimize
+## Not stemming this because they each seem independently popular
+Collaboration,Collaborative,Collaborating
 
+# Specificity Synonyms
+Agile,Agile Teams,Agile Methodology
+Git,GitHub,Version Control
+Software Engineering,Coding,Implementation,Implement Solutions
+Machine Learning,Machine Learning Algorithms,Artificial Intelligence,AI,Artificial Intelligence Systems
+Algebra,Linear Algebra,Matrix Algebra
+Multidisciplinary,Cross Functional
+Optimization,High Performance
+Computer Science,CS
+Communication,Communicate Results,Written Communication,Professional Communication,Communication Skills,Presentation Skills,Writing,Technical Communication,Technical Writing
+Problem Solving,Solving Problems,Problem Solvers,Problem Solver
+Prototyping,Rapid Prototyping
+Research,Research and Development,Experimentation
 
-# Specificity Homonyms
-agile,agile team,agile teams,agile methodology
-git,github,version control
-implementation,implement solutions
-machine learning,machine learning algorithms,artificial intelligence,ai
-algebra,linear algebra,matrix algebra
-multidisciplinary,cross functional
-optimization,optimizing,high performance,optimizations,optimize
-computer science,cs
-technical communication,technical writing
-communication,communicate results,written communication,professional communication,communication skills,presentation skills,writing
-problem solving,solving problems,problem solvers,problem solver
-prototyping,rapid prototyping
-research,research and development,researching
+Managing Requirements,Requirements,Product Requirements,Business Requirements,Business Needs,Business Problems
 
-managing requirements,requirements,product requirements,business requirements,business needs,business problems
+Scale,Scalable,Large Scale
+SDLC,Software Development
+Statistics,Bayesian Statistics
 
-scale,scalable,large scale
-sdlc,software development
-statistics,bayesian statistics
+NLP,Natural Language Processing
 
 # These are a bit more of a stretch
 ## Supersetting the name for better user readability
-data pipelines,pipelines,pipeline
-api design,api
-stakeholder support,stakeholders
-remote work,fully remote,work independently
-azure databricks,databricks
+API Design,API
+
+Remote Work,Fully Remote,Work Independently
+Azure Databricks,Databricks
+Data,Data Science,Data Engineering,Data Manipulation
+Big Data,Data Pipelines,Pipelines
 
 ## Subsetting the name
-infrastructure,scalable infrastructure
-
-## Grouping stems to filter
-partner,partners
+Infrastructure,Scalable Infrastructure
 
 ## Collective Equilvalences
-network architectures,convolutional neural networks
-microcontrollers,embedded systems
-containerization,docker,kubernetes,operations,deployment,devops
-web development,react,html,css,flask,web applications
-project management,service management,management
+Neural Network Architectures,Neural Networks,Convolutional Neural Networks
+Microcontrollers,Embedded Systems
+Containerization,Docker,Kubernetes,Operations,Deployment,DevOps
+Web Development,Web Applications,React,Flask
+HTML,HTML5
+Project Management,Service Management,Management
+
+# Controlling Style
+End to End
+QA

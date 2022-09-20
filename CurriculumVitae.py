@@ -24,8 +24,12 @@ def _grouper(to_group:list['_NestedHTML'], template_name, group_arg_name, **kwar
 def _list_to_ul(listed:list['_NestedHTML'], **kwargs):
     return _grouper(listed, '_list_to_ul', 'listed', **kwargs)
 
-def skills_div(skills:list['SkillSynonymGroup'], **kwargs):
-    return _grouper(sorted(skills, key=lambda skl: skl._sort_key(**kwargs)), '_skills_div', 'skills', **kwargs)
+def skills_div(skill_syn_groups:list['SkillSynonymGroup'], **kwargs):
+    skills = sorted(
+        [skill for skill_syn_group in skill_syn_groups for skill in skill_syn_group._get_conditional_children(**kwargs)],
+        key = lambda skl: skl._sort_key(**kwargs)
+    )
+    return _grouper(skills, '_skills_div', 'skills', **kwargs)
 
 
 def Skills(*args):
@@ -89,6 +93,10 @@ class _NestedHTML():
 @dataclass(kw_only=True)
 class _Conditional_nHTML(_NestedHTML):
 
+    # @abstractmethod
+    # def _get_share(self, **kwargs) -> float:
+    #     pass
+
     @abstractmethod
     def _should_render(self,**kwargs) -> bool:
         pass
@@ -109,42 +117,71 @@ class _Nested_Conditional(_NestedHTML):
 
 @dataclass(kw_only=True)
 class _Nested_Conditional_nHTML(_Conditional_nHTML, _Nested_Conditional):
+
+    # def _get_share(self, **kwargs) -> float:
+    #     return sum([child._get_share(**kwargs) for child in self._get_conditional_children(**kwargs)])
+
     def _should_render(self,**kwargs) -> bool:
+        # return self._get_share(**kwargs) > 0
         return any(child._should_render(**kwargs) for child in self._get_conditional_children(**kwargs))
 
-
-# It's very possible this should be expanded to a `_Nested_Conditional_nHTML` to better support ignoring synonyms. For the moment, I won't do that.
 @dataclass(kw_only=True)
-class SkillSynonymGroup(_Conditional_nHTML):
+class Skill(_Conditional_nHTML):
+    synonym_base:str
+    name:str
+    num_instances:int
+    share:float
+
+    def __hash__(self):
+        return hash(self.name.lower())
+
+    # def _get_share(self, **kwargs) -> float:
+    #     return self.share
+
+    def _should_render(self, **kwargs) -> bool:
+        return self.share > 0
+    
+    def _sort_key(self, **kwargs) -> tuple:
+        return (
+            -self.share,
+            -self.num_instances,
+            self.name.lower()
+        )
+
+@dataclass(kw_only=True)
+class SkillSynonymGroup(_Nested_Conditional_nHTML):
     _instances_and_counts = dict()
     name:str
-
-    @staticmethod
-    def _clean_name(name:str) -> str:
-        return name.lower()
     
-    def clean_name(self) -> str:
-        return self._clean_name(self.name)
-
     def __new__(cls, name, *args, **kwargs):
         # Why am I comfortable making singleton instances at runtime?
         # Because this is a prototype, and if we wanted it to be bigger, we'd make a database with a uniqueness constraint.
-        instance, old_count = SkillSynonymGroup._instances_and_counts.setdefault(cls._clean_name(name), (super().__new__(cls), 0))
-        SkillSynonymGroup._instances_and_counts[cls._clean_name(name)] = (instance, old_count + 1)
+        instance, old_count = SkillSynonymGroup._instances_and_counts.setdefault(name.lower(), (super().__new__(cls), 0))
+        SkillSynonymGroup._instances_and_counts[name.lower()] = (instance, old_count + 1)
         return instance
 
     def __hash__(self):
-        return hash(self.clean_name())
-    
-    def _should_render(self, skill_text_shares:dict[str,dict[str,float]]={}, **kwargs) -> bool:
-        return sum(skill_text_shares.get(self.clean_name(), {}).values()) > 0
-    
-    def __repr_html__(self, skill_text_shares:dict[str,dict[str,float]]={}, **kwargs):
-        synonyms = skill_text_shares.get(self.clean_name(), {})
-        return super().__repr_html__(**kwargs)
-    
+        return hash(self.name.lower())
 
+    def get_num_instances(self):
+        return self._instances_and_counts[self.name.lower()][1]
+        
+    def _get_conditional_children(self, skill_text_shares:dict[str,dict[str,float]]={}, **kwargs) -> list['_Conditional_nHTML']:
+        return [
+            Skill(
+                synonym_base=self.name, 
+                name=name, 
+                num_instances=self.get_num_instances(),
+                share=share
+            ) for name, share in skill_text_shares.get(self.name.lower(), {}).items()
+        ]
 
+    # In normal use, this method should *not* get called.
+    # Instead, SkillSynonymGroup should automatically get skipped by a higher object calling `skill_div` on its own list of skills.
+    # However, the method is compliant.
+    def __repr_html__(self, **kwargs):
+        return skills_div([self], **kwargs)
+    
 
 @dataclass(kw_only=True)
 class ContactInfo(_NestedHTML):
@@ -183,12 +220,14 @@ class Effort(_Nested_Conditional_nHTML):
     title:str
     headline:str
     website:str = None
+    
+    skills:list[SkillSynonymGroup] = field(default_factory=list)
 
     achievements:list[Achievement] = field(default_factory=list)
     sub_tasks:list['Effort'] = field(default_factory=list)
 
     def _get_conditional_children(self, *args, **kwargs) -> list['_Conditional_nHTML']:
-        return self.achievements + self.sub_tasks
+        return self.achievements + self.sub_tasks + self.skills
     
     def __repr__(self) -> str:
         return f"<Effort '{self.title}' ({self.headline}) with {len(self.achievements)} achievements and {len(self.sub_tasks)} subtasks>"

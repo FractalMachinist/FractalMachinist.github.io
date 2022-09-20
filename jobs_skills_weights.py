@@ -39,9 +39,16 @@ def get_raw_job_details(jobs:pd.DataFrame, *args, pool=None, **kwargs) -> dict:
 
 def extract_skills_data(job_details):
     return pd.DataFrame([{
-            "skill":synonyms.synonym(skill_name.lower()),
-            "skill text":skill_name,
+            "skill":synonyms.synonym(skill_name),
+            "skill text":synonyms.stylize(skill_data["original"]),
+            # "skill original":skill_data["original"],
             "count":max(1, len(skill_data["positions"])),
             "teal category":skill_data["category"]
         } for skill_name, skill_data in job_details["attributes"]["skills"]["tealPhrases"].items()
-        ], columns=["skill", "skill text", "count", "teal category"]).set_index(["teal category", "skill", "skill text"])
+        ], columns=[
+            "skill", 
+            "skill text", 
+            # "skill original", 
+            "count", 
+            "teal category"
+        ]).set_index(["teal category", "skill", "skill text"])

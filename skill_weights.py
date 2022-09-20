@@ -55,7 +55,7 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
     
     # TODO: Document!
     jcst_data = (job_skill_text_shares / jcs_num_categories).reset_index().fillna({"share of job":0}) # jcst_data => jobs_categories_skills_text_data
-    jcst_data["skill text"].fillna(jcst_data["skill"], inplace=True)
+    jcst_data["skill text"].fillna(jcst_data["skill"].apply(skill_cat.skill_to_skill_title.get), inplace=True)
     jcst_data = jcst_data.set_index(["id","category","skill","skill text"]).sort_index()
 
 
