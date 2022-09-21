@@ -3,7 +3,7 @@
 Collaboration,Collaborate
 Automation,Automate
 Experimentation,Experimenting
-Innovative,Innovation
+Innovation,Innovative
 Optimization,Optomizing,Optimize,Optimizations
 Implementation,Implement,Implementing
 Research,Researching

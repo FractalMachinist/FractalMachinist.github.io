@@ -46,6 +46,7 @@ Containerization,Docker,Kubernetes,Operations,Deployment,DevOps
 Web Development,Web Applications,React,Flask
 HTML,HTML5
 Project Management,Service Management,Management
+Linux,Unix
 
 # Controlling Style
 End to End
