@@ -166,15 +166,26 @@ class SkillSynonymGroup(_Nested_Conditional_nHTML):
     def get_num_instances(self):
         return self._instances_and_counts[self.name.lower()][1]
         
-    def _get_conditional_children(self, skill_text_shares:dict[str,dict[str,float]]={}, **kwargs) -> list['_Conditional_nHTML']:
-        return [
-            Skill(
-                synonym_base=self.name, 
-                name=name, 
-                num_instances=self.get_num_instances(),
-                share=share
-            ) for name, share in skill_text_shares.get(self.name.lower(), {}).items()
-        ]
+    def _get_conditional_children(self, skill_text_shares:dict[str,dict[str,float]]=None, **kwargs) -> list['_Conditional_nHTML']:
+        if skill_text_shares: # Check for falsity also catches None or empty, dumping them to the default behavior of just representing self as a Skill
+            return [
+                Skill(
+                    synonym_base=self.name, 
+                    name=name, 
+                    num_instances=self.get_num_instances(),
+                    share=share
+                ) for name, share in skill_text_shares.get(self.name.lower(), {}).items()
+            ]
+        else:
+            return [
+                Skill(
+                    synonym_base=self.name,
+                    name=self.name,
+                    num_instances=self.get_num_instances(),
+                    share=0
+                )
+            ]
+
 
     # In normal use, this method should *not* get called.
     # Instead, SkillSynonymGroup should automatically get skipped by a higher object calling `skill_div` on its own list of skills.
