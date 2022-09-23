@@ -37,7 +37,7 @@ def get_raw_job_details(jobs:pd.DataFrame, *args, pool=None, **kwargs) -> dict:
     auth_header = teal_auth_header(*args, **kwargs)
     return dict(zip(jobs.index, pool.map(lambda job_id: get_job_details(job_id=job_id, auth_header=auth_header), jobs.index)))
 
-def extract_skills_data(job_details):
+def extract_skill_counts(job_details):
     return pd.DataFrame([{
             "skill":synonyms.synonym(skill_name),
             "skill text":synonyms.stylize(skill_data["original"]),

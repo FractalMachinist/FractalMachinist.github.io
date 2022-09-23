@@ -1,29 +1,22 @@
-# Gramatical Synonyms
-Analysis,Analytics,Analytical
-Automation,Automating
-
-## Not stemming this because they each seem independently popular
-Collaboration,Collaborative,Collaborating
-
 # Specificity Synonyms
 Agile,Agile Teams,Agile Methodology
 Git,GitHub,Version Control
 Software Engineering,Coding,Implementation,Implement Solutions
-Machine Learning,Machine Learning Algorithms,Artificial Intelligence,AI,Artificial Intelligence Systems
+Machine Learning,Machine Learning Algorithms,Artificial Intelligence,Artificial Intelligence Systems
 Algebra,Linear Algebra,Matrix Algebra
 Multidisciplinary,Cross Functional
 Optimization,High Performance
-Computer Science,CS
 Communication,Communicate Results,Written Communication,Professional Communication,Communication Skills,Presentation Skills,Writing,Technical Communication,Technical Writing
 Problem Solving,Solving Problems,Problem Solvers,Problem Solver
 Prototyping,Rapid Prototyping
 Research,Research and Development,Experimentation
 
 Managing Requirements,Requirements,Product Requirements,Business Requirements,Business Needs,Business Problems
-
-Scale,Scalable,Large Scale
 SDLC,Software Development
 Statistics,Bayesian Statistics
+Analytics,Analytical Skills,Analytics Tools
+Cloud Computing,Cloud Services
+Tooling,New Tools,Build Tools
 
 NLP,Natural Language Processing
 
@@ -47,7 +40,9 @@ Web Development,Web Applications,React,Flask
 HTML,HTML5
 Project Management,Service Management,Management
 Linux,Unix
+Integration,Interoperation
 
 # Controlling Style
 End to End
 QA
+SQL

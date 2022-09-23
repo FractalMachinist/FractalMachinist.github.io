@@ -1,17 +1,24 @@
 @import url('/utilities/debug.css');
 @import url('/utilities/efforts.css');
 
-.resume_section>._list_to_ul {
+/* .resume_section_body>._list_to_ul {
     display:flex;
     flex-direction: column;
 }
 
-.resume_section>._list_to_ul>li{
+.resume_section_body>._list_to_ul>li{
     display:flex;
     flex-direction: column;
     flex:1 1 min-content;
     padding-inline-start: 10px;
-}
+} */
+
+
+
+
+
+
+
 
 ._list_to_ul>li>div:only-child{
     height:100%;

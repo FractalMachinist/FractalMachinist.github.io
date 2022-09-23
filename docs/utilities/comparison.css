@@ -1,0 +1,44 @@
+.content {
+    overflow-y:auto;
+    max-height:100%;
+    height:min-content;
+    flex: 1 1 min-content;
+}
+
+#resume_main {
+    height:min-content;
+}
+
+.shrink {
+    flex: 0 1 min-content;
+}
+
+.grow {
+    flex: 4 1 min-content;
+}
+
+table {
+    position: relative;
+    border-spacing: 5px 0px;
+}
+
+thead {
+    position: sticky;
+    top:0;
+    background:white;
+    
+}
+
+th.row_heading {
+    vertical-align:top;
+    text-align:left;
+}
+
+.skill_sort, .cat_sort {
+    overflow-y:scroll;
+    flex:auto;
+}
+
+.cat_sort{
+    flex:1 0 fit-content;
+}

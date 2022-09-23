@@ -32,18 +32,22 @@
             </header>
 
             <div id="resume_body">
+                
+                <section class="resume_section">
+                    <h{{depth+1}} class="resume_section_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
+                    <div class="resume_section_body">{{employment}}</div>
+                </section>
 
-                <!-- <h{{depth+1}} class="resume_section_heading">ABOUT ME</h{{depth+1}}>
-                <div class="resume_section"><p>{{headline}}</p></div> -->
+                <section class="resume_section">
+                    <h{{depth+1}} class="resume_section_heading">PROJECTS</h{{depth+1}}>
+                    <div class="resume_section_body">{{projects}}</div>
+                </section>
 
-                <h{{depth+1}} class="resume_section_heading">EDUCATION</h{{depth+1}}>
-                <div class="resume_section">{{education}}</div>
+                <section class="resume_section">
+                    <h{{depth+1}} class="resume_section_heading">EDUCATION</h{{depth+1}}>
+                    <div class="resume_section_body">{{education}}</div>
+                </section>
 
-                <h{{depth+1}} class="resume_section_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
-                <div class="resume_section">{{employment if employment}}</div>
-
-                <h{{depth+1}} class="resume_section_heading">PROJECTS</h{{depth+1}}>
-                <div class="resume_section">{{projects}}</div>
             </div>
         </div>
     </body>

@@ -29,13 +29,26 @@
 
 .Skill.Skill_Selected {
     --skill-color: var(--skill-color-selected);
+}
+
+.Skill.Skill_Identified {
+    --skill-color: var(--skill-color-identified);
+}
+
+.Skill.Skill_Rejected {
+    --skill-color: var(--skill-color-rejected);
+}
+
+.Skill.Skill_Selected, .Skill.Skill_Identified, .Skill.Skill_Rejected {
     border-color:rgba(var(--skill-color),1);
     color:rgba(var(--skill-color),1);   
     border-radius:0px;
     box-shadow: none;
 }
 
-.Skill.Skill_Selected:hover{
+
+
+.Skill.Skill_Selected.Expanded, .Skill.Skill_Identified.Expanded, .Skill.Skill_Rejected.Expanded {
     box-shadow: 0px 0px 6px 0px rgba(var(--skill-color), 0.5);
     
 }

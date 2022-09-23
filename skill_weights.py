@@ -9,18 +9,20 @@ def get_job_descriptions(raw_job_details:dict) -> pd.DataFrame:
         } for key, data in raw_job_details.items()
     ]).set_index("id")
 
-def get_job_skills_data(raw_job_details:dict) -> pd.DataFrame:
+def get_job_skill_counts(raw_job_details:dict) -> pd.DataFrame:
     return pd.concat(
-        {key: jsw.extract_skills_data(value) for key, value in raw_job_details.items()},
+        {key: jsw.extract_skill_counts(value) for key, value in raw_job_details.items()},
         names=["id"]
     )
 
 # What fraction of a resume should be guaranteed dedicated to these categories?
 category_biases = pd.Series({
-        "Code":0.1,
-        "Data":0.2,
-        "Writing":0.1,
+        "Data Code":0.05,
+        "Data Engineering":0.1,
+        "Writing":0.05,
         "Soft":0.1,
+        "Unix":0.025,
+        "Python":0.1,
     }, index=pd.Index(skill_cat.category_to_skills.keys(), name="category")).fillna(0)
 
 
@@ -29,7 +31,7 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
     #   summing between skills listed under multiple teal categories, 
     #   and filtered by skills I have categories for (a loose standin for skills present on the resume).
     job_skill_text_shares = pd.concat(
-        {key: jsw.extract_skills_data(value) for key, value in raw_job_details.items()},
+        {key: jsw.extract_skill_counts(value) for key, value in raw_job_details.items()},
         names=["id"]
     ).groupby(level=["id","skill","skill text"]).sum().query("`skill`.isin(@skill_cat.skill_to_categories.keys())").sort_index()
 
@@ -56,7 +58,7 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
     # TODO: Document!
     jcst_data = (job_skill_text_shares / jcs_num_categories).reset_index().fillna({"share of job":0}) # jcst_data => jobs_categories_skills_text_data
     jcst_data["skill text"].fillna(jcst_data["skill"].apply(skill_cat.skill_to_skill_title.get), inplace=True)
-    jcst_data = jcst_data.set_index(["id","category","skill","skill text"]).sort_index()
+    jcst_data = jcst_data.set_index(["id","category","skill","skill text"]).sort_index().rename(columns={"share of job":"skill weight"})
 
 
     # TODO: Document!
@@ -65,7 +67,7 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
 
     # TODO: Document!
     if use_category_bias:
-        jcst_wc["share of job"] = (jcst_wc["share of job"] * (1-category_biases.sum())) + (category_biases/jcst_wc.groupby(level=["id","category"]).size())
+        jcst_wc["skill weight"] = (jcst_wc["skill weight"] * (1-category_biases.sum())) + (category_biases/jcst_wc.groupby(level=["id","category"]).size())
     
     if collapse_categories:
         return jcst_wc.groupby(level=["id","skill","skill text"]).sum()

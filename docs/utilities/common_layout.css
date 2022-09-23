@@ -4,27 +4,20 @@
 @import url('/utilities/heading_styles.css');
 @import url('/utilities/content_styles.css');
 
-
+/* 
 @media print {
     @page { margin: 0; }
     html { 
-        /* border: 3px solid blue; */
         zoom: 66%;
         height: 100%; 
     }
     body { 
-        /* border: 2px solid red;  */
         height: 99%;
         margin: 0px; 
         padding: 8px; 
     }
 
     #resume_flex_vertical {
-        /* border: 1px solid green; */
         height: 99% !important;
     }
-
-    /* .resume_flex_vertical {
-        zoom: 64%;
-    } */
-}
+} */
