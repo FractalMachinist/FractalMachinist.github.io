@@ -6,12 +6,12 @@ Machine Learning,Machine Learning Algorithms,Artificial Intelligence,Artificial 
 Algebra,Linear Algebra,Matrix Algebra
 Multidisciplinary,Cross Functional
 Optimization,High Performance
-Communication,Communicate Results,Written Communication,Professional Communication,Communication Skills,Presentation Skills,Writing,Technical Communication,Technical Writing
+Communication,Communicate Results,Written Communication,Professional Communication,Communication Skills,Presentation Skills,Writing,Technical Communication,Technical Writing,Technical Content,Technical Documentation
 Problem Solving,Solving Problems,Problem Solvers,Problem Solver
 Prototyping,Rapid Prototyping
 Research,Research and Development,Experimentation
 
-Managing Requirements,Requirements,Product Requirements,Business Requirements,Business Needs,Business Problems
+Managing Requirements,Requirements,Product Requirements,Business Requirements,Business Needs,Business Problems,Technical Requirements
 SDLC,Software Development
 Statistics,Bayesian Statistics
 Analytics,Analytical Skills,Analytics Tools

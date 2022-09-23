@@ -26,6 +26,7 @@ thead {
     position: sticky;
     top:0;
     background:white;
+    border: 1px solid white;
     
 }
 

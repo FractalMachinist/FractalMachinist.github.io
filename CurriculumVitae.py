@@ -130,21 +130,22 @@ class Skill(_Conditional_nHTML):
     synonym_base:str
     name:str
     num_instances:int
-    share:float
+    weight:float
+    share_of_job:float=field(default=None)
 
     def __hash__(self):
         return hash(self.name.lower())
 
-    # def _get_share(self, **kwargs) -> float:
-    #     return self.share
+    # def _get_weight(self, **kwargs) -> float:
+    #     return self.weight
 
     def _should_render(self, **kwargs) -> bool:
-        return self.share > 0
+        return self.weight > 0
     
     def _sort_key(self, **kwargs) -> tuple:
         return (
-            -self.share,
-            -self.num_instances,
+            None if self.weight is None else -self.weight,
+            None if self.num_instances is None else -self.num_instances,
             self.name.lower()
         )
 
@@ -166,24 +167,26 @@ class SkillSynonymGroup(_Nested_Conditional_nHTML):
     def get_num_instances(self):
         return self._instances_and_counts[self.name.lower()][1]
         
-    def _get_conditional_children(self, skill_text_shares:dict[str,dict[str,float]]=None, **kwargs) -> list['_Conditional_nHTML']:
-        if skill_text_shares: # Check for falsity also catches None or empty, dumping them to the default behavior of just representing self as a Skill
-            return [
-                Skill(
-                    synonym_base=self.name, 
-                    name=name, 
-                    num_instances=self.get_num_instances(),
-                    share=share
-                ) for name, share in skill_text_shares.get(self.name.lower(), {}).items()
-            ]
-        else:
+    def _get_conditional_children(self, skill_text_weights:dict[str,dict[str,dict[str, float]]]={}, **kwargs) -> list['_Conditional_nHTML']:
+        if len(skill_text_weights) == 0:
             return [
                 Skill(
                     synonym_base=self.name,
                     name=self.name,
                     num_instances=self.get_num_instances(),
-                    share=0
+                    weight=None,
+                    share_of_job=None
                 )
+            ]
+        else:
+            return [
+                Skill(
+                    synonym_base=self.name, 
+                    name=name, 
+                    num_instances=self.get_num_instances(),
+                    weight=data["skill weight"],
+                    share_of_job=data["share of job"]
+                ) for name, data in skill_text_weights.get(self.name.lower(), {}).items()
             ]
 
 
@@ -317,7 +320,7 @@ class Resume(_Nested_Conditional):
 @dataclass(kw_only=True)
 class JobListing:
     name:str
-    skill_text_shares:dict[str,float] = field(default_factory=dict)
+    skill_text_weights:dict[str,float] = field(default_factory=dict)
     exports:list[str] = field(default_factory=list)
     stylesheet:str = "lighttheme"
 
@@ -351,7 +354,7 @@ class JobListing:
         publish_args = {
             "filepath":f"docs/{public_path}.html",
             "stylesheet":self.stylesheet,
-            "skill_text_shares":self.skill_text_shares}
+            "skill_text_weights":self.skill_text_weights}
         publish_args.update(kwargs)
         resume.write_html_to_file(**publish_args)
 
@@ -361,7 +364,7 @@ class JobListing:
             "alt_template_prefixes":{"*": "pdf"},
             "resume_link": f"http://fractalmachini.st/{public_path}.html",
             "stylesheet":self.stylesheet,
-            "skill_text_shares":self.skill_text_shares}
+            "skill_text_weights":self.skill_text_weights}
         pdf_args.update(kwargs)
         resume.write_html_to_file(**pdf_args)
 
