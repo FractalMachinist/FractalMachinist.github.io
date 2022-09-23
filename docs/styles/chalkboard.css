@@ -30,6 +30,8 @@ body {
 
   --skill-color:255,255,255;
   --skill-color-selected: 25, 249, 115;
+  --skill-color-identified: 115, 25, 249;
+  --skill-color-rejected: 249, 115, 25;
 
   --subtle-color:rgba(255,255,255,0.3);
 
