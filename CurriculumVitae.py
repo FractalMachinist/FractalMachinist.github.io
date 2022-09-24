@@ -320,7 +320,7 @@ class Resume(_Nested_Conditional):
 @dataclass(kw_only=True)
 class JobListing:
     name:str
-    skill_text_weights:dict[str,float] = field(default_factory=dict)
+    skill_text_weights:dict[str,dict[str,dict[str, float]]] = field(default_factory=dict)
     exports:list[str] = field(default_factory=list)
     stylesheet:str = "lighttheme"
 
