@@ -1,4 +1,13 @@
-@import url("/utilities/common_layout.css");
+@import url('/utilities/debug.css');
+
+@import url('/utilities/text_styles.css');
+@import url('/utilities/header_person.css');
+@import url('/utilities/person.css');
+@import url('/utilities/heading_styles.css');
+@import url('/utilities/content_styles.css');
+@import url('/utilities/efforts.css');
+
+
 @import url('/utilities/sections.css');
 
 .headline_4, .headline_5, ._achievement>p {

@@ -1,46 +1,22 @@
-/* .resume_section_body>._list_to_ul {
-    border: 3px solid red;
+@media print {
+    body, .resume_section,  .Occupation, .Effort{
+        background-size:100% 1in;
+        background-repeat:y;
+        background-image:
+        repeating-linear-gradient(to bottom, transparent, transparent calc(50% - 2px), red 50%),
+        linear-gradient(to right, black 2px, transparent 2px),
+        linear-gradient(to bottom, grey 2px, white 2px);
+        
+    }
 }
 
-.resume_section_body>._list_to_ul>li{
-    border:2px solid green;
-}
-
-._list_to_ul>li>div:only-child{
-    border:2px dashed lightseagreen
-}
-
-.effort_body{
-    border: 3px solid blue;
-}
-
-.effort_body_sections{
-    border: 3px solid blueviolet;
-}
-
-.effort_body_section {
-    border: 3px solid violet;
-}
-
-.effort_body_section_content {
-    border: 3px solid magenta;
-} */
 
 
-/* 
-html {
-    border: 3px solid red;
-    height:fit-content;
-}
-
-body {
-    border: 3px solid green;
-}
-
-div.resume_flex_vertical {
-    border: 3px solid blue;
-}
-
-div.resume_body {
-    border: 3px dashed black;
+/* body {
+    background-size: 1in 1in;
+    background-image:
+    repeating-linear-gradient(to right, transparent, transparent calc(50% - 2px), red 50%),
+    repeating-linear-gradient(to bottom, transparent, transparent calc(50% - 2px), red 50%),
+    linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
 } */

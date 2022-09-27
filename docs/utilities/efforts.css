@@ -26,6 +26,7 @@
 
 .effort_body_section_content>ul>li {
     flex:1 1 min-content;
-    margin-block-start:10px;
+    /* margin-block-start:10px; */
+    margin-block-start:7px;
     padding-inline-start:5px;
 }

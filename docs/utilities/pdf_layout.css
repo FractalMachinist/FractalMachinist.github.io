@@ -1,2 +1,26 @@
-@import url("/utilities/common_layout.css");
+@import url('/utilities/debug.css');
+
+@import url('/utilities/text_styles.css');
+@import url('/utilities/header_person.css');
+@import url('/utilities/person.css');
+@import url('/utilities/heading_styles.css');
+@import url('/utilities/content_styles.css');
+@import url('/utilities/efforts.css');
+
+
 @import url("/utilities/pdf_sections.css");
+
+
+
+
+@media print {
+
+    @page {
+        margin:0.2in 0 0.2in 0;
+        /* size: 8.5in 30in; */
+    }
+
+    body {
+        margin: 0 0.2in 0 0.2in;
+    }
+}
