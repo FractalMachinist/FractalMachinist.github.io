@@ -48,20 +48,26 @@
       </aside>
 
       <section id="resume_main">
-        <section class="resume_section education">
-          <h{{depth+1}} class="resume_subsection_heading">EDUCATION</h{{depth+1}}>
-          {{education}}
-        </section>
+        {% if education %}
+          <section class="resume_section education">
+            <h{{depth+1}} class="resume_subsection_heading">EDUCATION</h{{depth+1}}>
+            {{education}}
+          </section>
+        {% endif %}
     
-        <section class="resume_section experience">
-          <h{{depth+1}} class="resume_subsection_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
-          {{employment if employment}}
-        </section>
+        {% if employment %}
+          <section class="resume_section experience">
+            <h{{depth+1}} class="resume_subsection_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
+            {{employment}}
+          </section>
+        {% endif %}
     
-        <section class="resume_section projects">
-          <h{{depth+1}} class="resume_subsection_heading">PROJECTS</h{{depth+1}}>
-          {{projects}}
-        </section>
+        {% if projects %}
+          <section class="resume_section projects">
+            <h{{depth+1}} class="resume_subsection_heading">PROJECTS</h{{depth+1}}>
+            {{projects}}
+          </section>
+        {% endif %}
       </section>
     </section>
 

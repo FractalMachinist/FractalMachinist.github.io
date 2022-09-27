@@ -6,7 +6,11 @@ Machine Learning,Machine Learning Algorithms,Artificial Intelligence,Artificial 
 Algebra,Linear Algebra,Matrix Algebra
 Multidisciplinary,Cross Functional
 Optimization,High Performance
-Communication,Communicate Results,Written Communication,Professional Communication,Communication Skills,Presentation Skills,Writing,Technical Communication,Technical Writing,Technical Content,Technical Documentation
+
+Communication Skills,Written Communication,Professional Communication,Presentation Skills,Writing,Communication
+
+Technical Communication,Communicate Results,Technical Writing,Technical Content,Technical Documentation
+
 Problem Solving,Solving Problems,Problem Solvers,Problem Solver
 Prototyping,Rapid Prototyping
 Research,Research and Development,Experimentation

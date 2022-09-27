@@ -17,10 +17,12 @@ def get_job_skill_counts(raw_job_details:dict) -> pd.DataFrame:
 
 # What fraction of a resume should be guaranteed dedicated to these categories?
 category_biases = pd.Series({
-        "Data Code":0.05,
-        "Unix":0.01,
-        "Soft":0.05,
-        "Python":0.01
+        # "Data Code":0.05,
+        # "Unix":0.01,
+        "Communication":0.01,
+        "Team Skills":0.01,
+        "Work Styles":0.01,
+        # "Python":0.01
     }, index=pd.Index(skill_cat.category_to_skills.keys(), name="category")).fillna(0)
 
 

@@ -33,20 +33,26 @@
 
             <div id="resume_body">
                 
-                <section class="resume_section">
-                    <h{{depth+1}} class="resume_section_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
-                    <div class="resume_section_body">{{employment}}</div>
-                </section>
+                {% if employment %}
+                    <section class="resume_section">
+                        <h{{depth+1}} class="resume_section_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
+                        <div class="resume_section_body">{{employment}}</div>
+                    </section>
+                {% endif %}
 
-                <section class="resume_section">
-                    <h{{depth+1}} class="resume_section_heading">PROJECTS</h{{depth+1}}>
-                    <div class="resume_section_body">{{projects}}</div>
-                </section>
+                {% if projects %}
+                    <section class="resume_section">
+                        <h{{depth+1}} class="resume_section_heading">PROJECTS</h{{depth+1}}>
+                        <div class="resume_section_body">{{projects}}</div>
+                    </section>
+                {% endif %}
 
-                <section class="resume_section">
-                    <h{{depth+1}} class="resume_section_heading">EDUCATION</h{{depth+1}}>
-                    <div class="resume_section_body">{{education}}</div>
-                </section>
+                {% if education %}
+                    <section class="resume_section">
+                        <h{{depth+1}} class="resume_section_heading">EDUCATION</h{{depth+1}}>
+                        <div class="resume_section_body">{{education}}</div>
+                    </section>
+                {% endif %}
 
             </div>
         </div>
