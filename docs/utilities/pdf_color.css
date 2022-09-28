@@ -1,0 +1,34 @@
+
+.resume_section_heading, h3.entry_title {
+    color: rgb(var(--title-highlight-color));
+}
+
+.resume_section_heading {
+    text-shadow: -2px 1px 1px rgba(var(--title-highlight-color),0.3);
+}
+
+._list_to_ul>li::marker {
+    color: rgb(var(--title-highlight-color));
+}
+
+
+#resume_header {
+    background-color: rgb(var(--title-highlight-color));
+    color:rgba(255,255,255,0.8);
+}
+
+#resume_header .person_name {
+    --name-bracket-color: rgba(255,255,255,0.3);
+    text-shadow: -3px 2px 0px var(--subtle-color);
+    color:white;
+}
+
+
+#resume_header a:link, #resume_header a:visited {
+    color:rgba(255,255,255,0.8);
+}
+
+#resume_body a:link, #resume_body a:visited {
+    color: rgb(var(--title-highlight-color));
+}
+

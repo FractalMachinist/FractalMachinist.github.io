@@ -4,11 +4,10 @@
 @import url('/utilities/header_person.css');
 @import url('/utilities/person.css');
 @import url('/utilities/heading_styles.css');
-@import url('/utilities/content_styles.css');
-@import url('/utilities/efforts.css');
-
-
+@import url('/utilities/pdf_content_styles.css');
+@import url('/utilities/pdf_effort.css');
 @import url("/utilities/pdf_sections.css");
+@import url("/utilities/pdf_color.css");
 
 
 

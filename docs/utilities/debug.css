@@ -1,4 +1,4 @@
-@media print {
+/* @media print {
     body, .resume_section,  .Occupation, .Effort{
         background-size:100% 1in;
         background-repeat:y;
@@ -8,15 +8,4 @@
         linear-gradient(to bottom, grey 2px, white 2px);
         
     }
-}
-
-
-
-/* body {
-    background-size: 1in 1in;
-    background-image:
-    repeating-linear-gradient(to right, transparent, transparent calc(50% - 2px), red 50%),
-    repeating-linear-gradient(to bottom, transparent, transparent calc(50% - 2px), red 50%),
-    linear-gradient(to right, grey 1px, transparent 1px),
-    linear-gradient(to bottom, grey 1px, transparent 1px);
 } */

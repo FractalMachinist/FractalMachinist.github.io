@@ -1,0 +1,7 @@
+.effort_body_sections {
+    display:flex;
+}
+
+.effort_body_section {
+    flex: 1 1 min-content;
+}

@@ -1,4 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display+SC");
+
+@import url("https://fonts.googleapis.com/css?family=Quattrocento+Sans");
+
+:root {
+    --font-header: "Playfair Display SC", serif;
+    --font-subtitle: "Quattrocento Sans", sans-serif;
+    --font-body: "Biryani", sans-serif;
+
+    font-family: var(--font-body);
+    font-size:15px;
+}
+
+
 .subtle {
     font-style:italic;
     color:var(--subtle-color);
+}
+
+#header_about_me {
+    font-size:small;
+}
+
+#resume_header .person_name{
+    font-family: var(--font-header);
+    font-size: 64px;
+    font-weight:lighter !important;
+}
+
+h2, .entry_title {
+    font-family: var(--font-subtitle);
+    font-style:italic;
 }

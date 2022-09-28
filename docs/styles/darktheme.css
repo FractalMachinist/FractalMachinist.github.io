@@ -8,4 +8,6 @@ body {
     --skill-color-rejected: 249, 115, 25;
 
     --subtle-color:rgba(255,255,255,0.3)
+
+    --title-highlight-color:84, 173, 205;
 }

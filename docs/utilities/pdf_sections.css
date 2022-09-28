@@ -1,6 +1,7 @@
 .resume_section {
     /* break-inside: avoid-page; */
-    break-inside: auto;
+    /* break-inside: auto; */
+    /* break-after:auto; */
 }
 
 /* .resume_section_body>ul>li {
@@ -10,3 +11,11 @@
 .Occupation, .Effort{
     break-inside: avoid-page;
 }
+
+/* .resume_section_heading {
+    break-after:avoid-page;
+}
+
+.resume_section_body {
+    break-before:avoid-page;
+} */

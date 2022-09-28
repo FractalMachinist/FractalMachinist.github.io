@@ -1,0 +1,22 @@
+.resume_section_body>._list_to_ul {
+    list-style: none;
+    padding-inline-start: 0px;
+    margin-block-start:0em;
+}
+
+.resume_section_body>._list_to_ul>li:not(:first-child) {
+    margin-block-start: 10px;
+}
+
+
+._list_to_ul {
+    padding-inline-start: 20px;
+}
+
+.resume_section_heading {
+    margin-block-end: 0em;
+}
+
+.Effort, .Certification {
+    margin-block-start: 5px;
+}

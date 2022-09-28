@@ -3,3 +3,4 @@ docs/pdf_sources/
 .ipynb_checkpoints/
 __pycache__/
 personal_track/*
+docs/test/

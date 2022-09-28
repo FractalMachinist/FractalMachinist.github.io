@@ -1,22 +1,25 @@
 #resume_header {
     margin-block-end: 10px;
     display:flex;
+    padding-inline:10px;
 }
 
 #resume_header>*:not(:last-child) {
-    margin-inline-end: 20px;
+    margin-inline-end: 30px;
+    margin-inline-start: 20px;
 }
 
 #header_personal {
-    flex: 1 1 30%;
+    flex: 1 0 fit-content;
 }
 
 #header_about_me {
-    flex: 1 1 60%;
+    flex: 0 1 50%;
 }
 
 #header_about_me h2 {
     color: var(--vertical-highlight);
+    font-size:1em;
 }
 
 
@@ -47,42 +50,39 @@
     align-items: center;
     width:fit-content;
     margin-inline:auto;
-    padding-inline:5%;
+    /* padding-inline:5%; */
 }
 
 
-#resume_header .Person>.person_identity>.person_name {
+#resume_header .person_name {
     position: relative;
-    font-size: 4em;
-    font-weight:bold;
     margin-block-start:0em;
     margin-block-end:0px;
-    white-space: break-spaces;
+    /* white-space: break-spaces; */
+    white-space: nowrap;
     
 }
 
-#resume_header .Person>.person_identity>.person_name:before {
+
+#resume_header .person_name:after, #resume_header .person_name:before {
     content:' ';
     position: absolute;
-    top: 0;
+    top: 10px;
     bottom: 0;
+    border: 2px solid var(--name-bracket-color);
+
+}
+
+#resume_header .person_name:before {
     left: -5%;
     right:90%;
-
-    border: 2px solid rgba(129, 129, 129, 0.294);
     border-right: 0px;
 
 }
 
-#resume_header .Person>.person_identity>.person_name:after {
-    content:' ';
-    position: absolute;
-    top: 0;
-    bottom: 0;
+#resume_header .person_name:after {
     left: 90%;
     right:-5%;
-
-    border: 2px solid rgba(129, 129, 129, 0.294);
     border-left: 0px;
 }
 
