@@ -1,21 +1,50 @@
-.resume_section {
-    /* break-inside: avoid-page; */
-    /* break-inside: auto; */
-    /* break-after:auto; */
-}
-
-/* .resume_section_body>ul>li {
-    break-inside: avoid-page;
-} */
-
 .Occupation, .Effort{
     break-inside: avoid-page;
 }
 
-/* .resume_section_heading {
-    break-after:avoid-page;
+#resume_main_article {
+    padding-block-start:10px;
 }
 
-.resume_section_body {
-    break-before:avoid-page;
-} */
+
+#resume_body>div>.resume_section:first-child>.resume_section_heading {
+    margin-block-start:0px;
+}
+
+#resume_sidebar {
+    background-color:rgba(var(--title-highlight-color), 0.2);
+    padding: 10px 10px 0px 10px;
+    /* margin-inline-start:10px; */
+    
+    /* flex:1 0 calc(min-content + 5%); */
+
+    float:right;
+    /* display:inline; */
+    /* width:32%; */
+    width:32%;
+    
+}
+
+#resume_sidebar>.resume_section {
+    /* --title-highlight-color:255, 255, 255; */
+}
+
+#resume_sidebar .person_identity {
+    display:none;
+}
+
+#resume_sidebar>.resume_section>.Person>.ContactInfo>div {
+    display:list-item;
+    margin-inline-start:15px;
+    margin-block-start: 5px;
+    padding-inline-start: 5px;
+}
+
+#resume_sidebar>.resume_section>.Person>.ContactInfo>div::marker {
+    content:'➣';
+    color: rgb(var(--title-highlight-color));
+}
+
+#resume_header .ContactInfo {
+    display:none !important;
+}

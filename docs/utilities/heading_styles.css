@@ -32,6 +32,8 @@
     white-space: nowrap;
     margin-left:auto;
     flex: 0 1 max-content;
+
+    font-style:italic;
 }
 
 .headline_4, .headline_5, ._achievement{

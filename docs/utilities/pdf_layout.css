@@ -9,17 +9,36 @@
 @import url("/utilities/pdf_sections.css");
 @import url("/utilities/pdf_color.css");
 
+body {
+    margin: 0;
+}
 
 
+@media screen {
+    body {
+        width:8.5in;
+        height:11in;
+    }
+}
 
 @media print {
 
-    @page {
-        margin:0.2in 0 0.2in 0;
+    @page:first {
+        margin:0;
+        /* margin-block-end:0.1in; */
         /* size: 8.5in 30in; */
     }
 
+    @page {
+        margin:0;
+        margin-block:0.1in;
+    }
+
     body {
-        margin: 0 0.2in 0 0.2in;
+        margin: 0;
+    }
+
+    #resume_body {
+        margin-inline-start: 0.1in;
     }
 }

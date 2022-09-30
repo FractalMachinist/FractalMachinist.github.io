@@ -4,7 +4,7 @@
 }
 
 .resume_section_heading {
-    text-shadow: -2px 1px 1px rgba(var(--title-highlight-color),0.3);
+    /* text-shadow: -2px 1px 1px rgba(var(--title-highlight-color),0.3); */
 }
 
 ._list_to_ul>li::marker {

@@ -5,12 +5,20 @@
 }
 
 .resume_section_body>._list_to_ul>li:not(:first-child) {
-    margin-block-start: 10px;
+    margin-block-start: 5px;
 }
 
 
 ._list_to_ul {
     padding-inline-start: 20px;
+}
+
+#resume_main_article ._list_to_ul>li{
+    /* margin-block:7px; */
+}
+
+#resume_sidebar ._list_to_ul>li{
+    /* margin-block:10px; */
 }
 
 .resume_section_heading {
@@ -20,3 +28,8 @@
 .Effort, .Certification {
     margin-block-start: 5px;
 }
+
+/* .date {
+    position:relative;
+    right:-10px;
+} */

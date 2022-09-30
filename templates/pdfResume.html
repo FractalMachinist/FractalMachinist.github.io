@@ -23,36 +23,51 @@
                     {% if resume_link is defined %}
                     <div style="margin-inline: auto; width:max-content;"><a href="{{resume_link}}" target="_blank" rel="noopener noreferrer"><i>interactive resume</i></a></div>{% endif %}
                 </div>
-
-                <div id="header_about_me">
-                    <h{{depth+1}}>ABOUT ME</h{{depth+1}}>
-                    <div><p>{{headline}}</p></div>
-                </div>
-
             </header>
 
             <div id="resume_body">
+
+                <div id="resume_sidebar">
+
+                    <section id="about_me" class="resume_section">
+                        <h{{depth+1}} class="resume_section_heading">SUMMARY</h{{depth+1}}>
+                        <div><p>{{headline}}</p></div>
+                    </section>
+
+                    <section class="resume_section">
+                        <h{{depth+1}} class="resume_section_heading">CONTACT</h{{depth+1}}>
+                        {{person}}
+                    </section>
+                    
+                    {% if projects %}
+                        <section class="resume_section">
+                            <h{{depth+1}} class="resume_section_heading">PROJECTS</h{{depth+1}}>
+                            <div class="resume_section_body">{{projects}}</div>
+                        </section>
+                    {% endif %}
+
+
+                </div>
+
+
+                <div id="resume_main_article">
                 
-                {% if employment %}
-                    <section class="resume_section">
-                        <h{{depth+1}} class="resume_section_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
-                        <div class="resume_section_body">{{employment}}</div>
-                    </section>
-                {% endif %}
+                    {% if employment %}
+                        <section class="resume_section">
+                            <h{{depth+1}} class="resume_section_heading">IMPACT & EXPERIENCE</h{{depth+1}}>
+                            <div class="resume_section_body">{{employment}}</div>
+                        </section>
+                    {% endif %}
 
-                {% if projects %}
-                    <section class="resume_section">
-                        <h{{depth+1}} class="resume_section_heading">PROJECTS</h{{depth+1}}>
-                        <div class="resume_section_body">{{projects}}</div>
-                    </section>
-                {% endif %}
 
-                {% if education %}
-                    <section class="resume_section">
-                        <h{{depth+1}} class="resume_section_heading">EDUCATION</h{{depth+1}}>
-                        <div class="resume_section_body">{{education}}</div>
-                    </section>
-                {% endif %}
+
+                    {% if education %}
+                        <section class="resume_section">
+                            <h{{depth+1}} class="resume_section_heading">EDUCATION</h{{depth+1}}>
+                            <div class="resume_section_body">{{education}}</div>
+                        </section>
+                    {% endif %}
+                </div>
 
             </div>
         </div>

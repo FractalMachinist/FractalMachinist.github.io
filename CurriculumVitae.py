@@ -131,6 +131,13 @@ class _Conditional_nHTML(_NestedHTML):
 
 @dataclass(kw_only=True)
 class _Nested_Conditional(_NestedHTML):
+
+    def get_contained_weight(self, **kwargs) -> float:
+        return sum([child.get_weight(**kwargs) for child in self._get_conditional_children(**kwargs) if child._should_render(**kwargs)])
+    
+    def get_contained_cost(self, **kwargs) -> float:
+        return sum([child.get_cost(**kwargs) for child in self._get_conditional_children(**kwargs) if child._should_render(**kwargs)])
+
     @abstractmethod
     def _get_conditional_children(self, **kwargs) -> list['_Conditional_nHTML']:
         pass
@@ -147,14 +154,14 @@ class _Nested_Conditional_nHTML(_Conditional_nHTML, _Nested_Conditional):
         # In those instances, we still want the numerical alues for those properties to reflect the configuration we provided.
         # So, we compute weight as though we *never* have `should_render_all==True`
         kwargs['should_render_all']=False
-        return super().get_weight(**kwargs) + sum([child.get_weight(**kwargs) for child in self._get_conditional_children(**kwargs) if child._should_render(**kwargs)])
+        return super().get_weight(**kwargs) + self.get_contained_weight(**kwargs)
     
     def get_cost(self, **kwargs) -> float:
         # Sometimes, we choose to render everything, reguardless of its computed properties.
         # In those instances, we still want the numerical alues for those properties to reflect the configuration we provided.
         # So, we compute cost as though we *never* have `should_render_all==True`
         kwargs['should_render_all']=False
-        return super().get_cost(**kwargs) + sum([child.get_cost(**kwargs) for child in self._get_conditional_children(**kwargs) if child._should_render(**kwargs)])
+        return super().get_cost(**kwargs) + self.get_contained_cost(**kwargs)
 
 @dataclass(kw_only=True)
 class Skill(_Conditional_nHTML):
