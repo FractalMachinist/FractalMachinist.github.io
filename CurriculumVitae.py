@@ -10,6 +10,8 @@ import abc
 
 from datetime import date
 
+DEFAULT_DENSITY_THRESHOLD=0
+
 
 def _grouper(to_group:list['_NestedHTML'], template_name, group_arg_name, **kwargs):
     groupies = list(filter(None, map(lambda groupie: groupie.__repr_html__(**kwargs), to_group)))
@@ -43,9 +45,12 @@ class _NestedHTML():
     consumed_depth:int = 1
 
     @staticmethod
-    def get_template(classname, alt_template_prefixes={}, **kwargs) -> Template:
-        prefix = alt_template_prefixes.get(classname, alt_template_prefixes.get("*", ""))
+    def get_template_prefix(classname:str, alt_template_prefixes:dict[str,str]={}, **kwargs) -> str:
+        return alt_template_prefixes.get(classname, alt_template_prefixes.get("*", ""))
 
+    @staticmethod
+    def get_template(classname, **kwargs) -> Template:
+        prefix = _NestedHTML.get_template_prefix(classname, **kwargs)
         try:
             return _NestedHTML._template_env.get_template(prefix + classname + ".html")
         except TemplateNotFound:
@@ -91,17 +96,35 @@ class _NestedHTML():
 
 @dataclass(kw_only=True)
 class _Conditional_nHTML(_NestedHTML):
+    cost:float = 1.0
 
-    # @abstractmethod
-    # def _get_share(self, **kwargs) -> float:
-    #     pass
+    def get_weight(self, **kwargs) -> float:
+        return 0
 
-    @abstractmethod
-    def _should_render(self,**kwargs) -> bool:
-        pass
+    def get_cost(self, **kwargs) -> float:
+        return self.cost
+
+    def _should_render(self, **kwargs) -> bool:
+        if kwargs.get("should_render_all", False):
+            return True
+        elif (own_cost := self.get_cost(**kwargs)) == 0:
+            return True # It's costless to render, therefore render
+        else:
+            return (self.get_weight(**kwargs) / own_cost) > kwargs.get("density_threshold", DEFAULT_DENSITY_THRESHOLD)
 
     def __repr_html__(self, **kwargs):
-        if kwargs.get("should_render_all", False) or self._should_render(**kwargs):
+        if self._should_render(**kwargs):
+
+            # Replace existing cost and weight from higher calls,
+            #   or just add them if they aren't present.
+            kwargs.update({
+                "cnh_cost":self.get_cost(**kwargs),
+                "cnh_weight":self.get_weight(**kwargs)
+            })
+
+            kwargs["cnh_density"] = kwargs["cnh_weight"] / (kwargs["cnh_cost"] if kwargs["cnh_cost"] != 0 else 1)
+
+            kwargs["cnh_met_threshold"] = kwargs["cnh_density"] > kwargs.get("density_threshold", DEFAULT_DENSITY_THRESHOLD)
             return super().__repr_html__(**kwargs)
         else:
             return ""
@@ -117,12 +140,21 @@ class _Nested_Conditional(_NestedHTML):
 @dataclass(kw_only=True)
 class _Nested_Conditional_nHTML(_Conditional_nHTML, _Nested_Conditional):
 
-    # def _get_share(self, **kwargs) -> float:
-    #     return sum([child._get_share(**kwargs) for child in self._get_conditional_children(**kwargs)])
+    # Class is a candidate for a mapreduce utility method
 
-    def _should_render(self,**kwargs) -> bool:
-        # return self._get_share(**kwargs) > 0
-        return any(child._should_render(**kwargs) for child in self._get_conditional_children(**kwargs))
+    def get_weight(self, **kwargs) -> float:
+        # Sometimes, we choose to render everything, reguardless of its computed properties.
+        # In those instances, we still want the numerical alues for those properties to reflect the configuration we provided.
+        # So, we compute weight as though we *never* have `should_render_all==True`
+        kwargs['should_render_all']=False
+        return super().get_weight(**kwargs) + sum([child.get_weight(**kwargs) for child in self._get_conditional_children(**kwargs) if child._should_render(**kwargs)])
+    
+    def get_cost(self, **kwargs) -> float:
+        # Sometimes, we choose to render everything, reguardless of its computed properties.
+        # In those instances, we still want the numerical alues for those properties to reflect the configuration we provided.
+        # So, we compute cost as though we *never* have `should_render_all==True`
+        kwargs['should_render_all']=False
+        return super().get_cost(**kwargs) + sum([child.get_cost(**kwargs) for child in self._get_conditional_children(**kwargs) if child._should_render(**kwargs)])
 
 @dataclass(kw_only=True)
 class Skill(_Conditional_nHTML):
@@ -135,12 +167,21 @@ class Skill(_Conditional_nHTML):
     def __hash__(self):
         return hash(self.name.lower())
 
-    # def _get_weight(self, **kwargs) -> float:
-    #     return self.weight
-
-    def _should_render(self, **kwargs) -> bool:
-        return self.weight > 0
+    def get_weight(self, **kwargs) -> float:
+        return self.weight
     
+    def get_cost(self, **kwargs) -> float:
+        # Note: The 'cost' of a skill is interpreted in a few conceptual ways,
+        #   which get handled in the same computational way.
+        # 1. The 'cost' as space taken up in the final product.
+        # 2. The 'cost' as an indication of the variety of ideas something expresses.
+
+
+        # Why not just return `kwargs.get('skill_cost', super().get_cost(**kwargs))`?
+        # Great question! This approach falls back to the default when 'skill_cost' is provided with a value of `None`.
+        own_cost = kwargs.get("skill_cost", None)
+        return super().get_cost(**kwargs) if own_cost is None else own_cost
+        
     def _sort_key(self, **kwargs) -> tuple:
         return (
             None if self.weight is None else -self.weight,
@@ -152,6 +193,7 @@ class Skill(_Conditional_nHTML):
 class SkillSynonymGroup(_Nested_Conditional_nHTML):
     _instances_and_counts = dict()
     name:str
+    cost:float = 0
     
     def __new__(cls, name, *args, **kwargs):
         # Why am I comfortable making singleton instances at runtime?
@@ -190,8 +232,8 @@ class SkillSynonymGroup(_Nested_Conditional_nHTML):
 
 
     # In normal use, this method should *not* get called.
-    # Instead, SkillSynonymGroup should automatically get skipped by a higher object calling `skill_div` on its own list of skills.
-    # However, the method is compliant.
+    # Instead, SkillSynonymGroup should automatically get skipped by containing object calling `skill_div` on a list of `SkillSynonymGroup`s.
+    # However, the method complies with expectations and is safe to use.
     def __repr_html__(self, **kwargs):
         return skills_div([self], **kwargs)
     
@@ -233,6 +275,7 @@ class Effort(_Nested_Conditional_nHTML):
     title:str
     headline:str
     website:str = None
+    cost:float = 3
     
     skills:list[SkillSynonymGroup] = field(default_factory=list)
 

@@ -37,9 +37,14 @@ th.row_heading {
 
 .skill_sort, .cat_sort {
     overflow-y:scroll;
-    flex:auto;
+    flex: 1 1 50%;
 }
 
 .cat_sort{
-    flex:1 0 fit-content;
+    /* flex:1 0 fit-content; */
+    flex:1 1 50%;
 }
+
+/* .Skill, .Skill>.skill_text {
+    display:none;
+} */

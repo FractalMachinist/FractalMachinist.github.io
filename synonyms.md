@@ -1,7 +1,7 @@
 # Specificity Synonyms
 Agile,Agile Teams,Agile Methodology
 Git,GitHub,Version Control
-Software Engineering,Coding,Implementation,Implement Solutions
+Software Engineering,Coding,Implementation,Implement Solutions,Software Development
 Machine Learning,Machine Learning Algorithms,Artificial Intelligence,Artificial Intelligence Systems
 Algebra,Linear Algebra,Matrix Algebra
 Multidisciplinary,Cross Functional
@@ -15,7 +15,6 @@ Prototyping,Rapid Prototyping
 Research,Research and Development,Experimentation
 
 Managing Requirements,Requirements,Product Requirements,Business Requirements,Business Needs,Business Problems,Technical Requirements
-SDLC,Software Development
 Statistics,Bayesian Statistics
 Analytics,Analytical Skills,Analytics Tools
 Cloud Computing,Cloud Services

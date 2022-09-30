@@ -22,7 +22,7 @@ category_biases = pd.Series({
         "Communication":0.01,
         "Team Skills":0.01,
         "Work Styles":0.01,
-        # "Python":0.01
+        "Python Tools":0.01
     }, index=pd.Index(skill_cat.category_to_skills.keys(), name="category")).fillna(0)
 
 
