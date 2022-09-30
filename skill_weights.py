@@ -109,7 +109,7 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
     #     the base listing. This is not *strictly* necessary for the final product, but it's excellent
     #     for development and debugging.
 
-    jcst_data["skill weight"] = (jcst_data["share of job"]*list_weight + (jcst_data["share of job"]*(1-list_weight)).groupby(level=[0,1]).mean())
+    jcst_data["skill weight"] = (jcst_data["share of job"]*list_weight + (jcst_data["share of job"]*(1-list_weight)).reset_index().groupby(["id", "category"], dropna=False)["share of job"].mean())
 
 
     # Some categories are foundational, even when they aren't mentioned at all.

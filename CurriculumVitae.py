@@ -215,7 +215,7 @@ class SkillSynonymGroup(_Nested_Conditional_nHTML):
                     synonym_base=self.name,
                     name=self.name,
                     num_instances=self.get_num_instances(),
-                    weight=None,
+                    weight=0,
                     share_of_job=None
                 )
             ]

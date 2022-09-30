@@ -45,6 +45,6 @@ th.row_heading {
     flex:1 1 50%;
 }
 
-/* .Skill, .Skill>.skill_text {
+.Skill, .Skill>.skill_text {
     display:none;
-} */
+}
