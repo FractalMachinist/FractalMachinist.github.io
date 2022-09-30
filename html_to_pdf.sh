@@ -12,6 +12,6 @@ do
 done
 
 
-echo "Converting 'http://alex:32180/pdf_sources/index.html' to pdf @'index.pdf'";
-google-chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf="index.pdf" "http://alex:32180/pdf_sources/index.html" && echo -e "Written";
-echo "";
+# echo "Converting 'http://alex:32180/pdf_sources/index.html' to pdf @'index.pdf'";
+# google-chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf="index.pdf" "http://alex:32180/pdf_sources/index.html" && echo -e "Written";
+# echo "";

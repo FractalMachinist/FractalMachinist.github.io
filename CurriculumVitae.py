@@ -41,7 +41,6 @@ def Skills(*args):
 class _NestedHTML():
     _template_env = Environment(loader=FileSystemLoader("templates/"))
     consumed_depth:int = 1
-    exports:list = field(default_factory=list)
 
     @staticmethod
     def get_template(classname, alt_template_prefixes={}, **kwargs) -> Template:
@@ -321,7 +320,6 @@ class Resume(_Nested_Conditional):
 class JobListing:
     name:str
     skill_text_weights:dict[str,dict[str,dict[str, float]]] = field(default_factory=dict)
-    exports:list[str] = field(default_factory=list)
     stylesheet:str = "lighttheme"
 
 
