@@ -23,6 +23,7 @@ Agile Teams,Agile Team
 Data Pipelines,Data Pipeline
 Workflows,Workflow,Workflow Management
 Analytical Skills,Analytic Skills
+Software Development Processes,Software Development Process
 
 # Specificity Stems
 ## Supersetting for readability
@@ -30,5 +31,7 @@ Communication Skills,Communications
 Artificial Intelligence,AI
 Computer Science,CS
 Data Visualization,Visualization
+Software Development Processes,Development Processes
 
 Deep Learning,Deep
+Collaboration,Working Closely With,Works Closely With,Work Closely With

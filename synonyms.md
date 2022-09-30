@@ -5,7 +5,6 @@ Software Engineering,Coding,Implementation,Implement Solutions
 Machine Learning,Machine Learning Algorithms,Artificial Intelligence,Artificial Intelligence Systems
 Algebra,Linear Algebra,Matrix Algebra
 Multidisciplinary,Cross Functional
-Optimization,High Performance
 
 Communication Skills,Written Communication,Professional Communication,Presentation Skills,Writing,Communication
 
@@ -45,6 +44,8 @@ HTML,HTML5
 Project Management,Service Management,Management
 Linux,Unix
 Integration,Interoperation
+SDLC,Software Development Processes
+Optimization,High Performance,Resource Utilization
 
 # Controlling Style
 End to End
