@@ -14,18 +14,18 @@ body {
 }
 
 
-@media screen {
+/* @media screen {
     body {
         width:8.5in;
         height:11in;
     }
-}
+} */
 
 @media print {
 
     @page:first {
         margin:0;
-        /* margin-block-end:0.1in; */
+        margin-block-end:0.1in;
         /* size: 8.5in 30in; */
     }
 

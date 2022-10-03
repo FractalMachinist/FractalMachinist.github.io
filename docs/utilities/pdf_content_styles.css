@@ -14,11 +14,11 @@
 }
 
 #resume_main_article ._list_to_ul>li{
-    /* margin-block:7px; */
+    margin-block:7px;
 }
 
 #resume_sidebar ._list_to_ul>li{
-    /* margin-block:10px; */
+    margin-block:7px;
 }
 
 .resume_section_heading {

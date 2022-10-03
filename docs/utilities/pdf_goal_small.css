@@ -1,0 +1,7 @@
+#resume_main_article ._list_to_ul>li{
+    margin-block:0 !important;
+}
+
+#resume_sidebar ._list_to_ul>li{
+    margin-block:0 !important;
+}

@@ -1,6 +1,8 @@
 pdf_renders/
 docs/pdf_sources/
+docs/tmp
+docs/test/
+
 .ipynb_checkpoints/
 __pycache__/
 personal_track/*
-docs/test/
