@@ -1,5 +1,7 @@
 from dataclasses import dataclass, field
 from abc import abstractmethod
+from itertools import count
+from re import sub
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound, Template
 import cv_host
 import os, subprocess
@@ -251,7 +253,7 @@ class ContactInfo(_NestedHTML):
     email:str = None
     phone:str = None
     link:str = None
-    link2:str = None # It's an awful hack
+    link2:str = None # Ought to be lists or dicts per group
 
 
 @dataclass(kw_only=True)
@@ -362,24 +364,85 @@ class Resume(_Nested_Conditional):
         with open(filepath, "w+") as f:
             f.write(self.__repr_html__(**kwargs))
 
-    def export_pdf(self, pdf_fpath, html_docs_subpath:str=None, **kwargs):
+    def export_pdf(self, pdf_fpath, html_docs_subpath:str=None, threadsafe=True, **kwargs):
         if html_docs_subpath is None:
             os.makedirs("docs/pdf_sources/tmp", exist_ok=True)
-            html_docs_subpath = f"pdf_sources/tmp/{uuid.uuid4()}.html"
+            html_docs_subpath = f"pdf_sources/tmp/{uuid.uuid4() if threadsafe else 'export_pdf'}.html"
         
         self.write_html_to_file(filepath=f"docs/{html_docs_subpath}", **kwargs)
         
         # Run a google-chrome headless subprocess to export
-        process = subprocess.run(f"google-chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf={pdf_fpath} 'http://localhost:8000/{html_docs_subpath}'".split(), capture_output=True)
+        process = subprocess.run(f"google-chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf={pdf_fpath} 'http://localhost:8000/{html_docs_subpath}'", shell=True, capture_output=True)
         
         if process.returncode:
-            raise Exception(f"Chrome pdf export\n\t{' '.join(process.args)}\nfailed with code {process.returncode}.\nStdout was:\n{process.stdout}\nStderr was:\n{process.stderr}")
+            raise Exception(f"Chrome pdf export\n\t{process.args}\nfailed with code {process.returncode}.\nStdout was:\n{process.stdout}\nStderr was:\n{process.stderr}")
         
-            
+    def export_fitted_pdf(self, pdf_fpath, page_goal=1, lowest_threshold=0, highest_threshold=0.005, **kwargs):
+        # The goal is to fill the smallest number of pages, where that number is equal to or greater than the page goal.
+
+        # Define a naming and exporting utility
+        # This could be modified to not reuse names, so that iterations stick around.
+        def named_export(small=False, density_threshold=lowest_threshold, index=0):
+            name = pdf_fpath#+f".{index}.{'small' if small else 'normal'}.d{density_threshold}.pdf"
+            #print(name)
+            self.export_pdf(name, goal_small=small, density_threshold=density_threshold, threadsafe=False, **kwargs)
+            return {"name":name, "pages":count_pages_in_pdf(name)}
+
+        # Define the smallest and largest possible resumes within the bounds given
+        largebound = lowest_threshold
+        smallbound = highest_threshold
+
+        small_file= named_export(small=True, density_threshold=smallbound, index='!')
+        xlarge_file = named_export(small=False, density_threshold=largebound, index='!')
+
+        # If our entire configuration space is within one page,
+        if xlarge_file["pages"] == small_file["pages"]:
+            print("Page count does not vary with configuration. Taking most preferred configuration.")
+            return xlarge_file["name"] # use the most of that page.
+
+        # Otherwise, keep defining our search space
+        large_file = named_export(small=True, density_threshold=largebound, index='!')
+
+        # If our density range is all within the same page:
+        if large_file["pages"] == small_file["pages"]: 
+            effective_page_goal = large_file["pages"]
+            use_small = False
+        else:
+            effective_page_goal = page_goal
+            use_small = True
+
+        # Iteratively find the most desirable config
+        for iterations in range(10):
+            new_est = (largebound+smallbound)/2.0
+            new_file = named_export(small=use_small, density_threshold=new_est, index=iterations)
+            if new_file["pages"] > effective_page_goal:
+                largebound = new_est
+            else:
+                smallbound = new_est
+                small_file = new_file
+
+        # Because content appears and rolls in blocks, it's possible a large-format (ie not-small) resume
+        #     would fit on the same number of pages
+        if use_small:
+            large_file = named_export(small=False, density_threshold=smallbound, index='?')
+            use_small = large_file["pages"] > small_file["pages"]
+
+        return named_export(small=use_small, density_threshold=smallbound, index='_')["name"]
+
 
     def host(self, *args, **kwargs):
         self.write_html_to_file(*args, **kwargs)
         cv_host.start_hosting()
+
+
+def count_pages_in_pdf(pdf_fpath):
+    # This is a *very* trusting method
+    # And I haven't tested it at all.
+    return int(subprocess.run(
+        "strings < "+pdf_fpath+" | grep -oP '(?<=/Count )\d{1,}' | sort -rn | head -n 1", 
+        shell=True, 
+        capture_output=True
+    ).stdout.strip())
 
 
 @dataclass(kw_only=True)
