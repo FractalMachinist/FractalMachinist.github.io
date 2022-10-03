@@ -2,10 +2,11 @@ from dataclasses import dataclass, field
 from abc import abstractmethod
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound, Template
 import cv_host
-import os
+import os, subprocess
 import json
 import hashlib, urllib, skill_cat
 import abc
+import uuid
 
 
 from datetime import date
@@ -354,12 +355,27 @@ class Resume(_Nested_Conditional):
         return new
 
 
+    def _get_conditional_children(self, *args, **kwargs) -> list['_Conditional_nHTML']:
+        return self.education + self.employment + self.projects + list(self.skills)
+    
     def write_html_to_file(self, filepath="docs/resume.html", **kwargs):
         with open(filepath, "w+") as f:
             f.write(self.__repr_html__(**kwargs))
 
-    def _get_conditional_children(self, *args, **kwargs) -> list['_Conditional_nHTML']:
-        return self.education + self.employment + self.projects + list(self.skills)
+    def export_pdf(self, pdf_fpath, html_docs_subpath:str=None, **kwargs):
+        if html_docs_subpath is None:
+            os.makedirs("docs/pdf_sources/tmp", exist_ok=True)
+            html_docs_subpath = f"pdf_sources/tmp/{uuid.uuid4()}.html"
+        
+        self.write_html_to_file(filepath=f"docs/{html_docs_subpath}", **kwargs)
+        
+        # Run a google-chrome headless subprocess to export
+        process = subprocess.run(f"google-chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf={pdf_fpath} 'http://localhost:8000/{html_docs_subpath}'".split(), capture_output=True)
+        
+        if process.returncode:
+            raise Exception(f"Chrome pdf export\n\t{' '.join(process.args)}\nfailed with code {process.returncode}.\nStdout was:\n{process.stdout}\nStderr was:\n{process.stderr}")
+        
+            
 
     def host(self, *args, **kwargs):
         self.write_html_to_file(*args, **kwargs)
