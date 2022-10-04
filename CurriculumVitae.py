@@ -377,7 +377,7 @@ class Resume(_Nested_Conditional):
         if process.returncode:
             raise Exception(f"Chrome pdf export\n\t{process.args}\nfailed with code {process.returncode}.\nStdout was:\n{process.stdout}\nStderr was:\n{process.stderr}")
         
-    def export_fitted_pdf(self, pdf_fpath, page_goal=1, lowest_threshold=0, highest_threshold=0.005, **kwargs):
+    def export_fitted_pdf(self, pdf_fpath, page_goal=1, lowest_threshold=0, highest_threshold=0.005, threadsafe=True, **kwargs):
         # The goal is to fill the smallest number of pages, where that number is equal to or greater than the page goal.
 
         # Define a naming and exporting utility
@@ -385,7 +385,7 @@ class Resume(_Nested_Conditional):
         def named_export(small=False, density_threshold=lowest_threshold, index=0):
             name = pdf_fpath#+f".{index}.{'small' if small else 'normal'}.d{density_threshold}.pdf"
             #print(name)
-            self.export_pdf(name, goal_small=small, density_threshold=density_threshold, threadsafe=False, **kwargs)
+            self.export_pdf(name, goal_small=small, density_threshold=density_threshold, threadsafe=threadsafe, **kwargs)
             return {"name":name, "pages":count_pages_in_pdf(name)}
 
         # Define the smallest and largest possible resumes within the bounds given
