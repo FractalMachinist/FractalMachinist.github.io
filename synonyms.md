@@ -22,6 +22,8 @@ Tooling,New Tools,Build Tools
 
 NLP,Natural Language Processing
 
+CI/CD,Continuous Integration,Continuous Deployment
+
 # These are a bit more of a stretch
 ## Supersetting the name for better user readability
 API Design,API

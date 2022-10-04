@@ -191,6 +191,19 @@ class Skill(_Conditional_nHTML):
         # Great question! This approach falls back to the default when 'skill_cost' is provided with a value of `None`.
         own_cost = kwargs.get("skill_cost", None)
         return super().get_cost(**kwargs) if own_cost is None else own_cost
+    
+    def _should_render(self, **kwargs) -> bool:
+        # Skills have a special kwarg ('skills_render_by_weight') indicating they should
+        #     ignore their cost and render based soley on their weight.
+        # That gets evaluated here.
+        if kwargs.get("should_render_all", False):
+            return True
+        elif kwargs.get("should_render_all_skills", False):
+            return True
+        elif kwargs.get("skills_render_by_weight", False):
+            return self.get_weight(**kwargs) > kwargs.get("density_threshold", DEFAULT_DENSITY_THRESHOLD)
+        else:
+            return super()._should_render(**kwargs)
         
     def _sort_key(self, **kwargs) -> tuple:
         return (
@@ -285,7 +298,7 @@ class Effort(_Nested_Conditional_nHTML):
     title:str
     headline:str
     website:str = None
-    cost:float = 3
+    cost:float = 2
     
     skills:list[SkillSynonymGroup] = field(default_factory=list)
 
@@ -304,6 +317,7 @@ class Occupation(Effort):
     subtitle:str
     supervisor:Person = None
     location:str = None
+    cost:float = 3
 
     def __repr__(self) -> str:
         return f"<Occupation '{self.title}' ({self.headline} at {self.location} under {self.supervisor}) with {len(self.achievements)} achievements and {len(self.sub_tasks)} subtasks>"
@@ -315,6 +329,8 @@ class Certification(Achievement):
     issue_date:date
     website:str = None
     confirmation_info:dict = field(default_factory=dict)
+    cost:float = 2
+    
 
 @dataclass(kw_only=True)
 class Resume(_Nested_Conditional):
@@ -377,7 +393,7 @@ class Resume(_Nested_Conditional):
         if process.returncode:
             raise Exception(f"Chrome pdf export\n\t{process.args}\nfailed with code {process.returncode}.\nStdout was:\n{process.stdout}\nStderr was:\n{process.stderr}")
         
-    def export_fitted_pdf(self, pdf_fpath, page_goal=1, lowest_threshold=0, highest_threshold=0.005, threadsafe=True, **kwargs):
+    def export_fitted_pdf(self, pdf_fpath, page_goal=1, lowest_threshold=0, highest_threshold=0.005, threadsafe=True, max_iters=10, **kwargs):
         # The goal is to fill the smallest number of pages, where that number is equal to or greater than the page goal.
 
         # Define a naming and exporting utility
@@ -395,10 +411,11 @@ class Resume(_Nested_Conditional):
         small_file= named_export(small=True, density_threshold=smallbound, index='!')
         xlarge_file = named_export(small=False, density_threshold=largebound, index='!')
 
-        # If our entire configuration space is within one page,
+        # If our entire configuration space varies by less than one page,
         if xlarge_file["pages"] == small_file["pages"]:
             print("Page count does not vary with configuration. Taking most preferred configuration.")
-            return xlarge_file["name"] # use the most of that page.
+            return dict(small=False, density_threshold=largebound, **xlarge_file) # Take the best (largest) configuration within that page
+        print("Must traverse configuration space.")
 
         # Otherwise, keep defining our search space
         large_file = named_export(small=True, density_threshold=largebound, index='!')
@@ -412,7 +429,7 @@ class Resume(_Nested_Conditional):
             use_small = True
 
         # Iteratively find the most desirable config
-        for iterations in range(10):
+        for iterations in range(max_iters):
             new_est = (largebound+smallbound)/2.0
             new_file = named_export(small=use_small, density_threshold=new_est, index=iterations)
             if new_file["pages"] > effective_page_goal:
@@ -427,7 +444,7 @@ class Resume(_Nested_Conditional):
             large_file = named_export(small=False, density_threshold=smallbound, index='?')
             use_small = large_file["pages"] > small_file["pages"]
 
-        return named_export(small=use_small, density_threshold=smallbound, index='_')["name"]
+        return dict(small=use_small, density_threshold=smallbound, **named_export(small=use_small, density_threshold=smallbound, index='_'))
 
 
     def host(self, *args, **kwargs):

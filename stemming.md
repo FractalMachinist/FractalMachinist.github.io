@@ -10,6 +10,7 @@ Research,Researching
 Analysis,Analyzing,Analytics,Analytical
 Collaboration,Collaborative,Collaborating
 Large Scale,Scale,Scaling,Scalable
+Iteration,Iterate
 
 
 ## Plurality

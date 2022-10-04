@@ -1,7 +1,7 @@
 .content {
     overflow-y:auto;
     max-height:100%;
-    height:min-content;
+    /* height:min-content; */
     flex: 1 1 min-content;
 }
 
@@ -35,6 +35,21 @@ th.row_heading {
     text-align:left;
 }
 
+th.col_heading.level0.col2 {
+    writing-mode: vertical-lr;
+}
+
+#skill_texts th.row_heading.level0, #skill_texts th.index_name.level0 {
+    writing-mode:vertical-lr;
+    border-bottom:1px solid black;
+}
+
+
+.Skill {
+    width:auto !important;
+    border-width: 1px 1px 2px 1px !important;
+}
+
 .skill_sort, .cat_sort {
     overflow-y:scroll;
     flex: 1 1 50%;
@@ -45,6 +60,27 @@ th.row_heading {
     flex:1 1 50%;
 }
 
-.Skill, .Skill>.skill_text {
-    display:none;
+.Skill.Skill_Selected.Expanded, .Skill.Skill_Identified.Expanded, .Skill.Skill_Rejected.Expanded {
+    box-shadow: 0px 0px 20px 6px rgba(var(--skill-color), 1) !important;
+    
 }
+
+#resume_html_div {
+    /* transform: scale(0.5); */
+    /* zoom: 0.5;
+    flex-basis:4.25in; */
+}
+
+#resume_pdf_div {
+    flex-basis:6in;
+}
+
+#resume_body {
+    display:unset !important;
+    flex-wrap:unset !important;
+}
+
+
+/* .Skill, .Skill>.skill_text {
+    display:none;
+} */
