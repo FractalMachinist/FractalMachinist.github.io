@@ -117,7 +117,7 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
     # Currently, this is done in a way which conserves total weight per job.
     # Modify these biases above.
     if use_category_bias:
-        jcst_data["skill weight"] = (jcst_data["skill weight"] * (1-category_biases.sum())) + (category_biases/jcst_data.groupby(level=["id","category"]).size())
+        jcst_data["skill weight"] = (jcst_data["skill weight"] * (1-category_biases.sum())) + (category_biases/jcst_data.reset_index().groupby(["id","category"], dropna=False).size()).fillna(0)
     
     # Sometimes, it's useful to know the category which provided a skill's indirect contribution.
     # However, by default, skills don't get displayed with their category, so sum out the categories.

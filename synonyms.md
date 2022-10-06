@@ -12,7 +12,7 @@ Technical Communication,Communicate Results,Technical Writing,Technical Content,
 
 Problem Solving,Solving Problems,Problem Solvers,Problem Solver
 Prototyping,Rapid Prototyping
-Research,Research and Development,Experimentation
+Research,Research and Development,Experimentation,Running Experiments
 
 Managing Requirements,Requirements,Product Requirements,Business Requirements,Business Needs,Business Problems,Technical Requirements
 Statistics,Bayesian Statistics
@@ -23,6 +23,7 @@ Tooling,New Tools,Build Tools
 NLP,Natural Language Processing
 
 CI/CD,Continuous Integration,Continuous Deployment
+Jupyter,Jupyter Notebook
 
 # These are a bit more of a stretch
 ## Supersetting the name for better user readability
@@ -47,6 +48,8 @@ Linux,Unix
 Integration,Interoperation
 SDLC,Software Development Processes
 Optimization,High Performance,Resource Utilization
+Bioinformatics,Biology
+Genomics,Genetics
 
 # Controlling Style
 End to End

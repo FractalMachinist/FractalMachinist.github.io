@@ -99,6 +99,7 @@ class _NestedHTML():
 
 @dataclass(kw_only=True)
 class _Conditional_nHTML(_NestedHTML):
+    must_render:bool=False
     cost:float = 1.0
 
     def get_weight(self, **kwargs) -> float:
@@ -108,6 +109,8 @@ class _Conditional_nHTML(_NestedHTML):
         return self.cost
 
     def _should_render(self, **kwargs) -> bool:
+        if self.must_render:
+            return True
         if kwargs.get("should_render_all", False):
             return True
         elif (own_cost := self.get_cost(**kwargs)) == 0:
@@ -154,14 +157,14 @@ class _Nested_Conditional_nHTML(_Conditional_nHTML, _Nested_Conditional):
 
     def get_weight(self, **kwargs) -> float:
         # Sometimes, we choose to render everything, reguardless of its computed properties.
-        # In those instances, we still want the numerical alues for those properties to reflect the configuration we provided.
+        # In those instances, we still want the numerical values for those properties to reflect the configuration we provided.
         # So, we compute weight as though we *never* have `should_render_all==True`
         kwargs['should_render_all']=False
         return super().get_weight(**kwargs) + self.get_contained_weight(**kwargs)
     
     def get_cost(self, **kwargs) -> float:
         # Sometimes, we choose to render everything, reguardless of its computed properties.
-        # In those instances, we still want the numerical alues for those properties to reflect the configuration we provided.
+        # In those instances, we still want the numerical values for those properties to reflect the configuration we provided.
         # So, we compute cost as though we *never* have `should_render_all==True`
         kwargs['should_render_all']=False
         return super().get_cost(**kwargs) + self.get_contained_cost(**kwargs)
@@ -254,6 +257,10 @@ class SkillSynonymGroup(_Nested_Conditional_nHTML):
             ]
 
 
+    def _should_render(self, **kwargs) -> bool:
+        # This is just an intermediate storage. It should always 'render'
+        return True
+
     # In normal use, this method should *not* get called.
     # Instead, SkillSynonymGroup should automatically get skipped by containing object calling `skill_div` on a list of `SkillSynonymGroup`s.
     # However, the method complies with expectations and is safe to use.
@@ -275,12 +282,18 @@ class Person(_NestedHTML):
     pronouns:str
     contact_info:ContactInfo
 
-
 @dataclass(kw_only=True)
 class Achievement(_Nested_Conditional_nHTML):
     headline:str
     skills:list[SkillSynonymGroup] = field(default_factory=list)
     portfolio_link:str = None
+
+    # This ought to be a 'line-weighted conditional' class
+    chars_per_line:float = 80.0
+    cost:float = 0
+
+    def get_cost(self, **kwargs) -> float:
+        return super().get_cost(**kwargs) + max(1, round(len(self.headline)/self.chars_per_line, 1))
 
     def _get_conditional_children(self, *args, **kwargs) -> list['_Conditional_nHTML']:
         return self.skills
@@ -329,7 +342,10 @@ class Certification(Achievement):
     issue_date:date
     website:str = None
     confirmation_info:dict = field(default_factory=dict)
-    cost:float = 2
+    cost:float = 1
+
+    def get_cost(self, **kwargs) -> float:
+        return super().get_cost(**kwargs) + (1 if self.website else 0) + (1 if self.confirmation_info else 0)
     
 
 @dataclass(kw_only=True)
@@ -411,22 +427,28 @@ class Resume(_Nested_Conditional):
         small_file= named_export(small=True, density_threshold=smallbound, index='!')
         xlarge_file = named_export(small=False, density_threshold=largebound, index='!')
 
-        # If our entire configuration space varies by less than one page,
-        if xlarge_file["pages"] == small_file["pages"]:
-            print("Page count does not vary with configuration. Taking most preferred configuration.")
+        # If our entire configuration space varies by less than one page, or is within acceptable pages,
+        if xlarge_file["pages"] == small_file["pages"] or (xlarge_file["pages"] <= page_goal):
+            print("Iteration not necessary - largest is valid. Taking most preferred configuration.")
             return dict(small=False, density_threshold=largebound, **xlarge_file) # Take the best (largest) configuration within that page
+
+
+        large_file = named_export(small=True, density_threshold=largebound, index='!')
+        
+        if large_file["pages"] == small_file["pages"]:
+            # The largebound w/ small text is the same num. of pages as the smallbound
+            print("Page count does not vary with density. Taking largebound density with small text.")
+            return dict(small=True, density_threshold=largebound, **large_file)
+        
         print("Must traverse configuration space.")
 
         # Otherwise, keep defining our search space
-        large_file = named_export(small=True, density_threshold=largebound, index='!')
+        use_small = True
 
-        # If our density range is all within the same page:
         if large_file["pages"] == small_file["pages"]: 
             effective_page_goal = large_file["pages"]
-            use_small = False
         else:
             effective_page_goal = page_goal
-            use_small = True
 
         # Iteratively find the most desirable config
         for iterations in range(max_iters):
@@ -438,8 +460,7 @@ class Resume(_Nested_Conditional):
                 smallbound = new_est
                 small_file = new_file
 
-        # Because content appears and rolls in blocks, it's possible a large-format (ie not-small) resume
-        #     would fit on the same number of pages
+        # Because content appears and rolls in blocks, it's possible a large-format (ie not-small) resume would fit on the same number of pages
         if use_small:
             large_file = named_export(small=False, density_threshold=smallbound, index='?')
             use_small = large_file["pages"] > small_file["pages"]
