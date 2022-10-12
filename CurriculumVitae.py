@@ -342,10 +342,9 @@ class Certification(Achievement):
     issue_date:date
     website:str = None
     confirmation_info:dict = field(default_factory=dict)
-    cost:float = 1
 
     def get_cost(self, **kwargs) -> float:
-        return super().get_cost(**kwargs) + (1 if self.website else 0) + (1 if self.confirmation_info else 0)
+        return super().get_cost(**kwargs) + (1 if self.website else 0)
     
 
 @dataclass(kw_only=True)

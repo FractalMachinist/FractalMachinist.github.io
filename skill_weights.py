@@ -15,6 +15,20 @@ def get_job_skill_counts(raw_job_details:dict) -> pd.DataFrame:
         names=["id"]
     )
 
+
+# What skills are highly important, but tend to not be mentioned frequently by name?
+# - Programming Languages - often mentioned once
+# - Tools - often mentioned once or twice
+# - Techniques - Potentially mentioned once
+skill_overweighting = pd.Series({
+    "java":5,
+    "c":5,"c++":5, # 2022-10-12 C++ isn't coming through the skills-ml tokenizer correctly.
+    "python":5,
+    "containerization":3,
+    "tensorflow":3,
+    "machine learning":2,
+}, index=pd.Index(skill_cat.skill_to_categories.keys(), name="skill")).fillna(1)
+
 # What fraction of a resume should be guaranteed dedicated to these categories?
 category_biases = pd.Series({
         # "Data Code":0.05,
@@ -25,8 +39,7 @@ category_biases = pd.Series({
         "Python Tools":0.01
     }, index=pd.Index(skill_cat.category_to_skills.keys(), name="category")).fillna(0)
 
-
-def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, collapse_categories=True, use_category_bias=True):
+def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, collapse_categories=True, use_category_bias=True, use_skill_overweighting=True):
     # Construct dataframe from raw job details, 
     #   summing between skills listed under multiple teal categories, 
     #   and filtered by skills I have categories for (a loose standin for skills present on the resume).
@@ -37,6 +50,8 @@ def get_job_skill_weights(raw_job_details:dict, list_weight:float = 4/5.0, colla
 
     # Compute the share of their job each entry represents
     jst_counts = job_skill_text_data.pop("count")
+    if use_skill_overweighting:
+        jst_counts *= skill_overweighting
     job_skill_text_data["share of job"] = jst_counts / jst_counts.groupby(level="id").sum()
 
     # Prepare a dataframe of every combination of (job, category, skill-in-category), 

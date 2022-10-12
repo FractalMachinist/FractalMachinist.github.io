@@ -1,7 +1,7 @@
 Array.from(document.querySelectorAll(`:not(.Skill)[data-cnh-density]`)).forEach(densityElem => {
     dataset = densityElem.dataset
-    density = (parseFloat(dataset.cnhDensity)*100).toFixed(2)+"ppl"
-    weight = (parseFloat(dataset.cnhWeight) * 100).toFixed(2)+"%"
+    density = (parseFloat(dataset.cnhDensity)*100).toFixed(3)+"ppl"
+    weight = (parseFloat(dataset.cnhWeight) * 100).toFixed(3)+"%"
     cost = parseFloat(dataset.cnhCost).toFixed(1)
     
     densityElem.title = `${density} (${weight}/${cost})`
