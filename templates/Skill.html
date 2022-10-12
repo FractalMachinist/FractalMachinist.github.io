@@ -1,4 +1,5 @@
 <span data-skill="{{clean_name}}"
+      {% if trim_skill_html_data is not defined %}
       data-skill-weight="{{weight}}"
       data-skill-share-of-job="{{share_of_job}}"
       data-skill-num-instances-in-resume="{{num_instances}}"
@@ -7,5 +8,6 @@
       data-cnh-density="{{cnh_density}}"
       data-cnh-cost="{{cnh_cost}}" 
       data-cnh-weight="{{cnh_weight}}"
+      {% endif %}
       class='{{className}} skill_{{clean_name}}' 
       tabindex="0"><p class="skill_text">{{name}}</p></span>
