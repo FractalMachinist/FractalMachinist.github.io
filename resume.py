@@ -201,20 +201,20 @@ my_resume.employment = [
         ),
         
         headline="Custom C++ / Arduino pump control software for chromatography and analytical chemistry systems in C and C++",
-        skills=my_resume.Skills("C", "C++", "Microcontrollers", "Multidisciplinary"),
+        skills=my_resume.Skills("C", "C++", "Microcontrollers", "Multidisciplinary", "Computer Science"),
         # skills=my_resume.Skills("C", "C++", "Computer Science", "Microcontrollers", "Algorithms", "Software Engineering", "SDLC", "Mult),
         achievements=[
            Achievement(
                # headline="Wrote a simple heuristic scheduler & virtual threading to manage real-time (60Hz+) pump control, touch screen input, and data/control communication, all on a single Arduino Mega.",
-               headline="Optimized hardware efficiency by developing simple heuristic scheduling algorithms & virtual threading to manage real-time (60Hz+) pump control, touch screen input, and data/control communication, all on a single Arduino Mega.",
-               skills=my_resume.Skills("Optimization", "Statistics", "Algorithms", "Microcontrollers")
+               headline="Demonstrated knowledge of Computer Engineering to optimize hardware efficiency by developing simple heuristic scheduling algorithms & virtual threading to manage real-time (60Hz+) pump control, touch screen input, and data/control communication, all on a single Arduino Mega.",
+               skills=my_resume.Skills("Knowledge", "Computer Engineering", "Optimization", "Statistics", "Algorithms", "Microcontrollers")
                # skills=my_resume.Skills("Algorithms", "Optimization", "Software Engineering", "Statistics", "Computer Science", "Microcontrollers", "Computer Engineering")
            ),
 
            Achievement(
                # headline="Designed and validated delivery prediction and smoothing algorithms for nonlinear feedback delay.",
-               headline="Maintained stable delivery with a custom, high-performance smoothing algorithm for variable feedback delay.",
-               skills=my_resume.Skills("Algorithms")
+               headline="Analyzed and validated stable delivery with a custom, high-performance smoothing algorithm for variable feedback delay.",
+               skills=my_resume.Skills("Algorithms", "Computer Science", "Analysis", "Testing")
                # skills=my_resume.Skills("Algorithms", "Algebra", "Testing", "Computer Science", "Prototyping", "Analysis")
            )
         ]
@@ -272,7 +272,7 @@ my_resume.employment = [
             ),
             
             Achievement(
-                headline="Demonstrated increased test accuracy (15% ⇾ 90% detection with higher Bayesian Confidence) on unbalanced (>1000:1) datasets, without duplication, augmentation, or batch filtering.",
+                headline="Demonstrated increased test accuracy (15% ⇾ 90% detection with higher Bayesian Confidence) on unbalanced (>1000:1) datasets for network insider threat detection, without duplication, augmentation, or batch filtering.",
                 skills=my_resume.Skills("Machine Learning", "Algebra", "Statistics", "Testing", "Research", "Algorithms", "Computer Science", "Analysis", "Software Engineering")
             ),
             
