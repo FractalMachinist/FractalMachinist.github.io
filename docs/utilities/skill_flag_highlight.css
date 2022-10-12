@@ -1,0 +1,67 @@
+#SkillSelectionFlagsDiv {
+    position:absolute;
+    right:0;
+    top:0;
+    bottom:0;
+    pointer-events: none;
+
+
+}
+
+
+.SkillSelectionFlag {
+    right: 0px;
+    width: var(--main-scrollbar-width);
+    height: 2px;
+    /* margin-right:0px; */
+    user-select: none;
+    pointer-events: none;
+
+    z-index: 1;
+
+    background-color:rgba(var(--skill-color),0.01);
+    transition: background-color 0.1s, width 0.1s, right 0.1s, height 0.1s, z-index 0s 0.1s;
+}
+
+.SkillSelectionFlag.Expanded {
+    z-index: 0;
+    transition: z-index 0s 0s;
+    /* border-color:rgba(var(--skill-color),1); */
+    /* margin-right: var(--main-scrollbar-width); */
+    right: 0px !important;
+    width: calc(2 * var(--main-scrollbar-width));
+    background-color:rgba(var(--skill-color),1);   
+    /* border-radius:0px; */
+    /* box-shadow:none; */
+}
+
+.SkillSelectionFlag.Skill_Selected {
+    right: calc(0 * (var(--main-scrollbar-width) / 3.0));
+    --skill-color: var(--skill-color-selected);
+}
+
+.SkillSelectionFlag.Skill_Identified {
+    right: calc(1 * (var(--main-scrollbar-width) / 3.0));
+    --skill-color: var(--skill-color-identified);
+}
+
+.SkillSelectionFlag.Skill_Rejected {
+    right: calc(2 * (var(--main-scrollbar-width) / 3.0));
+    --skill-color: var(--skill-color-rejected);
+}
+
+.SkillSelectionFlag.Skill_Selected, .SkillSelectionFlag.Skill_Identified, .SkillSelectionFlag.Skill_Rejected {
+    /* border-color:rgba(var(--skill-color),1); */
+    width: calc(var(--main-scrollbar-width) / 3.0);
+    
+    background-color:rgba(var(--skill-color),1);   
+    /* border-radius:0px; */
+    /* box-shadow: none; */
+}
+
+
+
+.SkillSelectionFlag.Skill_Selected.Expanded, .SkillSelectionFlag.Skill_Identified.Expanded, .SkillSelectionFlag.Skill_Rejected.Expanded {
+    width: calc(2 * var(--main-scrollbar-width)) !important;
+}
+

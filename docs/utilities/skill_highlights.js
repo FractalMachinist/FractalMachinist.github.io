@@ -19,10 +19,82 @@ triSkillClass = (skill_str, classStr = "Skill_Selected") => onTheseSkillsClassLi
     }
 })
 
-
-
 Array.from(document.getElementsByClassName('Skill')).forEach(skill => {
     skill.addEventListener('mouseenter', (event) => setSkillClass(skill.dataset.skill));
     skill.addEventListener('mouseleave', (event) => rmvSkillClass(skill.dataset.skill));
     skill.addEventListener('click',      (event) => triSkillClass(skill.dataset.skill, event.ctrlKey ? "Skill_Rejected"   : event.altKey ? "Skill_Identified" : "Skill_Selected"));
 })
+
+// --------- SkillSelectionFlags --------------
+
+// Construct the initial SkillSelectionFlagsDiv
+constructSkillSelectionFlagsDiv = () => {
+    const SkillSelectionFlagsDiv = document.createElement('div')
+    SkillSelectionFlagsDiv.setAttribute('id', 'SkillSelectionFlagsDiv');
+    // SkillSelectionFlagsDiv.setAttribute(
+    //     'style',
+    //     'position:absolute; right:0; top:0; bottom:0; width:20px; z-index: -1;'
+    // )
+
+    return SkillSelectionFlagsDiv
+}
+
+var baseSkillSelectionFlagsDiv = constructSkillSelectionFlagsDiv()
+
+const resumeBody = document.getElementById('resume_body')
+resumeBody.appendChild(baseSkillSelectionFlagsDiv)
+
+// const resumeMainSock = document.getElementById('resume_main_sock')
+const resumeMainSock = document.getElementById('resume_main')
+
+constructSkillSelectionFlags = () => {
+    // Collect newest size information
+    // height = resumeMainSock.offsetHeight;
+    height = resumeMainSock.scrollHeight;
+
+    // console.log("Height is", height)
+    // return
+    
+    getHeightFraction = (el) => el.getBoundingClientRect().top / height
+
+    // Start constructing new SkillSelectionFlagsDiv
+    const newSkillSelectionFlagsDiv = constructSkillSelectionFlagsDiv();
+
+    
+    // Construct and update Skill Selection Flags
+    document.querySelectorAll(`#resume_main .Skill`).forEach(skill => {
+        // Gather the position of the skill in the window
+        const heightPercent = `${(getHeightFraction(skill)*99).toFixed(2)}%`;
+
+        // console.log(heightPercent, skill)
+        const SkillSelectionFlag = document.createElement('div')
+        SkillSelectionFlag.setAttribute(
+            'style',
+            `position:absolute; top:${heightPercent};`
+        )
+        SkillSelectionFlag.setAttribute(
+            'data-skill',
+            skill.dataset.skill
+        )
+
+        SkillSelectionFlag.classList.add('SkillSelectionFlag')
+
+        Array.from(['Skill_Selected', 'Skill_Identified', 'Skill_Rejected']).forEach((skill_str) => {
+            if (skill.classList.contains(skill_str)) {
+                SkillSelectionFlag.classList.add(skill_str);
+            }
+        })
+
+        newSkillSelectionFlagsDiv.appendChild(SkillSelectionFlag);
+    })
+
+
+    resumeBody.replaceChild(newSkillSelectionFlagsDiv, baseSkillSelectionFlagsDiv)
+    baseSkillSelectionFlagsDiv = newSkillSelectionFlagsDiv;
+
+}
+
+constructSkillSelectionFlags();
+
+window.addEventListener('resize', constructSkillSelectionFlags);
+

@@ -46,7 +46,8 @@
       </aside>
 
       <section id="resume_main">
-        {% if education %}
+        <!-- <div id="resume_main_sock"> -->
+          {% if education %}
           <section class="resume_section education">
             <h{{depth+1}} class="resume_subsection_heading">EDUCATION</h{{depth+1}}>
             {{education}}
@@ -66,6 +67,8 @@
             {{projects}}
           </section>
         {% endif %}
+        <!-- </div> -->
+
       </section>
     </section>
 

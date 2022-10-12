@@ -52,8 +52,9 @@ Bioinformatics,Biology
 Genomics,Genetics
 
 # Controlling Style
-End to End
+End To End
 QA
 SQL
 CSS
 C
+JavaScript

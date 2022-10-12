@@ -1,3 +1,11 @@
+:root {
+    --main-scrollbar-width: max(9px, 0.5vw);
+}
+
+#personal {
+    padding-inline-start:5px;
+}
+
 .resume_section.experience>._list_to_ul>li {
     flex: 1 1 70%;
     margin-block: 15px;
@@ -13,7 +21,7 @@
 }
 
 
-@media screen and (max-width: 850px) {
+@media screen and ((max-width: 850px) or (max-height: 1000px)) {
     #personal{
         flex-basis:100%;
     }
@@ -24,12 +32,29 @@
         flex-direction: row;
     }
 
+    #about_skills {
+        display: none;
+    }
+
+    .Skill {
+        /* margin: 1px !important; */
+        /* padding: 1px !important; */
+    }
+
+    .Skill>p {
+        line-height: 1em;
+    }
+
+    #SkillSelectionFlagsDiv{
+        position:fixed !important;
+    }
+
     /* #personal_about>*{
         flex: 1 1 50%;
     } */
 }
 
-@media screen and (min-width: 850px) {
+@media screen and (min-width: 850px) and (min-height: 1000px) {
     body {
         height:100vh;
         margin:0;
@@ -37,8 +62,8 @@
     }
 
     #resume_body {
-        height:calc(100% - 20px);
-        padding:10px;
+        height:100%;
+        /* padding:10px; */
     }
 
     #resume_main {
@@ -55,7 +80,7 @@
 
     /* Chrome, Edge, and Safari */
     #resume_main::-webkit-scrollbar {
-        width: 8px;
+        width: var(--main-scrollbar-width);
     }
 
     #resume_main::-webkit-scrollbar-track {
@@ -105,15 +130,38 @@
 
         --scroll-mask-w: 10px;
 
-        padding-block:var(--scroll-mask-w);
+        padding:var(--scroll-mask-w);
         -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--scroll-mask-w), black calc(100% - var(--scroll-mask-w)), transparent 100%);
         mask-image: linear-gradient(to bottom, transparent 0, black var(--scroll-mask-w), black calc(100% - var(--scroll-mask-w)), transparent 100%);
     }
 
-    #about_skills>._skills_div::-webkit-scrollbar {
-        display: none;
+
+    /* ===== Scrollbar CSS ===== */
+    /* Firefox */
+    #about_skills>._skills_div {
+        scrollbar-width: auto;
+        scrollbar-color: #9e9e9e #ffffff;
+        flex-direction: row-reverse;
+        direction:rtl;
     }
 
+    #about_skills>._skills_div * {
+        direction: ltr;
+    }
+
+    /* Chrome, Edge, and Safari */
+    #about_skills>._skills_div::-webkit-scrollbar {
+        width: calc(0.5 * var(--main-scrollbar-width));
+    }
+
+    #about_skills>._skills_div::-webkit-scrollbar-track {
+        background: #ffffff00;
+    }
+
+    #about_skills>._skills_div::-webkit-scrollbar-thumb {
+        background-color: #9e9e9e9a;
+        border-radius: 10px;
+    }
 
     #personal_details .person_name {
         white-space: unset;
