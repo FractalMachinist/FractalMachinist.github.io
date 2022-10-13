@@ -44,15 +44,13 @@ var baseSkillSelectionFlagsDiv = constructSkillSelectionFlagsDiv()
 const resumeBody = document.getElementById('resume_body')
 resumeBody.appendChild(baseSkillSelectionFlagsDiv)
 
-// const resumeMainSock = document.getElementById('resume_main_sock')
-const resumeMainSock = document.getElementById('resume_main')
+const scrollElem = document.getElementById('resume_main')
 
 constructSkillSelectionFlags = () => {
     // Collect newest size information
-    // height = resumeMainSock.offsetHeight;
-    height = resumeMainSock.scrollHeight;
+    height = scrollElem.scrollHeight + scrollElem.getBoundingClientRect().top;
 
-    // console.log("Height is", height)
+    console.log("Height is", height)
     // return
     
     getHeightFraction = (el) => el.getBoundingClientRect().top / height
@@ -66,29 +64,29 @@ constructSkillSelectionFlags = () => {
         // Gather the position of the skill in the window
         const heightPercent = `${(getHeightFraction(skill)*99).toFixed(2)}%`;
 
-        // console.log(heightPercent, skill)
+        // Construct the associated flag and set its ties to styling and selectability
         const SkillSelectionFlag = document.createElement('div')
-        SkillSelectionFlag.setAttribute(
-            'style',
-            `position:absolute; top:${heightPercent};`
-        )
-        SkillSelectionFlag.setAttribute(
-            'data-skill',
-            skill.dataset.skill
-        )
-
+        SkillSelectionFlag.setAttribute('style', `position:absolute; top:${heightPercent};`)
+        SkillSelectionFlag.setAttribute('data-skill', skill.dataset.skill)
         SkillSelectionFlag.classList.add('SkillSelectionFlag')
 
+        // Sync the newly constructed flag with the current state of the skill
         Array.from(['Skill_Selected', 'Skill_Identified', 'Skill_Rejected']).forEach((skill_str) => {
             if (skill.classList.contains(skill_str)) {
                 SkillSelectionFlag.classList.add(skill_str);
             }
         })
 
+        // Allow flags to respond to their associated skills being moused over
+        skill.addEventListener('mouseenter', (skill) => SkillSelectionFlag.classList.add('SourceSkillExpanded'))
+        skill.addEventListener('mouseleave', (skill) => SkillSelectionFlag.classList.remove('SourceSkillExpanded'))
+
+        // Add the constructed flag to the upcoming flags div
         newSkillSelectionFlagsDiv.appendChild(SkillSelectionFlag);
     })
 
 
+    // Run *one* DOM update with the finished new flags
     resumeBody.replaceChild(newSkillSelectionFlagsDiv, baseSkillSelectionFlagsDiv)
     baseSkillSelectionFlagsDiv = newSkillSelectionFlagsDiv;
 
@@ -96,5 +94,14 @@ constructSkillSelectionFlags = () => {
 
 constructSkillSelectionFlags();
 
-window.addEventListener('resize', constructSkillSelectionFlags);
+
+// Only rebuild the flags when the window's size has been stable for 200ms
+// Credit to https://stackoverflow.com/a/15205745
+var globalResizeTimer = null;
+window.addEventListener('resize', () => {
+    if (globalResizeTimer != null) window.clearTimeout(globalResizeTimer);
+    globalResizeTimer = window.setTimeout(constructSkillSelectionFlags, 200);
+})
+
+// window.addEventListener('resize', constructSkillSelectionFlags);
 

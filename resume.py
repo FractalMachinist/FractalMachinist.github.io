@@ -265,10 +265,11 @@ my_resume.employment = [
         skills=my_resume.Skills("TensorFlow", "Python", "Machine Learning", "Deep Learning", "Neural Network Architectures", "Research", "Computer Science", "Analysis", "Statistics", "Software Engineering"),
         achievements=[
             Achievement(
-                headline="Designed and tested novel Neural Network algorithms, architectures, and error formulations for NLP, image classification, and time-series data classification.",
-                skills=my_resume.Skills("Python", "TensorFlow", "Machine Learning", "Deep Learning", "Neural Network Architectures", "Feature Engineering",
-                                                "Algorithms", "Algebra", "NLP", "Data", "Curious", "Research", "Frameworks", "Computer Science",
-                                                "MatLab", "NumPy", "Software Engineering")
+                headline="Researched, Designed and tested novel ML & Neural Network algorithms, architectures, and error formulations for NLP, image classification, and time-series data classification.",
+                skills=my_resume.Skills("Research", "Testing", "Machine Learning", "Neural Networks", "Algorithms", "Natural Language Processing", "Analysis", "Statistics")
+                # skills=my_resume.Skills("Python", "TensorFlow", "Machine Learning", "Deep Learning", "Neural Network Architectures", "Feature Engineering",
+                #                                 "Algorithms", "Algebra", "NLP", "Data", "Curious", "Research", "Frameworks", "Computer Science",
+                #                                 "MatLab", "NumPy", "Software Engineering")
             ),
             
             Achievement(

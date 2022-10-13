@@ -2,7 +2,8 @@
     position:absolute;
     right:0;
     top:0;
-    bottom:0;
+    height:100%;
+    /* bottom:0; */
     pointer-events: none;
 
 
@@ -35,6 +36,8 @@
     /* box-shadow:none; */
 }
 
+
+
 .SkillSelectionFlag.Skill_Selected {
     right: calc(0 * (var(--main-scrollbar-width) / 3.0));
     --skill-color: var(--skill-color-selected);
@@ -62,6 +65,10 @@
 
 
 .SkillSelectionFlag.Skill_Selected.Expanded, .SkillSelectionFlag.Skill_Identified.Expanded, .SkillSelectionFlag.Skill_Rejected.Expanded {
-    width: calc(2 * var(--main-scrollbar-width)) !important;
+    width: calc(2 * var(--main-scrollbar-width));
+}
+
+.SkillSelectionFlag.SourceSkillExpanded {
+    width: calc(3 * var(--main-scrollbar-width)) !important;
 }
 
