@@ -252,7 +252,7 @@ my_resume.employment = [
     ),
               
     Occupation(
-        title="Machine Learning Researcher (Intern)", location="Richland, Washington, USA", website="https://pnnl.gov",
+        title="Machine Learning Researcher", location="Richland, Washington, USA", website="https://pnnl.gov",
         timespan=Between(start=date(2017, 1, 1), end=date(2017, 5, 31)),
         subtitle="Pacific Northwest National Laboratory", 
         supervisor=Person(
@@ -261,7 +261,7 @@ my_resume.employment = [
             contact_info=ContactInfo(email="eyeung@ucsb.edu")
         ),
         
-        headline="ML Research and Data Engineering",
+        headline="ML Research and Data Engineering - Research Internship",
         skills=my_resume.Skills("TensorFlow", "Python", "Machine Learning", "Deep Learning", "Neural Network Architectures", "Research", "Computer Science", "Analysis", "Statistics", "Software Engineering"),
         achievements=[
             Achievement(
