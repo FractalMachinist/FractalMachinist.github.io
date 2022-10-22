@@ -10,7 +10,8 @@
 @import url('/utilities/sections.css');
 
 .headline_4, .headline_5, ._achievement>p {
-    margin-block: 5px;
+    margin-block-start: 5px;
+    margin-block-end: 5px;
 }
 
 

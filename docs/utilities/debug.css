@@ -1,7 +1,11 @@
-#resume_main_sock {
-    /* border: 1px dotted white; */
+/* .occupation_details {
+    border: 1px solid red;
 }
 
-#SkillSelectionFlagsDiv {
-    /* background-color: rgba(255, 0, 0, 0.1); */
+.occupation_summary {
+    border: 1px solid green;
 }
+
+.occupation_details>.date {
+    border: 1px solid blue;
+} */

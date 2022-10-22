@@ -1,7 +1,7 @@
 .occupation_details {
     display:flex;
     align-items: baseline;
-    flex-wrap:wrap;
+    /* flex-wrap:wrap; */
     flex: 0 0 max-content;
 }
 
@@ -9,7 +9,7 @@
     display:flex;
     align-items: baseline;
     flex-wrap: wrap;
-    flex: 3 1 min-content;
+    flex: 1 1 0%;
 }
 
 .details_heading {
@@ -23,7 +23,8 @@
 
 .details_heading>*, .details_heading p, .occupation_details>p.date{
     flex: 0 4 max-content;
-    margin-block:0.1em;
+    margin-block-start:0.1em;
+    margin-block-end:0.1em;
     margin-inline-end:5px;
 }
 
@@ -31,13 +32,14 @@
     text-align: end;
     white-space: nowrap;
     margin-left:auto;
-    flex: 0 1 max-content;
+    flex: 0 0 max-content;
 
     font-style:italic;
 }
 
 .headline_4, .headline_5, ._achievement{
-    margin-block: 0px;
+    margin-block-start: 0px;
+    margin-block-end:0px;
 }
 
 .achievement_heading {

@@ -8,7 +8,8 @@
 
 .resume_section.experience>._list_to_ul>li {
     flex: 1 1 70%;
-    margin-block: 15px;
+    margin-block-start: 15px;
+    margin-block-end: 15px;
 }
 
 #skills_head {

@@ -9,6 +9,8 @@ import json
 import hashlib, urllib, skill_cat
 import abc
 import uuid
+from pyppeteer import launch
+import asyncio
 
 
 from datetime import date
@@ -17,6 +19,13 @@ DEFAULT_DENSITY_THRESHOLD=0
 
 
 def _grouper(to_group:list['_NestedHTML'], template_name, group_arg_name, **kwargs):
+
+    #### <badly designed code to fix a stupid problem>
+    if "density_threshold" in kwargs and kwargs.get("attrpath", None) == [{"class":"Resume", 'attr':'projects'}]:
+        # print("Misusing Density Threshold")
+        kwargs["density_threshold"] = kwargs.get("density_threshold_projects", kwargs["density_threshold"])
+    #### </badly designed code to fix a stupid problem>
+
     groupies = list(filter(None, map(lambda groupie: groupie.__repr_html__(**kwargs), to_group)))
     if not len(groupies):
         return ""
@@ -61,21 +70,23 @@ class _NestedHTML():
 
 
     @abstractmethod
-    def __repr_html__(self, depth=1, **kwargs) -> str:
+    def __repr_html__(self, depth=1, attrpath=[], **kwargs) -> str:
+        # print(f"{attrpath} is rendering")
         obj_attrs = {}
         for attr_name, attr in self.__dict__.copy().items():
             if kwargs.get("debug", False):
                 print(">\t"*depth + f"Class {self.__class__.__name__} converting attr '{attr_name}': '{attr}':")
 
             attr = list(attr) if isinstance(attr, set) else attr
+            sub_attrpath = attrpath + [{"class":self.__class__.__name__, "attr":attr_name}]
 
             match attr:
                 case _NestedHTML():
-                    attr = attr.__repr_html__(depth=depth+self.consumed_depth, **kwargs)
+                    attr = attr.__repr_html__(depth=depth+self.consumed_depth, attrpath=sub_attrpath, **kwargs)
 
                 case [*nHTMLs] if all(isinstance(nHTML, _NestedHTML) for nHTML in nHTMLs):
                     grouper = skills_div if all(isinstance(nHTML, SkillSynonymGroup) for nHTML in nHTMLs) else _list_to_ul
-                    attr = grouper(nHTMLs, depth=depth+self.consumed_depth, **kwargs)
+                    attr = grouper(nHTMLs, depth=depth+self.consumed_depth, attrpath=sub_attrpath, **kwargs)
                 
                 case str() as string_attr if len(attr):
                     obj_attrs[f"clean_{attr_name.replace(' ', '_')}"] = string_attr.lower().replace(" ", "_")
@@ -89,6 +100,7 @@ class _NestedHTML():
         product = _NestedHTML.get_template(self.__class__.__name__, **kwargs).render(
             depth=depth, 
             className=self.__class__.__name__, 
+            attrpath=attrpath,
             **obj_attrs,
         )
 
@@ -395,51 +407,78 @@ class Resume(_Nested_Conditional):
         with open(filepath, "w+") as f:
             f.write(self.__repr_html__(**kwargs))
 
-    def export_pdf(self, pdf_fpath, html_docs_subpath:str=None, threadsafe=True, **kwargs):
+    async def export_pdf(self, pdf_fpath, pyppeteer_page, html_docs_subpath:str=None, **kwargs):
         if html_docs_subpath is None:
             os.makedirs("docs/pdf_sources/tmp", exist_ok=True)
-            html_docs_subpath = f"pdf_sources/tmp/{uuid.uuid4() if threadsafe else 'export_pdf'}.html"
+            html_docs_subpath = f"pdf_sources/tmp/{uuid.uuid4()}.html"
         
         self.write_html_to_file(filepath=f"docs/{html_docs_subpath}", **kwargs)
+
+        await pyppeteer_page.goto("http://localhost:8000/"+html_docs_subpath)
+        await asyncio.sleep(0.1) # Without some amount of sleep, this makes the header name invisible. Not sure what the minimum sleep time is.
+        await pyppeteer_page.pdf({
+            'path':pdf_fpath,
+            'printBackground':True
+        })
+
+        return html_docs_subpath
         
-        # Run a google-chrome headless subprocess to export
-        process = subprocess.run(f"google-chrome --headless --run-all-compositor-stages-before-draw --print-to-pdf={pdf_fpath} 'http://localhost:8000/{html_docs_subpath}'", shell=True, capture_output=True)
-        
-        if process.returncode:
-            raise Exception(f"Chrome pdf export\n\t{process.args}\nfailed with code {process.returncode}.\nStdout was:\n{process.stdout}\nStderr was:\n{process.stderr}")
-        
-    def export_fitted_pdf(self, pdf_fpath, page_goal=1, lowest_threshold=0, highest_threshold=0.005, threadsafe=True, max_iters=10, **kwargs):
+    async def export_fitted_pdf(self, pdf_fpath, page_goal=1, lowest_threshold=0, highest_threshold=0.005, max_iters=10, pyppeteer_page=None, **kwargs):
         # The goal is to fill the smallest number of pages, where that number is equal to or greater than the page goal.
+
+        # If we were not provided a pyppeteer page, construct a browser and page which matches our needs.
+        if pyppeteer_page is None:
+            browser = await launch(
+                options={
+                    'headless': True,
+                    'args': [
+                        '--no-sandbox',
+                        '--run-all-compositor-stages-before-draw',
+                        '--webkit-print-color-adjust-property',
+                        '--disable-setuid-sandbox',
+                        '--disable-dev-shm-usage',
+                        '--disable-accelerated-2d-canvas',
+                        '--no-first-run',
+                        '--no-zygote',
+                        '--single-process',
+                        '--disable-gpu',
+                    ],
+                },
+            )
+
+            pyppeteer_page = await browser.newPage()
+        else:
+            browser = None
 
         # Define a naming and exporting utility
         # This could be modified to not reuse names, so that iterations stick around.
-        def named_export(small=False, density_threshold=lowest_threshold, index=0):
+        async def named_export(small=False, density_threshold=lowest_threshold, index=0, **ne_kwargs):
             name = pdf_fpath#+f".{index}.{'small' if small else 'normal'}.d{density_threshold}.pdf"
             #print(name)
-            self.export_pdf(name, goal_small=small, density_threshold=density_threshold, threadsafe=threadsafe, **kwargs)
-            return {"name":name, "pages":count_pages_in_pdf(name)}
+            html_docs_subpath = await self.export_pdf(name, pyppeteer_page, goal_small=small, density_threshold=density_threshold, **ne_kwargs, **kwargs)
+            return {"name":name, "pages":await count_pages_in_pdf(name), "html_docs_subpath":html_docs_subpath}
 
         # Define the smallest and largest possible resumes within the bounds given
         largebound = lowest_threshold
         smallbound = highest_threshold
 
-        small_file= named_export(small=True, density_threshold=smallbound, index='!')
-        xlarge_file = named_export(small=False, density_threshold=largebound, index='!')
+        small_file = await named_export(small=True,  density_threshold=smallbound, index='!')
+        xlarge_file= await named_export(small=False, density_threshold=largebound, index='!')
 
         # If our entire configuration space varies by less than one page, or is within acceptable pages,
         if xlarge_file["pages"] == small_file["pages"] or (xlarge_file["pages"] <= page_goal):
-            print("Iteration not necessary - largest is valid. Taking most preferred configuration.")
+            # print("Iteration not necessary - largest is valid. Taking most preferred configuration.")
             return dict(small=False, density_threshold=largebound, **xlarge_file) # Take the best (largest) configuration within that page
 
 
-        large_file = named_export(small=True, density_threshold=largebound, index='!')
+        large_file = await named_export(small=True, density_threshold=largebound, index='!')
         
         if large_file["pages"] == small_file["pages"]:
             # The largebound w/ small text is the same num. of pages as the smallbound
-            print("Page count does not vary with density. Taking largebound density with small text.")
+            # print("Page count does not vary with density. Taking largebound density with small text.")
             return dict(small=True, density_threshold=largebound, **large_file)
         
-        print("Must traverse configuration space.")
+        # print("Must traverse configuration space.")
 
         # Otherwise, keep defining our search space
         use_small = True
@@ -452,7 +491,21 @@ class Resume(_Nested_Conditional):
         # Iteratively find the most desirable config
         for iterations in range(max_iters):
             new_est = (largebound+smallbound)/2.0
-            new_file = named_export(small=use_small, density_threshold=new_est, index=iterations)
+            new_file = await named_export(small=use_small, density_threshold=new_est, index=iterations)
+            if new_file["pages"] > effective_page_goal:
+                largebound = new_est
+            else:
+                smallbound = new_est
+                small_file = new_file
+        
+        density_threshold_projects = smallbound
+        # retrieve the more permissive bounds
+        largebound = lowest_threshold
+
+        # Iteratively find the most desirable config with a fixed project density, keeping the previously-assigned bound on the projects
+        for iterations in range(max_iters):
+            new_est = (largebound+smallbound)/2.0
+            new_file = await named_export(small=use_small, density_threshold=new_est, density_threshold_projects=density_threshold_projects, index=iterations)
             if new_file["pages"] > effective_page_goal:
                 largebound = new_est
             else:
@@ -461,10 +514,15 @@ class Resume(_Nested_Conditional):
 
         # Because content appears and rolls in blocks, it's possible a large-format (ie not-small) resume would fit on the same number of pages
         if use_small:
-            large_file = named_export(small=False, density_threshold=smallbound, index='?')
+            large_file = await named_export(small=False, density_threshold=smallbound, density_threshold_projects=density_threshold_projects, index='?')
             use_small = large_file["pages"] > small_file["pages"]
 
-        return dict(small=use_small, density_threshold=smallbound, **named_export(small=use_small, density_threshold=smallbound, index='_'))
+        return_payload = dict(small=use_small, density_threshold=smallbound, density_threshold_projects=density_threshold_projects, **(await named_export(small=use_small, density_threshold=smallbound, density_threshold_projects=density_threshold_projects, index='_')))
+
+        if browser is not None:
+            await browser.close()
+
+        return return_payload
 
 
     def host(self, *args, **kwargs):
@@ -472,9 +530,20 @@ class Resume(_Nested_Conditional):
         cv_host.start_hosting()
 
 
-def count_pages_in_pdf(pdf_fpath):
+async def count_pages_in_pdf(pdf_fpath):
     # This is a *very* trusting method
-    # And I haven't tested it at all.
+    # And I have only tested that it works on some of the PDFs I've happened to make.
+
+    # proc = await asyncio.create_subprocess_shell(
+    #     "strings < "+pdf_fpath+" | grep -oP '(?<=/Count )\d{1,}' | sort -rn | head -n 1", 
+    #     stdout=asyncio.subprocess.PIPE,
+    #     stderr=asyncio.subprocess.PIPE
+    # )
+
+    # stdout, stderr = await proc.communicate()
+
+    # return int(stdout.decode().strip())
+
     return int(subprocess.run(
         "strings < "+pdf_fpath+" | grep -oP '(?<=/Count )\d{1,}' | sort -rn | head -n 1", 
         shell=True, 
