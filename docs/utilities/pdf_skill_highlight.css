@@ -20,3 +20,46 @@
     flex-wrap:wrap;
     height:0px;
 }
+
+
+
+#about_skills .Skill {
+    display:block;
+    margin:2px;
+    padding:1px;
+    font-size:inherit;
+    line-height:inherit;
+    user-select:inherit;
+    border: 1px solid rgba(0, 0, 0, 0.402);
+    border-radius: 5px;
+}
+
+#about_skills .Skill>.skill_text {
+    margin: 0px;
+    color: inherit;
+    font-size:0.75em;
+}
+
+#about_skills ._skills_div {
+    height:auto;
+}
+
+#about_skills>#categories_skills{
+    list-style: none;
+    display:flex;
+    flex-direction: column;
+    flex-wrap:wrap;
+    max-height:1000px;
+
+}
+
+#about_skills>#categories_skills>.skills_of_a_category{
+    page-break-inside: avoid;
+    flex: 1 1 fit-content;
+    margin:3px;
+    width:48%;
+}
+
+#about_skills>#categories_skills>.skills_of_a_category>.heading {
+    margin:0px;
+}

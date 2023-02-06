@@ -11,6 +11,7 @@ import abc
 import uuid
 from pyppeteer import launch
 import asyncio
+import copy
 
 
 from datetime import date
@@ -63,6 +64,7 @@ class _NestedHTML():
     @staticmethod
     def get_template(classname, **kwargs) -> Template:
         prefix = _NestedHTML.get_template_prefix(classname, **kwargs)
+        # print(f"{classname} has template prefix {prefix}")
         try:
             return _NestedHTML._template_env.get_template(prefix + classname + ".html")
         except TemplateNotFound:
@@ -286,6 +288,7 @@ class ContactInfo(_NestedHTML):
     phone:str = None
     link:str = None
     link2:str = None # Ought to be lists or dicts per group
+    location:str = None
 
 
 @dataclass(kw_only=True)
@@ -399,6 +402,26 @@ class Resume(_Nested_Conditional):
         self.skills.update(new)
         return new
 
+
+    def __repr_html__(self, *args, **kwargs):
+        """Inject a list of (category, [skills_in_category]) into rendering a resume"""
+
+        rejected_categories = {
+            "Monitoring", "Personal Traits"
+        }
+
+        cs_kwargs = copy.deepcopy(kwargs)
+        cs_kwargs["alt_template_prefixes"]["Skill"] = ""
+
+        self.categories_skills = list(filter(
+            lambda cs: len(cs[1]),
+            [(category, skills_div([skill for skill in self.skills if skill.name in skills_in_cat], **cs_kwargs)) for category, skills_in_cat in skill_cat.category_to_skills.items() if category not in rejected_categories],
+        ))
+        self.categories_skills.sort(key=lambda cs: cs[0])
+        # print(self.categories_skills)
+        res = super().__repr_html__(*args, **kwargs)
+        del self.categories_skills
+        return res
 
     def _get_conditional_children(self, *args, **kwargs) -> list['_Conditional_nHTML']:
         return self.education + self.employment + self.projects + list(self.skills)

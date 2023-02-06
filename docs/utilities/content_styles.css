@@ -9,3 +9,7 @@
     flex: 0 1 min-content;
 }
  */
+
+#resume_sidebar .Person .ContactInfo>div>* {
+    margin: 0;
+}

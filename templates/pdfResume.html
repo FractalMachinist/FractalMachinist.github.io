@@ -50,6 +50,8 @@
                     {% endif %}
 
 
+
+
                 </div>
 
 
@@ -71,6 +73,22 @@
                         </section>
                     {% endif %}
                 </div>
+
+                {% if categories_skills is defined %}
+                <section class="resume_section" id="about_skills" style="page-break-before: always;">
+                    <h{{depth+1}} class="heading heading_{{depth+1}} resume_section_heading">SKILLS</h{{depth+1}}>
+        
+                    <div id="categories_skills">
+                        {% for cat, cat_skills in categories_skills %}
+                        <div class="skills_of_a_category">
+                            <h{{depth+2}} class="heading heading_{{depth+2}}">{{cat}}</h{{depth+2}}>
+                            {{cat_skills}}
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    
+                </section>
+                {% endif %}
 
             </div>
         </div>

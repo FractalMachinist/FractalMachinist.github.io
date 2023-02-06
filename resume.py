@@ -10,16 +10,18 @@ my_resume = Resume(
             email="fractalmachinist@gmail.com", 
             phone="+1 (509)438-8146", 
             link="https://fractalmachini.st",
-            link2="https://linkedin.com/in/zachallen-fractalmachinist/"
+            link2="https://linkedin.com/in/zachallen-fractalmachinist/",
+            location="Bethlehem, PA 18015"
         )
     ),
 
-    headline=' '.join(["Machine Learning Researcher & Data Engineer with 5 years experience in collaborative AI innovation & infrastructure implementation at scale.",                       
+    headline=' '.join([# "Machine Learning Researcher & Data Engineer with 5 years experience in collaborative AI innovation & infrastructure implementation at scale.",
+                       "Recent CS Grad (WGU 2022) with industry experience during degree program.",
                        "Expert in Python & TensorFlow since 2015/2017.",
                        # "Analyzed, tested, and optimized innovative Machine Learning algorithms for unbalanced datasets (>1000:1), raising rare-case recognition from 15% to 90% with no loss in accuracy.",
-                       "Passionate about working closely with multidisciplinary partners to shape the future towards global sustainability.",
+                       # "Passionate about working closely with multidisciplinary partners to shape the future towards global sustainability.",
                        # "Independently implemented and deployed terabyte-scale AWS genomics pipeline infrastructure in 4 months part-time, from no prior AWS or genomics experience.",
-                       # "Certified in data-driven integrations of business needs, software engineering, project management, and software development best practices.",
+                       "Certified in data-driven integrations of business needs, software engineering, project management, and software development best practices.",
                        "Excellent writing, speaking, presenting, and technical communication skills.",
                        ])
 )
@@ -109,6 +111,13 @@ my_resume.education = [Occupation(
 ])]
 
 my_resume.employment = [
+    Occupation(    must_render=True,
+        title="Bachelor's in Computer Science", location="Utah, USA (Online)",
+        timespan=Between(start=date(2019, 2, 1), end=date(2022, 8, 31)),
+        subtitle="Western Governors University",
+        headline="Focused on Machine Learning and Project Management in a fully remote environment",
+    ),
+    
     Occupation(
         title="Sofware Engineer", location="St. Louis, Missouri, USA", website="https://PlutonBio.com",
         timespan=Between(start=date(2021, 3, 1), end=date(2021, 8, 31)),
@@ -130,7 +139,7 @@ my_resume.employment = [
                         # title="Pipeline Design",
                         # headline="Designed, implemented, and documented gRPC+ProtoBuf pipeline architecture.",
                         # headline="Supported large scale data architecture needs and complex LIMS/metadata management with an in-house gRPC+ProtoBuf pipeline framework, ensuring strong integration between pipeline tools.",
-                        headline="Ensured strong integration between pipeline components with an in-house gRPC+ProtoBuf pipeline architecture, built for LIMS/metadata integration from the ground-up.",
+                        headline="Ensured strong integration between pipeline components with an in-house gRPC+ProtoBuf pipeline architecture in Python, built for LIMS/metadata integration from the ground-up.",
                         skills=my_resume.Skills("Large Scale", "Data", "Data Architecture", "Big Data", "Data Infrastructure", "Frameworks", "Integration", "Tooling")
                         # skills=my_resume.Skills("Infrastructure", "Data", "Big Data", "Large Scale", "Tooling", "Integration", "Automation", "Prototyping", "Workflows", "Innovation", "Problem Solving"),
                     ),
@@ -159,7 +168,7 @@ my_resume.employment = [
             Effort(
                 title="Containerized Deployment & Autoscaling",
                 headline="Researched, containerized, documented, and deployed 10+ Computational Genomics tools to AWS ECS and EC2",
-                skills=my_resume.Skills("Research", "Containerization", "Documentation", "Data Infrastructure", "AWS", "ECS", "EC2"),
+                skills=my_resume.Skills("Research", "Containerization", "Documentation", "Data Infrastructure", "AWS", "ECS", "EC2", "S3"),
                 achievements=[
                     Achievement(
                         # title="Streamlined Pipeline Development Lifecycle",
@@ -183,8 +192,8 @@ my_resume.employment = [
             ),
             Achievement(
                 # title="Microbial Taxonomy Visualizations in R",
-                headline="Worked closely with SMEs to perform statistical analysis and visualization of microbial taxonomy data in R.",
-                skills=my_resume.Skills("Collaboration", "R", "Analysis", "Statistics", "Multidisciplinary", "Teamwork", "Data Visualization", "Technical Communication")
+                headline="Worked closely with SMEs to perform statistical analysis and visualization of microbial taxonomy data in Python+R.",
+                skills=my_resume.Skills("Collaboration", "R", "Analysis", "Statistics", "Multidisciplinary", "Teamwork", "Data Visualization", "Technical Communication", "Matplotlib")
                 # skills=my_resume.Skills("R", "Analysis", "Statistics", "Communication Skills", "Collaboration", "Multidisciplinary", "Teamwork", "Iteration", "Data Visualization", "Technical Communication")
             ),
         ],
@@ -265,8 +274,8 @@ my_resume.employment = [
         skills=my_resume.Skills("TensorFlow", "Python", "Machine Learning", "Deep Learning", "Neural Network Architectures", "Research", "Computer Science", "Analysis", "Statistics", "Software Engineering"),
         achievements=[
             Achievement(
-                headline="Researched, Designed and tested novel ML & Neural Network algorithms, architectures, and error formulations for NLP, image classification, and time-series data classification.",
-                skills=my_resume.Skills("Research", "Testing", "Machine Learning", "Neural Networks", "Algorithms", "Natural Language Processing", "Analysis", "Statistics")
+                headline="Researched, Designed and tested novel ML & Neural Network algorithms, architectures, and error formulations for NLP, image classification, and time-series data classification in Python+Tensorflow.",
+                skills=my_resume.Skills("Research", "Testing", "Machine Learning", "Neural Networks", "Algorithms", "Natural Language Processing", "Analysis", "Statistics", "MATLAB")
                 # skills=my_resume.Skills("Python", "TensorFlow", "Machine Learning", "Deep Learning", "Neural Network Architectures", "Feature Engineering",
                 #                                 "Algorithms", "Algebra", "NLP", "Data", "Curious", "Research", "Frameworks", "Computer Science",
                 #                                 "MatLab", "NumPy", "Software Engineering")
@@ -295,7 +304,7 @@ my_resume.projects = [
         skills=my_resume.Skills("Software Engineering", "Python", "TensorFlow", "Machine Learning", "Research", "Analysis", "Statistics", "Neural Network Architectures"),
         achievements=[
             Achievement(
-                headline="Developed, tested, and iterated NCA+A models in TensorFlow, balancing system resources and model size.",
+                headline="Developed, tested, and iterated NCA+A models in TensorFlow, balancing system resources and model size to optimize GPU utilization.",
                 chars_per_line=sidebar_chars_per_line, # Due to the sidebar. This needs refactored.
                 skills=my_resume.Skills("Python", "TensorFlow", "Machine Learning", "Neural Network Architectures", "Research", "Algebra", 
                                                 "Optimization", "Statistics", "NumPy", "Analysis")
@@ -307,17 +316,18 @@ my_resume.projects = [
             ),
         ]
     ),
+    
     Effort(
         title="Interplan",
         headline="Task dependency management from a Graph Database",
         website="https://github.com/FractalMachinist/Interplan",
-        skills=my_resume.Skills("Software Engineering", "Neo4J", "Web Development", "Containerization", "Project Management"),
+        skills=my_resume.Skills("Software Engineering", "Neo4j", "Web Development", "Containerization", "Project Management"),
         achievements=[
             Achievement(
-                headline="Developed a Neo4J+JS dependency resolution and task status tracking API.",
+                headline="Developed a Neo4j+JS dependency resolution and task status tracking API.",
                 chars_per_line=sidebar_chars_per_line, # Due to the sidebar. This needs refactored.
                 skills=my_resume.Skills("Data", "JavaScript", "Testing", "Project Management", "Data Driven", "API Design",
-                                                   "Software Engineering", "Neo4J", "Apache Tinkerpop")
+                                                   "Software Engineering", "Neo4j", "Apache Tinkerpop")
             ),
 
             Achievement(
@@ -327,12 +337,25 @@ my_resume.projects = [
             ),
 
             Achievement(
-                headline="Packaged Node+Neo4J in Docker & Kubernetes for easy migration.",
+                headline="Packaged Node+Neo4j in Docker & Kubernetes for easy migration.",
                 chars_per_line=sidebar_chars_per_line, # Due to the sidebar. This needs refactored.
                 skills=my_resume.Skills("Containerization", "Infrastructure")
             )
         ]
     ),
+    
+    Effort(
+        title="Do Robots Dream in Color",
+        headline="Collaborative project simulating cellular automata in the browser",
+        website="fractalmachini.st/do-robots-dream-in-color",
+        skills=my_resume.Skills("Sofware Engineering", "Web Development"),
+        achievements=[
+            Achievement(
+                headline="Leveraged previous CUDA experience to accelarate simulations running on the WebGPU shader interface.",
+                skills=my_resume.Skills("GPU Programming")
+            )
+        ]
+    ), 
     
     Effort(
         title="MarkNotes",

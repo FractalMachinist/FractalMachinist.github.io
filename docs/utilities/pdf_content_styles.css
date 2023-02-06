@@ -23,6 +23,10 @@
     margin-block-end:7px;
 }
 
+#resume_sidebar .Person .ContactInfo>div>* {
+    margin: 0;
+}
+
 .resume_section_heading {
     margin-block-end: 0em;
 }
