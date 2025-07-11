@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Soap & Circumstance Flyer</title>
+  <meta name="viewport" content="width=850, initial-scale=1.0">
+  <style>
+    :root {
+      --text-color: #222222;
+      --low-emphasis: #b0a98f;
+      --high-emphasis: #2e4a62;
+    }
+    html, body {
+      background: #fff;
+      color: var(--text-color);
+      font-family: 'EB Garamond', 'Georgia', serif;
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      padding: 0.5in 0.75in;
+      box-sizing: border-box;
+    }
+    h1, h2, h3 {
+      color: var(--high-emphasis);
+      text-align: center;
+      margin-top: 0.5em;
+      margin-bottom: 0.2em;
+      font-family: 'EB Garamond', 'Georgia', serif;
+      letter-spacing: 0.04em;
+    }
+    h1 {
+      font-size: 2.2em;
+      font-weight: bold;
+      border-bottom: 2px solid var(--high-emphasis);
+      padding-bottom: 0.1em;
+      margin-bottom: 0.2em;
+    }
+    h2 {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-top: 1.2em;
+      margin-bottom: 0.2em;
+      border-bottom: 1px solid var(--low-emphasis);
+      padding-bottom: 0.1em;
+    }
+    h3 {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-top: 1em;
+      margin-bottom: 0.1em;
+    }
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-bottom: 0.5em;
+    }
+    .section-divider {
+      display: flex;
+      justify-content: center;
+      margin: 1em 0 1.2em 0;
+    }
+    .section-divider svg {
+      display: block;
+      width: 180px;
+      height: 16px;
+      fill: var(--low-emphasis);
+    }
+    .shopkeeper-message {
+      font-style: italic;
+      text-align: center;
+      margin: 1em 0 0.5em 0;
+      color: var(--high-emphasis);
+    }
+    .endorsements {
+      margin: 1em 0 1em 0;
+      font-size: 1em;
+      color: var(--text-color);
+    }
+    .endorsements blockquote {
+      border-left: 3px solid var(--low-emphasis);
+      margin: 0.5em 0 0.5em 1em;
+      padding-left: 1em;
+      font-style: italic;
+      color: var(--high-emphasis);
+    }
+    .pro-tip {
+      font-weight: bold;
+      color: var(--high-emphasis);
+      margin: 0.5em 0 0.5em 0;
+      text-align: center;
+    }
+    .item-group {
+      margin: 1.2em 0 0.8em 0;
+    }
+    .item {
+      margin-bottom: 0.7em;
+      padding: 0.5em 0.5em 0.5em 0.5em;
+      border-left: 4px solid var(--low-emphasis);
+    }
+    .item .name {
+      font-weight: bold;
+      color: var(--high-emphasis);
+      font-size: 1.08em;
+    }
+    .item .desc {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-left: 0.2em;
+    }
+    .item .price {
+      display: block;
+      font-weight: bold;
+      color: var(--text-color);
+      margin-top: 0.1em;
+    }
+    .spotlight {
+      border: 2px solid var(--high-emphasis);
+      background: #f8f7f3;
+      padding: 0.7em 1em;
+      margin: 1.2em 0;
+      text-align: center;
+      position: relative;
+    }
+    .spotlight .magical {
+      color: var(--high-emphasis);
+      font-style: italic;
+      font-size: 1em;
+      margin-top: 0.3em;
+      /* shimmer animation */
+      background: linear-gradient(90deg, var(--low-emphasis) 10%, var(--high-emphasis) 50%, var(--low-emphasis) 90%);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 2.5s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .directions {
+      text-align: center;
+      margin: 1em 0 1em 0;
+      color: var(--text-color);
+    }
+    .tear-off-coupons {
+      margin-top: 2em;
+      border-top: 2px dashed var(--low-emphasis);
+      padding-top: 0.5em;
+      display: flex;
+      flex-direction: row !important;
+      gap: 0.5em;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+    .coupon {
+      border: 1px dashed var(--high-emphasis);
+      border-radius: 0;
+      background: #fff;
+      color: var(--high-emphasis);
+      font-family: 'EB Garamond', 'Georgia', serif;
+      font-size: 1em;
+      text-align: center;
+      padding: 0.3em 0.5em;
+      width: 32%;
+      margin: 0;
+      letter-spacing: 0.04em;
+      box-shadow: none;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer {
+      text-align: center;
+      color: var(--low-emphasis);
+      font-style: italic;
+      margin-top: 2em;
+      font-size: 1.1em;
+    }
+    @media print {
+      html, body {
+        width: 8.5in;
+        min-height: 11in;
+        margin: 0;
+        padding: 0.5in 0.75in;
+        background: #fff !important;
+        color: var(--text-color) !important;
+      }
+      .section-divider svg {
+        fill: var(--low-emphasis) !important;
+      }
+      .spotlight {
+        background: #f8f7f3 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+    @media (max-width: 900px) {
+      .tear-off-coupons {
+        flex-direction: row !important;
+      }
+      .coupon {
+        width: 32%;
+        margin-bottom: 0;
+      }
+    }
+  </style>
+  <!-- Use EB Garamond or Georgia for period-appropriate print style -->
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Soap & Circumstance</h1>
+  <div class="subtitle">The 20th day of Nilse's Moon, just after the end of summer</div>
+  <div class="section-divider">
+    <svg viewBox="0 0 180 16"><rect x="0" y="7" width="180" height="2" rx="1"/></svg>
+  </div>
+  <div class="subtitle" style="font-weight:bold;">Purveyors of Fine Cleansers, Fragrant Luxuries, and Bathing Curiosities</div>
+  <div class="section-divider">
+    <svg viewBox="0 0 180 16"><rect x="0" y="7" width="180" height="2" rx="1"/></svg>
+  </div>
+  <h2>A SUDSY SENSATION SWEEPS USALAMA!</h2>
+  <div class="subtitle">Step off the cobbles and into a world of lather and luxury! Just two doors down from the Usalama Clocktower, look for the blue-and-gold awning and the scent of lavender drifting on the breeze.</div>
+  <div class="subtitle" style="font-weight:bold; color:var(--high-emphasis);">This week only: ALL SOAPS 25% OFF!</div>
+  <div class="section-divider">
+    <svg viewBox="0 0 180 16"><rect x="0" y="7" width="180" height="2" rx="1"/></svg>
+  </div>
+
+  <div class="item-group">
+    <h2>For the Discerning Bather</h2>
+    <div class="item">
+      <span class="name">Artisanal Soap (bar)</span>
+      <span class="desc">Hand-poured, scented with natural botanicals—choose from lavender, citrus, or wild mint. “A bar for every mood!”</span>
+      <span class="price">Only 0.75gp (Reg. 1gp) – 25% OFF!</span>
+    </div>
+    <div class="item">
+      <span class="name">Herbal Shampoo</span>
+      <span class="desc">Cleans and softens hair with a blend of wild herbs. “For locks as lively as a mountain stream!”</span>
+      <span class="price">1.6gp (Reg. 2gp) – 20% OFF!</span>
+    </div>
+    <div class="item">
+      <span class="name">Loofah Sponge</span>
+      <span class="desc">Natural, exfoliating, and long-lasting. Perfect for a deep clean or gentle scrub.</span>
+      <span class="price">0.8gp (Reg. 1gp) – 20% OFF!</span>
+    </div>
+    <div class="item">
+      <span class="name">Bath Bomb</span>
+      <span class="desc">Fizz, sparkle, and soak your cares away! Each bomb is a surprise of color and scent.</span>
+      <span class="price">1.6gp (Reg. 2gp) – 20% OFF!</span>
+    </div>
+  </div>
+
+  <div class="item-group">
+    <h2>For the Adventurer & Traveler</h2>
+    <div class="item">
+      <span class="name">Travel Soap Sheets (pack)</span>
+      <span class="desc">Dissolvable, single-use sheets for the adventurer on the go. “For the mountain minimalist!”</span>
+      <span class="price">1.6gp (Reg. 2gp) – 20% OFF!</span>
+    </div>
+    <div class="item">
+      <span class="name">Frost-Resist Lip Balm</span>
+      <span class="desc">Prevents chapping in cold winds. “Kiss winter goodbye!”</span>
+      <span class="price">0.8gp (Reg. 1gp) – 20% OFF!</span>
+    </div>
+  </div>
+
+  <div class="item-group">
+    <h2>For the Pampered & Gifted</h2>
+    <div class="item">
+      <span class="name">Scented Oil (vial)</span>
+      <span class="desc">For skin or hair, in fragrances like rosewater, sandalwood, or sea breeze. Leaves you radiant and refreshed.</span>
+      <span class="price">2.4gp (Reg. 3gp) – 20% OFF!</span>
+    </div>
+    <div class="item">
+      <span class="name">Gift Basket (assorted)</span>
+      <span class="desc">A curated selection of soaps, oils, and accessories—perfect for gifting or self-indulgence.</span>
+      <span class="price">8gp (Reg. 10gp) – 20% OFF!</span>
+    </div>
+    <div class="item">
+      <span class="name">Royal Spa Set</span>
+      <span class="desc">The ultimate in luxury: rare imported oils, deluxe soaps, and exclusive accessories.</span>
+      <span class="price">48gp (Reg. 60gp) – 20% OFF!</span>
+    </div>
+    <div class="item">
+      <span class="name">Perfume of Bewitching</span>
+      <span class="desc">A rare fragrance that grants advantage on Charisma checks for 1 hour. “Turn heads, win hearts!”</span>
+      <span class="price">80gp (Reg. 100gp) – 20% OFF!</span>
+    </div>
+  </div>
+
+  <div class="shopkeeper-message">
+    “Step inside and let your cares melt away! Whether you’re a weary traveler or a local in need of a little luxury, I promise you’ll leave Soap & Circumstance with a smile and a scent to remember.”<br>— Maribelle Underbough
+  </div>
+
+  <div class="endorsements">
+    <blockquote>“Never have my hands been so soft, nor my purse so full!”<br>— Mrs. Tilda, Usalama Market</blockquote>
+    <blockquote>“Maribelle always ensures the Pierce household is supplied with only the finest soaps and oils. Her service and discretion are why I trust no one else.”<br>— Vandell Pierce, Villa on the Hill</blockquote>
+    <div class="pro-tip">Pro Tip: Use our Travel Soap Sheets for quick clean-ups on the trail—no water needed!</div>
+  </div>
+
+  <div class="directions">
+    From the Clocktower, stroll east past the baker’s, turn left at the fountain, and follow your nose! Our blue-and-gold awning welcomes all.
+  </div>
+
+  <div class="spotlight">
+    <span class="name">Royal Spa Set</span>: The crown jewel of our collection—rare oils, deluxe soaps, and exclusive accessories. For those who demand the best.<br>
+    <span class="magical">Subtle magical shimmer: The Royal Spa Set is said to glimmer faintly in moonlight—ask for a demonstration!</span>
+  </div>
+
+  <div class="tear-off-coupons">
+    <div class="coupon">Bring this flyer for a FREE sample sliver of Artisanal Soap!</div>
+    <div class="coupon">Buy 2, get 1 free on all Travel Soap Sheets!</div>
+    <div class="coupon">First 10 customers each day receive a complimentary wild mint sachet.</div>
+  </div>
+
+  <div class="footer">Soap & Circumstance: Where every wash is a fresh start!</div>
+</body>
+</html>

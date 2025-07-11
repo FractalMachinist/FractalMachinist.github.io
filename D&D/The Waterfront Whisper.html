@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Waterfront Whisper</title>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-color: #1a2326;
+      --low-emphasis: #3a6a6a;
+      --high-emphasis: #b12a2a;
+      --accent-teal: #1e7c7c;
+      --accent-red: #b12a2a;
+    }
+    body {
+      color: var(--text-color);
+      font-family: 'Arial Narrow', Arial, 'Liberation Sans', 'Arial Black', Impact, sans-serif;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 1.5em 1.5em 1em 1.5em;
+    }
+    .main-content {
+      max-width: 700px;
+      margin: 2em auto 0 auto;
+      display: block;
+    }
+    .column {
+      display: block;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .masthead {
+      font-size: 3.3em;
+      font-family: 'Oswald', 'Arial Black', Impact, Arial, sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      color: var(--accent-teal);
+      margin-bottom: 0.1em;
+      margin-top: 0.2em;
+      text-transform: uppercase;
+      position: relative;
+      text-align: left;
+      line-height: 1.05;
+      text-shadow: 0 2px 0 #fff, 0 3px 3px #bbb;
+    }
+    .masthead::after {
+      content: '';
+      display: block;
+      margin-top: 0.12em;
+      width: 100%;
+      height: 16px;
+      background: url('data:image/svg+xml;utf8,<svg width="400" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8 Q20 0 40 8 T80 8 T120 8 T160 8 T200 8 T240 8 T280 8 T320 8 T360 8 T400 8" stroke="%231e7c7c" stroke-width="3" fill="none"/><rect y="13" width="400" height="3" rx="2" fill="%23b12a2a"/><rect y="0" width="400" height="3" rx="2" fill="%23bfa76a"/></svg>') left bottom repeat-x;
+      background-size: auto 16px;
+    }
+    .newspaper-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.15em;
+      color: var(--accent-teal);
+      margin-bottom: 0.7em;
+      font-family: 'Arial', 'Arial Narrow', sans-serif;
+      border-bottom: 1.5px solid var(--accent-teal);
+      padding-bottom: 0.25em;
+      letter-spacing: 0.04em;
+    }
+    .edition {
+      font-style: italic;
+      font-size: 1.05em;
+      font-variant: small-caps;
+    }
+    .date {
+      font-weight: bold;
+      font-size: 1.05em;
+      font-family: 'Arial', sans-serif;
+    }
+    .headline {
+      font-size: 1.45em;
+      font-weight: 900;
+      color: var(--accent-red);
+      margin-top: 0.7em;
+      margin-bottom: 0.25em;
+      font-family: 'Oswald', 'Arial Black', Impact, Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      text-shadow: 0 1px 0 #fff;
+      text-align: left;
+    }
+    .byline {
+      font-size: 1em;
+      color: var(--accent-teal);
+      text-align: left;
+      margin-bottom: 0.5em;
+      font-style: normal;
+      font-weight: bold;
+      font-family: 'Arial', 'Arial Narrow', sans-serif;
+    }
+    .article, .gossip, .satire, .opinion, .event, .letter, .history {
+      font-size: 1.07em;
+      line-height: 1.7;
+      font-family: 'Arial', 'Arial Narrow', Verdana, sans-serif;
+      margin-bottom: 0.5em;
+      background: none;
+      padding-left: 0;
+      text-align: justify;
+      text-justify: inter-word;
+    }
+    ul, ol {
+      margin-left: 0;
+      padding-left: 1.2em;
+      list-style: none;
+      font-size: 1.07em;
+      font-family: 'Arial', 'Arial Narrow', Verdana, sans-serif;
+    }
+    ul li::before {
+      content: "\2022 ";
+      color: var(--accent-teal);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+    blockquote {
+      border: none !important;
+      margin: 1em 0;
+      padding-left: 0;
+      color: var(--accent-teal);
+      font-style: normal;
+      font-family: 'Arial', 'Arial Narrow', Verdana, sans-serif;
+      background: none;
+    }
+    .section-divider {
+      display: flex;
+      justify-content: center;
+      margin: 1.5em 0 1.2em 0;
+    }
+    .section-divider svg {
+      display: none;
+    }
+    .section-divider::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 16px;
+      background: url('data:image/svg+xml;utf8,<svg width="400" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8 Q20 0 40 8 T80 8 T120 8 T160 8 T200 8 T240 8 T280 8 T320 8 T360 8 T400 8" stroke="%231e7c7c" stroke-width="3" fill="none"/><rect y="13" width="400" height="3" rx="2" fill="%23b12a2a"/><rect y="0" width="400" height="3" rx="2" fill="%23bfa76a"/></svg>') left bottom repeat-x;
+      background-size: auto 16px;
+    }
+    @media print {
+      body {
+        box-shadow: none;
+        background: #fff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">The Waterfront Whisper</div>
+  <div class="newspaper-meta">
+    <span class="edition">Dockside Edition</span>
+    <span class="date">18th day of Nilse's Moon, 489 of L'smere</span>
+    <span class="city">Usalama</span>
+  </div>
+  <div class="main-content">
+    <div class="column">
+      <div class="headline">Café Closes, New Faces on the Waterfront</div>
+      <div class="gossip">
+        Word around the docks is that the old Pesce-Tarryin’ Café has finally closed its doors. Longtime proprietor Old Man Virello and his daughter have wished Chef Kaz the best in his new venture, noting that “it’s good to see young folks bringing fresh ideas to the waterfront—even if some of us prefer the classics.” Locals say Virello’s daughter is still about town, so perhaps the Pesce-Tarryin’ spirit isn’t gone for good.<br><br>
+        Rumor has it the new eatery will feature not only Kaz’s famous fried oysters but also a “secret menu” for those in the know. Some say the old café’s regulars have already staked out a corner table, and bets are being placed on how long it’ll take for the new chef to win over the old guard. Stay tuned for our exclusive taste test next issue!
+        <div class="byline">By Waterfront Correspondent</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Lost Locket and Library Rewards</div>
+      <div class="article">
+        <b>Lost:</b> Silver locket with a blue gem. Sentimental value. Reward offered.<br>
+        <b>Reward:</b> 100gp per scroll returned. No questions asked. See Marie Petola, Librarium Arcanum.<br><br>
+        The locket was last seen near the Ebcansu footbridge, and several children claim to have spotted a magpie with something shiny in its beak. Meanwhile, the Librarium’s reward for lost scrolls has sparked a flurry of activity among local treasure-hunters—one enterprising youth claims to have found a scroll in a rain barrel, though it turned out to be a laundry list.
+        <div class="byline">By Community Notice</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Music on the Docks This Starday</div>
+      <div class="event">
+        Open-air concert at the docks this Starday, sponsored by the Royal Mirabilis Academy. Enjoy performances by local bards and student ensembles.<br><br>
+        This year’s lineup includes the ever-popular “Salty Shanties” troupe, a debut by the Marshland Minstrels, and a surprise guest rumored to be none other than the elusive bard known as “The Silver Eel.” Vendors will offer fried fish, sweet buns, and the infamous “dockside punch.”
+        <div class="byline">By Royal Mirabilis Academy</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Merfolk Mafia Satire: Disguises Gone Wrong</div>
+      <div class="satire">
+        The Merfolk Mafia’s Top 5 Worst Disguises—#3: The “Human” with a tail. Locals say the hat was a nice touch, but the scales gave it away!<br><br>
+        Other notable attempts include the “fisherman” who forgot to remove his gills and the “merchant” whose boots left puddles wherever he went. Dockside wags are already taking bets on what the next attempt will be—our money’s on a “seagull” with suspiciously webbed feet.
+        <div class="byline">By Dockside Satirist</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Why the Crown Should Invest in Marshland Infrastructure</div>
+      <div class="opinion">
+        Improved roads and bridges would boost trade, protect against flooding, and help everyone—landfolk and merfolk alike.<br><br>
+        Last season’s storms washed out the main causeway, leaving merchants stranded and fishers grumbling. With proper investment, the city could see safer crossings, more reliable deliveries, and fewer soggy boots. As one dockworker put it, “If the Crown wants our taxes, they’d better build us a bridge that lasts!”
+        <div class="byline">By Local Merchant</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Letter: Crows Steal Lunches on the Docks</div>
+      <div class="letter">
+        To the Editor: Please stop the crows from stealing my lunch. Yesterday they made off with my sandwich and a whole apple! — Hungry in Usalama<br><br>
+        Editor’s Note: The crows have been particularly bold this week, with several reports of missing snacks and even a hat. The city watch recommends keeping food covered and eyes peeled. If you spot a crow with a sandwich, please report to the Dockside Watch (or try bargaining with breadcrumbs).
+        <div class="byline">By Hungry in Usalama</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Did You Know? The First Bridge of Usalama</div>
+      <div class="history">
+        Did you know? The first bridge in Usalama was built by a team of dwarven engineers and enchanted by riverfolk mages to withstand the annual floods.<br><br>
+        Local legend claims the bridge’s keystone is inscribed with a secret blessing, and that on foggy mornings, you can hear the dwarves’ laughter echoing beneath the planks. Next time you cross, tap the railing twice for luck!
+        <div class="byline">By Waterfront Historian</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Dockside Police Blotter</div>
+      <div class="article">
+        <b>Incidents this week:</b><br>
+        • A crate of eels reported missing from Pier 3. Suspect: “Slippery Pete,” last seen with wet boots and a guilty grin.<br>
+        • Noise complaint filed against the Marshland Minstrels for “excessive bagpipes” after midnight.<br>
+        • Mysterious glowing fish sighted near the old ferry landing. City mages investigating.<br>
+        If you have information, contact Officer Brin at the Watch House.
+        <div class="byline">By Dockside Watch</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Dockside Recipe: Pickled Kelp & Spicy Mussels</div>
+      <div class="article">
+        <b>Ingredients:</b> Fresh kelp, mussels, vinegar, red pepper, garlic, salt.<br>
+        <b>Instructions:</b> Boil mussels until shells open. Slice kelp thin. Mix all ingredients in a jar, cover with vinegar, and let sit three days. Serve with crusty bread and a dash of dockside punch.<br>
+        <i>Tip: For extra heat, add a pinch of ground marsh pepper.</i>
+        <div class="byline">By Auntie Nessa</div>
+      </div>
+      <div class="section-divider"></div>
+
+      <div class="headline">Tide Table & Weather</div>
+      <div class="article">
+        <b>High Tide:</b> 7:12 AM, 8:03 PM<br>
+        <b>Low Tide:</b> 1:45 PM<br>
+        <b>Weather:</b> Patchy fog in the morning, clearing by midday. Light winds from the east. Chance of rain: 20%.<br>
+        <i>“Red sky at morning, sailors take warning!”</i>
+        <div class="byline">By Weather Wren</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The River’s Quill Flyer</title>
+  <meta name="viewport" content="width=850">
+  <style>
+    :root {
+      --text-color: #3a2d1a;
+      --low-emphasis: #b6b6a6;
+      --high-emphasis: #4a6a6a;
+      --atlas-blue: #6b8ca3;
+      --atlas-green: #7b8c6a;
+      --atlas-brown: #b7a77a;
+    }
+    @media print {
+      html, body { width: 8.5in; height: 11in; }
+    }
+    body {
+      font-family: 'Spectral', Garamond, 'Times New Roman', serif;
+      color: var(--text-color);
+      background: #fff;
+      margin: 0 auto;
+      width: 8.5in;
+      min-height: 11in;
+      padding: 1.2in 0.8in 0.8in 0.8in;
+      box-sizing: border-box;
+      position: relative;
+    }
+    /* Topographical map motifs */
+    .topo-motif {
+      position: absolute;
+      z-index: 0;
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .topo1 {
+      top: 1.2in; left: 0.5in; width: 3in; height: 2in;
+    }
+    .topo2 {
+      bottom: 1in; right: 0.7in; width: 2.5in; height: 1.5in;
+    }
+    .topo3 {
+      top: 4.5in; right: 2in; width: 2in; height: 1.2in;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+    .subtitle {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-bottom: 0.5em;
+    }
+    .location {
+      text-align: center;
+      font-size: 1.1em;
+      color: var(--atlas-green);
+      margin-bottom: 1em;
+    }
+    .divider {
+      display: flex;
+      justify-content: center;
+      margin: 1.2em 0 1em 0;
+    }
+    .divider svg {
+      display: block;
+      width: 2.5in;
+      height: 0.25in;
+      fill: var(--atlas-brown);
+    }
+    h2, h3 {
+      color: var(--atlas-blue);
+      font-family: 'Spectral', serif;
+      margin-bottom: 0.2em;
+      margin-top: 1em;
+      letter-spacing: 0.02em;
+    }
+    .items {
+      margin-bottom: 1.2em;
+    }
+    .item {
+      margin-bottom: 0.5em;
+      padding-left: 1em;
+      position: relative;
+    }
+    .item:before {
+      content: "\1F5FA"; /* map emoji */
+      position: absolute;
+      left: 0;
+      color: var(--atlas-green);
+    }
+    .featured {
+      border: 2px dashed var(--atlas-blue);
+      background: #f6fafd;
+      padding: 0.7em 1em;
+      margin: 1em 0;
+      font-weight: bold;
+      font-size: 1.1em;
+      box-shadow: 0 0 0.2em 0.05em var(--low-emphasis) inset;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured .shimmer {
+      display: none;
+    }
+    .adventure-prompts {
+      margin: 1em 0;
+      font-style: italic;
+      color: var(--low-emphasis);
+    }
+    .directions {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-bottom: 1em;
+    }
+    .coupons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 2em;
+      border-top: 2px dotted var(--atlas-brown);
+      padding-top: 0.7em;
+      gap: 0.4em 2%;
+    }
+    .coupon {
+      border: 1.5px dashed var(--atlas-brown);
+      background: #f8f6f0;
+      padding: 0.5em 0.8em;
+      margin-right: 0;
+      margin-bottom: 0.7em;
+      font-size: 0.98em;
+      width: 48%;
+      text-align: center;
+      position: relative;
+      font-family: 'Spectral', serif;
+      box-sizing: border-box;
+    }
+    .coupon .label {
+      font-size: 1.2em;
+      color: var(--atlas-blue);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.2em;
+    }
+    .footer {
+      text-align: center;
+      color: var(--low-emphasis);
+      font-size: 0.95em;
+      margin-top: 1.5em;
+    }
+    .map-doodle {
+      display: block;
+      margin: 0.5em auto 1em auto;
+      width: 1.5in;
+      height: 0.5in;
+    }
+    /* Inset map styles (atlas style, no label) */
+    .inset-map {
+      border: 2.5px double var(--atlas-blue);
+      background: #f6fafd;
+      /* box-shadow: 0 0 0.5em 0.1em var(--atlas-brown) inset; */
+      border-radius: 0.25em;
+      margin: 1.2em 0;
+      padding: 1em 1.2em 0.8em 1.2em;
+      position: relative;
+      z-index: 2;
+      /* Add a faint topographic SVG motif in the background */
+      overflow: hidden;
+    }
+    .inset-map-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .inset-map-content { position: relative; z-index: 1; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="main-content">
+    <header>
+      <h1>THE RIVER’S QUILL: A PAGE FROM THE TRAVELER’S LOG</h1>
+      <div class="subtitle">Books, Maps, and Curiosities for the Adventurous Mind!</div>
+    </header>
+    <div class="location">In the wide tree trunk by the river’s bend. Look for ink-stained paw prints and the sound of pages turning.</div>
+    <div class="divider">
+      <svg viewBox="0 0 300 20"><polyline points="0,10 50,2 100,18 150,5 200,15 250,3 300,10" stroke="var(--low-emphasis)" stroke-width="3" fill="none"/></svg>
+    </div>
+    <h2>🗺️ Tools for the Journey 🗺️</h2>
+    <div style="color:var(--low-emphasis);margin-bottom:0.5em;">All prices “22% OFF—Nilse’s Moon Cartographer’s Special!”</div>
+    <div class="items">
+      <div class="item"><b>Local Flora Guide</b> — 5gp, 22% OFF!<br><span style="color:var(--low-emphasis)">Identify every plant in the marsh—essential for foragers and herbalists.</span></div>
+      <div class="item"><b>Bestiary Tome</b> — 10gp, 22% OFF!<br><span style="color:var(--low-emphasis)">Learn about local creatures—knowledge is power!</span></div>
+      <div class="item"><b>Adventure Logbook</b> — 3gp, 22% OFF!<br><span style="color:var(--low-emphasis)">Blank pages for your journeys—record every step.</span></div>
+      <div class="item"><b>Hand-Drawn Map (local)</b> — 2gp, 22% OFF!<br><span style="color:var(--low-emphasis)">Detailed, accurate, and beautifully illustrated.</span></div>
+      <div class="item"><b>Mapmaking Kit</b> — 15gp, 22% OFF!<br><span style="color:var(--low-emphasis)">Tools for the aspiring cartographer—includes compass, ink, and parchment.</span></div>
+      <div class="item"><b>Commissioned Map</b> — Varies, 22% OFF custom work!<br><span style="color:var(--low-emphasis)">Get a map made just for you—ask for details!</span></div>
+      <div class="inset-map">
+        <div class="inset-map-content">
+          <div class="inset-map-title">Map of Hidden Paths</div>
+          <div><b>100gp, 22% OFF!</b></div>
+          <div style="color:var(--high-emphasis);margin:0.5em 0 0.2em 0;">Reveals secret trails—perfect for the bold explorer.</div>
+        </div>
+      </div>
+      <div class="item"><b>Tome of the Marshes</b> — 150gp, 22% OFF!<br><span style="color:var(--low-emphasis)">Grants advantage on Nature checks in swamps—rare and invaluable.</span></div>
+      <div class="item"><b>Mountain Route Map</b> — 8gp, 22% OFF!<br><span style="color:var(--low-emphasis)">Now with color-coded avalanche warnings!</span></div>
+      <div class="item"><b>Weatherproof Scroll Case</b> — 7gp, 22% OFF!<br><span style="color:var(--low-emphasis)">Guaranteed dry or your money back*</span></div>
+    </div>
+    <div class="adventure-prompts">
+      Where will your next journey take you? Mark your route in an Adventure Logbook.<br>
+      Need a shortcut? Ask about the Map of Hidden Paths—only a few left!<br>
+      Want to leave your mark? Commission a map and add your story to the world.
+    </div>
+    <div class="directions">
+      From the main square, follow the river’s bend to the big tree. If you see paw prints in ink, you’re on the right path!
+    </div>
+    <div class="divider">
+      <svg viewBox="0 0 300 20"><polyline points="0,10 50,2 100,18 150,5 200,15 250,3 300,10" stroke="var(--low-emphasis)" stroke-width="3" fill="none"/></svg>
+    </div>
+    <h3 style="text-align:center;">Explorer’s Stamps (Tear-Off Coupons)</h3>
+    <div class="coupons">
+      <div class="coupon"><span class="label">📜 2gp OFF</span>Any purchase over 10gp</div>
+      <div class="coupon"><span class="label">📜 Free Logbook</span>With any Mapmaking Kit</div>
+      <div class="coupon"><span class="label">📜 10% OFF</span>Commissioned Map (limit 1)</div>
+      <div class="coupon"><span class="label">📜 Free Weatherproof Case</span>With any Mountain Route Map</div>
+    </div>
+    <div class="footer">
+      Bring this page for a new adventure. Sale ends at the close of Nilse’s Moon.<br>
+    </div>
+  </div>
+</body>
+</html>

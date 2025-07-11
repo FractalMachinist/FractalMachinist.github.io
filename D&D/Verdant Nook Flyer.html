@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Verdant Nook – Autumn Specials Flyer</title>
+  <meta name="viewport" content="width=850">
+  <style>
+    @page {
+      size: 8.5in 11in;
+      margin: 0.5in;
+    }
+    body {
+      --text-color: #181818;
+      --low-emphasis: #7a8c4a;
+      --high-emphasis: #3b4d1e;
+      font-family: 'IM Fell English', 'EB Garamond', Garamond, serif;
+      background: #f7f4ed;
+      color: var(--text-color);
+      max-width: 7.5in;
+      margin: 0 auto;
+      padding: 0.5in 0.25in;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 4px double var(--high-emphasis);
+      margin-bottom: 0.5em;
+      text-align: center;
+      position: relative;
+    }
+    .staff-svg {
+      display: inline-block;
+      vertical-align: middle;
+      width: 38px;
+      height: 38px;
+      margin-right: 0.3em;
+      margin-bottom: 0.1em;
+    }
+    .staff-svg .glimmer {
+      opacity: 0.7;
+      animation: staff-glimmer 2.5s linear infinite;
+    }
+    @keyframes staff-glimmer {
+      0% { opacity: 0.7; }
+      40% { opacity: 0.7; }
+      50% { opacity: 1; }
+      60% { opacity: 0.7; }
+      100% { opacity: 0.7; }
+    }
+    header h1 {
+      font-family: 'IM Fell English SC', serif;
+      font-size: 2.2em;
+      margin: 0.1em 0 0.2em 0;
+      letter-spacing: 0.04em;
+      color: var(--high-emphasis);
+      /* Remove shimmer and glow animation from title */
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: var(--high-emphasis);
+      background-clip: initial;
+      text-fill-color: var(--high-emphasis);
+      filter: none;
+      animation: none;
+      border-bottom: 3px solid var(--low-emphasis);
+      box-shadow: 0 4px 12px 0 rgba(122,140,74,0.08);
+      position: relative;
+    }
+    .shimmer-underline {
+      display: block;
+      width: 220px;
+      height: 12px;
+      margin: 0 auto -0.5em auto;
+      position: relative;
+    }
+    .shimmer-underline svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .shimmer-underline .shine {
+      stroke: #bfc7a1;
+      stroke-width: 2.5;
+      stroke-dasharray: 40 180;
+      stroke-dashoffset: 0;
+      /* Remove underline animation */
+      animation: none;
+    }
+    /* Verdant Staff emphasis styles */
+    .item-list .verdant-staff-emphasis {
+      display: flex;
+      align-items: stretch;
+      gap: 0.5em;
+      /* Remove background and border */
+      background: none;
+      border: none;
+      border-radius: 0;
+      padding: 0.2em 0 0.2em 0;
+      margin: 0.3em 0 0.7em 0;
+      box-shadow: none;
+      position: relative;
+    }
+    .verdant-staff-text {
+      flex: 0 1 80%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .verdant-staff-svg {
+      flex: 0 0 20%;
+      width: 100%;
+      max-width: 80px;
+      min-width: 48px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-left: 0.5em;
+      margin-right: 0;
+    }
+    .verdant-staff-svg svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .verdant-staff-svg .glimmer {
+      opacity: 0.7;
+      animation: staff-glimmer 2.5s linear infinite;
+    }
+    @keyframes staff-glimmer {
+      0% { opacity: 0.7; }
+      40% { opacity: 0.7; }
+      50% { opacity: 1; }
+      60% { opacity: 0.7; }
+      100% { opacity: 0.7; }
+    }
+    .directions {
+      border-bottom: 2px solid var(--low-emphasis);
+      font-size: 1.05em;
+      color: var(--high-emphasis);
+      margin: 0.5em 0 1em 0;
+      padding-bottom: 0.3em;
+      font-style: italic;
+    }
+    .section-header {
+      font-family: 'IM Fell English SC', serif;
+      font-size: 1.25em;
+      color: var(--high-emphasis);
+      letter-spacing: 0.03em;
+      margin-top: 1.5em;
+      margin-bottom: 0.2em;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      text-align: left;
+    }
+    .vine-divider svg {
+      display: inline-block;
+      vertical-align: middle;
+      height: 18px;
+      width: 220px;
+      stroke: var(--high-emphasis);
+      fill: none;
+    }
+    .item-list strong {
+      color: var(--high-emphasis);
+      font-weight: bold;
+      font-size: 1.08em;
+    }
+    .price {
+      color: var(--high-emphasis);
+      font-weight: bold;
+      font-size: 1em;
+      margin-left: 0.2em;
+    }
+    .reg {
+      color: var(--low-emphasis);
+      font-size: 0.95em;
+      margin-left: 0.2em;
+      font-style: italic;
+    }
+    .endorsement {
+      color: var(--low-emphasis);
+      font-style: italic;
+      font-size: 0.98em;
+      margin-left: 0.3em;
+    }
+    .coupons {
+      border-top: 2px dashed var(--high-emphasis);
+      margin: 1.2em 0 0.8em 0;
+      padding-top: 0.7em;
+      font-size: 1.08em;
+      position: relative;
+    }
+    .mosswillow-message {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.1em;
+      color: var(--low-emphasis);
+      border-left: 5px solid var(--high-emphasis);
+      margin: 1.2em 0 0.8em 0;
+      padding: 0.7em 1em;
+      background: none;
+    }
+    .footer {
+      text-align: center;
+      font-family: 'IM Fell English SC', serif;
+      font-size: 1.1em;
+      color: var(--high-emphasis);
+      margin-top: 1.2em;
+      letter-spacing: 0.04em;
+    }
+    .coupon-strip {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.7em;
+      gap: 0.3em;
+    }
+    .coupon-tag {
+      flex: 0 0 2in;
+      max-width: 2in;
+      border-top: 2px dashed var(--high-emphasis);
+      border-bottom: 2px dashed var(--high-emphasis);
+      border-right: 2px dashed var(--high-emphasis);
+      border-left: 2px dashed var(--high-emphasis);
+      border-radius: 0 0 8px 8px;
+      background: #f7f4ed;
+      padding: 0.5em 0.4em 0.4em 0.4em;
+      font-size: 0.98em;
+      text-align: center;
+      position: relative;
+      margin-bottom: 0.2em;
+    }
+    .coupon-title {
+      font-family: 'IM Fell English SC', serif;
+      font-size: 1.08em;
+      color: var(--high-emphasis);
+      letter-spacing: 0.03em;
+      font-variant: small-caps;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.2em;
+    }
+    .coupon-tag:not(:last-child) {
+      border-right: none;
+    }
+    .coupon-tag:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 0.7em;
+      border-bottom: 2px dotted var(--high-emphasis);
+      position: absolute;
+      left: 0;
+      bottom: -0.7em;
+    }
+    .coupon-strip .coupon-tag:last-child:after {
+      display: none;
+    }
+    @media print {
+      header h1 {
+        background: none !important;
+        -webkit-text-fill-color: var(--high-emphasis) !important;
+        text-fill-color: var(--high-emphasis) !important;
+        color: var(--high-emphasis) !important;
+        filter: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+  <!-- Print-optimized, impression-style flyer with vine SVG dividers and period-appropriate fonts -->
+</head>
+<body>
+  <header>
+    <h1>The Verdant Nook</br>Autumn Specials!</h1>
+    <div class="subtitle">Distributed by Early Bird Flyer Co. – The 20th day of Nilse's Moon, 489 of L'smere</div>
+  </header>
+  <div class="directions">
+    <strong>Find us nestled high in the sun-dappled boughs above the central market footbridge!</strong> Follow the scent of fresh earth and the chorus of songbirds—look for the hanging terrariums and the gentle glow of moonseed vines at dusk.
+  </div>
+
+  <div class="section-header">For Healers & Herbalists</div>
+  <ul class="item-list">
+    <li><strong>Goodberry Seed Packet</strong> <span class="price">10gp</span> <span class="reg">(Reg. 14gp!)</span><span class="endorsement">Mosswillow’s Choice!</span><br>
+      Are you a healer, herbalist, or just want to keep your loved ones fed? Grow your own daily supply of nourishing goodberries. Each bush yields 1d4 goodberries per day—never go hungry again!
+    </li>
+    <li><strong>Healing Herb Bundle</strong> <span class="price">5gp</span> <span class="reg">(Reg. 7gp!)</span><br>
+      A must-have for every medicine pouch! Apply to wounds or brew as tea for a +1 bonus to Medicine checks. <span class="endorsement">Pro Tip: Brew for best results!</span> Mosswillow’s personal favorite for sniffles and scrapes.
+    </li>
+    <li><strong>Greater Healing Potion</strong> <span class="price">150gp</span> <span class="reg">(Reg. 200gp!)</span><br>
+      Trusted by adventurers and local medics alike. Heals 4d4+4 HP. Brewed under the full moon with the rarest blossoms. <span class="endorsement">Don’t leave home without it!</span>
+    </li>
+  </ul>
+  <div class="vine-divider" style="text-align:center;">
+    <svg viewBox="0 0 220 18"><path d="M2,12 Q30,2 60,12 Q90,22 120,12 Q150,2 180,12 Q200,18 218,12" stroke-width="2.5"/><circle cx="30" cy="2" r="2.5" stroke-width="1.5"/><circle cx="60" cy="12" r="2" stroke-width="1.2"/><circle cx="90" cy="22" r="2.5" stroke-width="1.5"/><circle cx="120" cy="12" r="2" stroke-width="1.2"/><circle cx="150" cy="2" r="2.5" stroke-width="1.5"/><circle cx="180" cy="12" r="2" stroke-width="1.2"/></svg>
+  </div>
+
+  <div class="section-header">For Animal Lovers & Rangers</div>
+  <ul class="item-list">
+    <li><strong>Animal Friendship Balm</strong> <span class="price">25gp</span> <span class="reg">(Reg. 32gp!)</span><br>
+      Are you a ranger, druid, or friend to all creatures? This single-use potion wins the trust of even the shyest woodland animals. (Tested on local otters—results: delightful!)
+    </li>
+    <li><strong>Beast Treats (10)</strong> <span class="price">2gp</span> <span class="reg">(Reg. 3gp!)</span><span class="endorsement">All the best beastmasters use Mosswillow’s treats.</span><br>
+      Tasty, healthy snacks for animal companions. Now with extra honeyroot! (Ask about our bulk discount for kennels and stables.)
+    </li>
+    <li><strong>Druidic Focus (wooden)</strong> <span class="price">10gp</span> <span class="reg">(Reg. 13gp!)</span><br>
+      Hand-carved with local motifs. Channel your magic with the spirit of the Wychwood. Each is unique—choose your favorite! <span class="endorsement">Perfect for aspiring druids and seasoned rangers alike.</span>
+    </li>
+  </ul>
+  <div class="vine-divider" style="text-align:center;">
+    <svg viewBox="0 0 220 18"><path d="M2,12 Q30,2 60,12 Q90,22 120,12 Q150,2 180,12 Q200,18 218,12" stroke-width="2.5"/><circle cx="30" cy="2" r="2.5" stroke-width="1.5"/><circle cx="60" cy="12" r="2" stroke-width="1.2"/><circle cx="90" cy="22" r="2.5" stroke-width="1.5"/><circle cx="120" cy="12" r="2" stroke-width="1.2"/><circle cx="150" cy="2" r="2.5" stroke-width="1.5"/><circle cx="180" cy="12" r="2" stroke-width="1.2"/></svg>
+  </div>
+
+  <div class="section-header">For Adventurers & Survivalists</div>
+  <ul class="item-list">
+    <li><strong>Mountain Survival Kit</strong> <span class="price">18gp</span> <span class="reg">(Reg. 25gp!)</span><br>
+      Heading to the peaks? Don’t risk altitude sickness or frostbite—grab this kit, complete with herbal remedies and a “firbolg-approved” trail mix. <span class="endorsement">Essential for every expedition!</span>
+    </li>
+    <li><strong>Thermal Moss Blanket</strong> <span class="price">12gp</span> <span class="reg">(Reg. 16gp!)</span><br>
+      Tired of the cold? Lightweight, magically insulates against chill. <span class="endorsement">Buy back program: Return your used moss blankets for 2gp credit—“Reduce, Reuse, Reforest!”</span> Prepare for winter now!
+    </li>
+    <li class="verdant-staff-emphasis">
+      <div class="verdant-staff-text">
+        <strong>Verdant Staff</strong> <span class="price">120gp</span> <span class="reg">(Reg. 160gp!)</span><br>
+        <span class="endorsement">All the skilled adventurers use Verdant Staffs—grown, not made, and enchanted by Mosswillow herself!</span> Quarterstaff, +1, can cast Entangle once per day. Only one available this season!
+      </div>
+      <span class="verdant-staff-svg">
+        <svg viewBox="0 0 32 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="13" y="25" width="6" height="65" rx="2.5" fill="#7a8c4a" stroke="#3b4d1e" stroke-width="2"/>
+          <ellipse cx="16" cy="18" rx="10" ry="14" fill="#bfc7a1" stroke="#3b4d1e" stroke-width="2.2"/>
+          <ellipse class="glimmer" cx="16" cy="18" rx="4.5" ry="4.5" fill="#fff"/>
+          <path d="M16 90 L16 98" stroke="#3b4d1e" stroke-width="2.5"/>
+          <path d="M16 25 Q10 40 16 55 Q22 70 16 90" stroke="#3b4d1e" stroke-width="1.5" fill="none"/>
+        </svg>
+      </span>
+    </li>
+    <li><strong>Elixir of Growth</strong> <span class="price">75gp</span> <span class="reg">(Reg. 100gp!)</span><br>
+      Need to stand tall? This potent potion casts <em>Enlarge</em> (no reduction!). Great for heavy lifting, heroic rescues, or impressing your friends. <span class="endorsement">As seen in the hands of the famed Thornscale Rangers!</span>
+    </li>
+  </ul>
+  <div class="vine-divider" style="text-align:center;">
+    <svg viewBox="0 0 220 18"><path d="M2,12 Q30,2 60,12 Q90,22 120,12 Q150,2 180,12 Q200,18 218,12" stroke-width="2.5"/><circle cx="30" cy="2" r="2.5" stroke-width="1.5"/><circle cx="60" cy="12" r="2" stroke-width="1.2"/><circle cx="90" cy="22" r="2.5" stroke-width="1.5"/><circle cx="120" cy="12" r="2" stroke-width="1.2"/><circle cx="150" cy="2" r="2.5" stroke-width="1.5"/><circle cx="180" cy="12" r="2" stroke-width="1.2"/></svg>
+  </div>
+
+  <div class="section-header">For Home & Hearth</div>
+  <ul class="item-list">
+    <li><strong>Moonseed Vine Cutting</strong> <span class="price">15gp</span> <span class="reg">(Reg. 20gp!)</span><br>
+      Beautify your home with a rare, luminous vine that glows gently at night. Limited stock—one per customer! <span class="endorsement">A favorite among Usalama’s finest hostesses.</span>
+    </li>
+  </ul>
+  <div class="vine-divider" style="text-align:center;">
+    <svg viewBox="0 0 220 18"><path d="M2,12 Q30,2 60,12 Q90,22 120,12 Q150,2 180,12 Q200,18 218,12" stroke-width="2.5"/><circle cx="30" cy="2" r="2.5" stroke-width="1.5"/><circle cx="60" cy="12" r="2" stroke-width="1.2"/><circle cx="90" cy="22" r="2.5" stroke-width="1.5"/><circle cx="120" cy="12" r="2" stroke-width="1.2"/><circle cx="150" cy="2" r="2.5" stroke-width="1.5"/><circle cx="180" cy="12" r="2" stroke-width="1.2"/></svg>
+  </div>
+
+  <div class="mosswillow-message">
+    <strong>Mosswillow’s Message</strong><br>
+    <em>“May your roots find water, your leaves find sun, and your heart find peace. Visit The Verdant Nook for all your herbal, magical, and survival needs—where every sale helps reforest the Wychwood!”</em>
+  </div>
+  <div class="footer">
+    The Verdant Nook – Where Nature Nurtures You!
+  </div>
+  <div class="coupons">
+    <strong>COUPONS &amp; EXTRAS</strong>
+    <div class="coupon-strip">
+      <div class="coupon-tag">
+        <span class="coupon-title">FREE TEA SAMPLE</span><br>
+        Bring this flyer for a free sample of Mosswillow’s Herbal Tea (while supplies last)!
+      </div>
+      <div class="coupon-tag">
+        <span class="coupon-title">WILDFLOWER SEEDS</span><br>
+        Buy any two items, get a sachet of wildflower seeds—on the house!
+      </div>
+      <div class="coupon-tag">
+        <span class="coupon-title">10% OFF NEXT PURCHASE</span><br>
+        Show your moss blanket at the door for a 10% discount on your next purchase.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

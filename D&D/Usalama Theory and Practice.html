@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Marshland Theory and Practice</title>
+  <style>
+    :root {
+      --text-color: #222222;
+      --low-emphasis: #888888;
+      --high-emphasis: #0a3a5a;
+    }
+    body {
+      color: var(--text-color);
+      background: #fff;
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      margin: 0 auto;
+      max-width: 1000px;
+      padding: 1.5em 1.5em 1em 1.5em;
+    }
+    .main-content, .column, .article, .grant, .bulletin, .ad, .editorial, .callout, ul, ol, .mermish, .pronunciation {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+    .masthead, .headline, .newspaper-meta, h1, h2, h3 {
+      text-align: center;
+      text-justify: auto;
+    }
+    .masthead {
+      font-size: 3.2em;
+      font-family: 'Playfair Display', 'Times New Roman', Times, serif;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: var(--high-emphasis);
+      margin-bottom: 0.1em;
+      margin-top: 0.2em;
+      text-transform: uppercase;
+      border-bottom: 3px double var(--high-emphasis);
+      padding-bottom: 0.1em;
+      line-height: 1.1;
+      text-shadow: 0 1px 0 #fff, 0 2px 2px #bbb;
+    }
+    .newspaper-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.15em;
+      color: var(--low-emphasis);
+      margin-bottom: 0.7em;
+      font-family: 'Georgia', serif;
+      border-bottom: 1.5px solid var(--low-emphasis);
+      padding-bottom: 0.25em;
+      letter-spacing: 0.04em;
+    }
+    .edition {
+      font-style: italic;
+      font-size: 1.05em;
+      font-variant: small-caps;
+    }
+    .date {
+      font-weight: bold;
+      font-size: 1.05em;
+      font-family: 'Georgia', serif;
+    }
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5em;
+      margin-top: 2em;
+    }
+    .column {
+      flex: 1 1 350px;
+      min-width: 30px;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5em;
+    }
+    .headline {
+      font-size: 1.45em;
+      font-weight: 900;
+      color: var(--high-emphasis);
+      margin-top: 0.7em;
+      margin-bottom: 0.25em;
+      font-family: 'Playfair Display', 'Times New Roman', Times, serif;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      text-shadow: 0 1px 0 #fff;
+    }
+    .byline {
+      font-size: 1em;
+      color: var(--low-emphasis);
+      text-align: right;
+      margin-bottom: 0.5em;
+      font-style: italic;
+      font-family: 'Georgia', serif;
+    }
+    .article, .grant, .bulletin, .ad, .editorial {
+      font-size: 1.07em;
+      line-height: 1.7;
+      font-family: 'Georgia', serif;
+      margin-bottom: 0.5em;
+      background: none;
+      padding-left: 0;
+    }
+    .mermish {
+      font-family: 'Georgia', serif;
+      font-size: 1.13em;
+      color: var(--high-emphasis);
+      margin: 0.5em 0;
+      font-variant: small-caps;
+      letter-spacing: 0.03em;
+    }
+    .pronunciation {
+      color: var(--low-emphasis);
+      font-size: 1em;
+      margin-bottom: 1em;
+      font-style: italic;
+    }
+    ul, ol {
+      margin-left: 0;
+      padding-left: 1.2em;
+      list-style: none;
+      font-size: 1.07em;
+      font-family: 'Georgia', serif;
+    }
+    ul li::before {
+      content: "\2022 ";
+      color: var(--low-emphasis);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+    blockquote {
+      border: none !important;
+      margin: 1em 0;
+      padding-left: 0;
+      color: var(--low-emphasis);
+      font-style: normal;
+      font-family: 'Georgia', serif;
+      background: none;
+    }
+    .section-divider {
+      display: flex;
+      justify-content: center;
+      margin: 1.5em 0 1.2em 0;
+    }
+    .section-divider svg {
+      fill: var(--low-emphasis);
+      width: 70px;
+      height: 12px;
+      display: block;
+    }
+    @media print {
+      body {
+        box-shadow: none;
+        background: #fff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">Usalama</br>Theory and Practice</div>
+  <div class="newspaper-meta">
+    <span class="edition">Scholarly & Guild Edition</span>
+    <span class="date">18th day of Nilse's Moon, 489 of L'smere</span>
+    <span class="city">Usalama</span>
+  </div>
+  <div class="main-content">
+    <div class="column">
+      <div class="headline">Major Research Grants Announced for Marshland Studies</div>
+      <div class="grant">
+        <b>Psyonic Studies Initiative</b><br>
+        Up to 80,000🜚 available for research into the origins, applications, and countermeasures of psyonic magic, with emphasis on aquatic and cross-species phenomena. Proposals should explore implications for diplomacy and security.
+      </div>
+      <div class="grant">
+        <b>Underwater Transfiguration Grant</b><br>
+        Awards of 45,000🜚 for projects advancing magical transformation techniques for underwater adaptation. Interdisciplinary teams encouraged, especially those addressing artifact interaction or environmental impact.
+      </div>
+      <div class="grant">
+        <b>Paleotechnic Provenance & Interpolity Ramifications Endowment</b><br>
+        Major grants (up to 120,000🜚) available for research into the historical, economic, and sociological impacts of ancient artifact recovery. Proposals may address shifts in trade, governance, or intergroup relations resulting from the reintroduction of powerful relics. Studies offering insights for policy or regional cooperation are especially encouraged.
+      </div>
+      <div class="grant">
+        <b>Marsh Flora & Fauna Fellowship</b><br>
+        Grants of 250🜚–400🜚 for fieldwork on rare marshland species, magical flora, or sustainable harvesting practices. Open to students and independent researchers.
+      </div>
+      <div class="grant">
+        <b>Merfolk Cultural Exchange Award</b><br>
+        Funding of 300🜚 for projects fostering understanding of Merfolk language, traditions, or political structures. Collaborative proposals with Merfolk partners preferred.
+      </div>
+      <div class="grant">
+        <b>Historical Relics Microgrant</b><br>
+        Up to 200🜚 for cataloguing, preservation, or public education initiatives related to minor relics or local magical history.
+      </div>
+      <div class="callout">
+        For full guidelines and application deadlines, consult the Royal Mirabilis Academy’s Office of Research Advancement.
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Guilds Mobilize for Safety, Restoration, and Discovery</div>
+      <div class="bulletin">
+        <b>Mirabilis Mining Guild:</b> "Monthly safety meeting this Fireday at the guildhall. All members required to attend. New excavation protocols and magical hazard training will be discussed."
+        <div class="byline">By Mirabilis Mining Guild</div>
+      </div>
+      <div class="bulletin">
+        <b>River Glaindrop Stewards:</b> "Volunteers needed for marshland restoration project. Meet at dawn by the Ebcansu footbridge—tools and refreshments provided."
+        <div class="byline">By River Glaindrop Stewards</div>
+      </div>
+      <div class="bulletin">
+        <b>Royal Mirabilis Academy:</b> "Research breakthrough! The Department of Elemental Studies announces the discovery of a new marsh crystal variant. Seminar and demonstration this Windsday in Lecture Hall B. All scholars welcome."
+        <div class="byline">By Royal Mirabilis Academy</div>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Academy Seeks New Students and Volunteers</div>
+      <div class="article">
+        "The Royal Mirabilis Academy invites applications for the next term. Scholarships available for promising students in magical research, history, and diplomacy."<br>
+        "Join the Academy’s new outreach program! Volunteers needed to assist with public lectures and educational tours. Contact the Dean’s office for details."
+        <div class="byline">By Royal Mirabilis Academy</div>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Learn Mermish: Academy Launches Public Language Course</div>
+      <div class="article">
+        "The Royal Mirabilis Academy is pleased to announce the launch of a new public class: ‘Introduction to Mermish Language and Culture.’ Led by Lecturer Sirael Venn, this course offers foundational lessons in Mermish and insights into merfolk traditions. Open to all—register at the Academy front desk."
+        <div class="byline">By Royal Mirabilis Academy</div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="headline">Mining Guild Donates Magical Gear to Local Schools</div>
+      <div class="article">
+        The Mirabilis Mining Guild’s recent donation of protective magical gear to local schools is a commendable step towards community safety. We applaud their commitment to education and public welfare.
+        <div class="byline">By Coalition for Free Trade</div>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Stewards Rally Community for Marsh Protection</div>
+      <div class="ad">
+        Protect Our Marshes! Join the River Glaindrop Stewards in opposing reckless mining and supporting sustainable trade. Meeting this Moonday at the Ebcansu footbridge.<br>
+        Help Wanted: Seeking brave souls for river patrol—apply at the Verdant Accord tent.
+        <div class="byline">By River Glaindrop Stewards</div>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Symposium Calls for Papers on Relics and Rivalries</div>
+      <div class="article">
+        Scholars are invited to submit abstracts for the upcoming symposium: ‘Power, Prophecy, and Paranoia—Relics and Rivalries in Historical Context.’ Topics include: transfiguration magic, Merfolk-land relations, and the economics of magical salvage.
+        <div class="byline">By Royal Mirabilis Academy</div>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Fieldwork Fellowships Open for River and Desert Expeditions</div>
+      <div class="article">
+        Apply now for the Academy’s fieldwork fellowships! Positions available for research on the River Glaindrop, Kupika Desert mapping, and Merfolk cultural studies. Field stipends and hazard pay included.
+        <div class="byline">By Royal Mirabilis Academy</div>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Public Lecture: How Magical Discoveries Changed Everything</div>
+      <div class="article">
+        This month’s featured talk: ‘From Relic to Arms Race—How Magical Discoveries Changed Everything.’ Guest speakers from the Department of Magical History and the Office of Political Analysis.
+        <div class="byline">By Royal Mirabilis Academy</div>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">New Rules for Research: Compliance Required</div>
+      <div class="article">
+        All studies involving Merfolk communities or ancient relics must comply with MACC §101.3a and §309.2c. Register your project with the Office of Magical Oversight before commencing fieldwork.
+        <div class="byline">By Royal Mirabilis Academy</div>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Mermish Phrase of the Week</div>
+      <div class="mermish">
+        This week’s phrase in Mermish: <b>“Safe travels, friend!”</b><br>
+        Mermish: <code>Dra lekwili sale, rade!</code><br>
+        Gloss: can journey good, friend!
+      </div>
+      <div class="pronunciation">
+        Pronunciation: <i>Drah leh-kwee-lee sah-leh, rah-deh!</i>
+      </div>
+      <div class="section-divider">
+        <svg viewBox="0 0 60 10"><rect x="0" y="4" width="60" height="2"/></svg>
+      </div>
+      <div class="headline">Opinion: Unity is the Marshland’s Strength</div>
+      <div class="editorial">
+        Opinion: As tensions rise between land and sea, let us remember Mira’s teachings—prosperity through unity, not division. Support your local merchants and stewards.
+        <div class="byline">By Editorial Board</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

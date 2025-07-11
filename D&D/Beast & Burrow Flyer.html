@@ -1,0 +1,260 @@
+<!--
+Beast & Burrow Flyer – Print-Optimized HTML
+- 8.5x11" portrait, period handbill style
+- Only three CSS variables for color: --text-color, --low-emphasis, --high-emphasis
+- Period-appropriate fonts (serif for body, bold slab/serif for headers)
+- Coupons as tear-off tags at bottom
+- Magical shimmer animation for Celestial Pseudodragon only (subtle, iridescent, no border, shimmering background for the whole block)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beast &amp; Burrow – Usalama’s Premier Pet Emporium</title>
+  <style>
+    :root {
+      --text-color: #232323;
+      --low-emphasis: #cfc6b0;
+      --high-emphasis: #e9dca3;
+      --shimmer1: #fefced;
+      --shimmer2: #f1ffff;
+      --shimmer3: #f5ffff;
+      --shimmer4: #fcf4ff;
+    }
+    html, body {
+      background: #fff;
+      color: var(--text-color);
+      font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
+      margin: 0;
+      padding: 0;
+      width: 8.5in;
+      height: 11in;
+      box-sizing: border-box;
+    }
+    .flyer {
+      width: 7.1in;
+      margin: 0.2in auto;
+      padding: 0.3in 0.3in 0.2in 0.3in;
+      border: 3px double var(--low-emphasis);
+      background: #fff;
+      min-height: 9.5in;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    h1, h2, h3 {
+      font-family: 'Alfa Slab One', 'Rockwell', 'EB Garamond', serif;
+      color: var(--high-emphasis);
+      margin: 0.15em 0 0.05em 0;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+    h1 {
+      font-size: 1.7em;
+      text-shadow: none;
+    }
+    h2 {
+      font-size: 1.1em;
+      color: var(--text-color);
+      margin-bottom: 0.1em;
+    }
+    h3 {
+      font-size: 1em;
+      color: var(--low-emphasis);
+      margin-bottom: 0.05em;
+    }
+    .starburst {
+      display: block;
+      color: var(--text-color);
+      font-weight: bold;
+      font-size: 1em;
+      margin: 0.2em auto 0.2em auto;
+      text-align: center;
+      border: 2px solid var(--high-emphasis);
+      padding: 0.1em 0.7em;
+      border-radius: 0.1em;
+      background: none;
+      box-shadow: none;
+    }
+    .how-to-find {
+      font-size: 0.98em;
+      margin: 0.2em 0 0.5em 0;
+      text-align: left;
+      border: none;
+      padding-left: 0;
+      background: none;
+    }
+    .shopkeeper-msg {
+      font-style: italic;
+      color: var(--text-color);
+      border: none;
+      border-radius: 0;
+      padding: 0.2em 0.2em 0.2em 0.2em;
+      margin: 0.1em 0 0.5em 0;
+      font-size: 1em;
+      position: relative;
+      background: none;
+    }
+    .shopkeeper-msg:before, .shopkeeper-msg:after {
+      display: none;
+    }
+    .section {
+      margin-bottom: 0.5em;
+    }
+    .item-list {
+      margin: 0.1em 0 0.3em 0;
+      padding-left: 0;
+      font-size: 0.98em;
+      list-style: none;
+    }
+    .item-list li {
+      margin-bottom: 0.15em;
+      line-height: 1.3;
+      list-style: none;
+      padding-left: 0;
+    }
+    .item-title {
+      font-weight: bold;
+      color: var(--high-emphasis);
+      font-size: 1em;
+    }
+    .testimonial {
+      font-size: 0.95em;
+      color: var(--low-emphasis);
+      margin-top: 0.1em;
+      border: none;
+      padding-left: 0;
+      font-style: italic;
+    }
+    .shimmer-bg {
+      display: block;
+      margin: 0.15em 0 0.15em 0;
+      padding: 0.3em 0.5em 0.3em 0.5em;
+      background: linear-gradient(90deg, var(--shimmer1), var(--shimmer2), var(--shimmer3), var(--shimmer4), var(--shimmer1));
+      background-size: 400% 100%;
+      animation: shimmer-iridescent-bg 3s linear infinite;
+      border-radius: 0.15em;
+      color: var(--text-color);
+      font-weight: normal;
+      border: none;
+      box-shadow: none;
+    }
+    @keyframes shimmer-iridescent-bg {
+      0% { background-position: 400% 0; }
+      100% { background-position: 0 0; }
+    }
+    .coupons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.7em;
+      border-top: 2px dashed var(--low-emphasis);
+      padding-top: 0.3em;
+    }
+    .coupon {
+      flex: 1 1 0;
+      margin: 0 0.15em;
+      background: #fff;
+      border: 2px dashed var(--high-emphasis);
+      border-radius: 0.1em;
+      color: var(--text-color);
+      font-size: 0.98em;
+      text-align: center;
+      padding: 0.3em 0.1em;
+      box-shadow: none;
+      position: relative;
+    }
+    .coupon:after {
+      content: '';
+      display: block;
+      width: 80%;
+      height: 0.12em;
+      background: repeating-linear-gradient(90deg, var(--low-emphasis), var(--low-emphasis) 0.18em, #fff 0.18em, #fff 0.36em);
+      position: absolute;
+      bottom: -0.15em;
+      left: 10%;
+    }
+    @media print {
+      html, body, .flyer {
+        box-shadow: none !important;
+        background: #fff !important;
+      }
+      .flyer {
+        border: 2px solid var(--low-emphasis);
+      }
+    }
+  </style>
+  <!-- Google Fonts for period-appropriate look -->
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="flyer">
+    <h1>🐾 Beast &amp; Burrow 🐾</h1>
+    <h2>Usalama’s Premier Pet Emporium</h2>
+    <div class="starburst">20% OFF all adoptions and accessories – This Month Only!</div>
+    <div class="how-to-find section">
+      <h3>How to Find Us</h3>
+      Just follow the chorus of chirps, squeaks, and purrs from the main market square! Look for the shop with the rainbow of birdcages and a gnome waving from the roof. If you reach the bakery, you’ve gone too far—turn back and listen for the meowing!
+    </div>
+    <div class="shopkeeper-msg section">
+      Oi! Welcome, critter-lovers! Whether you’re after a feathered friend, a scaly sidekick, or a magical mischief-maker, we’ve got the lot! Don’t forget to ask about our <b>Bundle Bonanza</b>—and mind the ferrets, they bite! (But only a little.) Squeak-squeak!
+    </div>
+    <div class="section">
+      <h3>Adopt a Companion</h3>
+      <ul class="item-list">
+        <li><span class="item-title">Pet Adoption (common)</span> – <b>Now just 4gp!</b><br>
+          Mice, frogs, songbirds, and more! Each comes with a starter care kit and a Pipkin-approved name suggestion. <i>Adopt two, get a free bag of Beast Treats!</i>
+        </li>
+        <li><span class="item-title">Exotic Familiar</span> – <b>From 50gp, now with a free enchanted collar!</b><br>
+          Choose from owls, weasels, lizards, and other magical companions. <i>Familiar faces for every adventurer!</i>
+        </li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>Outfitting Your Friend</h3>
+      <ul class="item-list">
+        <li><span class="item-title">Miniature Winter Coats</span> – <b>4gp, now with a free squeaky snowball toy!</b><br>
+          Keep your critters cozy as the autumn winds blow in. <i>As seen on Bark &amp; Beyond!</i>
+        </li>
+        <li><span class="item-title">Climbing Harness (pet-sized)</span> – <b>6gp, 10% off for all new adoptions!</b><br>
+          For the adventurous animal companion. <i>Perfect for scaling treehouses or escaping bath time!</i>
+        </li>
+        <li><span class="item-title">Tiny Saddle</span> – <b>8gp, now in three new colors!</b><br>
+          For small mounts or familiars. <i>Gnome-tested, squirrel-approved!</i>
+        </li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>Magical Accessories</h3>
+      <ul class="item-list">
+        <li><span class="item-title">Enchanted Collar</span> – <b>20gp, now with a glowing tag!</b><br>
+          Glows if your pet is lost. <i>Never lose your best friend again!</i>
+        </li>
+        <li><span class="item-title">Collar of Telepathy</span> – <b>120gp, 15% off for a limited time!</b><br>
+          Communicate with your companion, no matter the species. <i>Hear what your ferret <b>really</b> thinks about your socks.</i>
+        </li>
+        <li><span class="shimmer-bg"><span class="item-title">Celestial Pseudodragon</span> – <b>200gp, DM approval required</b><br>
+          The crown jewel of magical companions! Shimmers with a faint, magical glow.<br>
+          <span class="testimonial">“My pseudodragon, Starwhisker, saved me from a falling branch and now helps me cheat at cards. Best 200gp I ever spent!” – Satisfied Customer</span></span>
+        </li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>Treats &amp; Care</h3>
+      <ul class="item-list">
+        <li><span class="item-title">Beast Treats (10)</span> – <b>2gp, buy one get one half off!</b><br>
+          Special recipe, loved by all critters. <i>Guaranteed to make tails wag and wings flap!</i>
+        </li>
+        <li><span class="item-title">Animal Care Kit</span> – <b>5gp, 20% off with any adoption!</b><br>
+          Brushes, treats, and basic medicine. <i>Everything you need for a happy, healthy companion.</i>
+        </li>
+      </ul>
+    </div>
+    <div class="coupons">
+      <div class="coupon">🐾 1gp OFF any Adoption</div>
+      <div class="coupon">Free Squeaky Toy w/ Winter Coat</div>
+      <div class="coupon">10% OFF Climbing Harness</div>
+      <div class="coupon">Bring a Friend, Get Free Treats!</div>
+    </div>
+  </div>
+</body>
+</html>

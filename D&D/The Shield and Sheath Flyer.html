@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Shield & Sheath Flyer</title>
+  <meta name="viewport" content="width=850">
+  <style>
+    :root {
+      --text-color: #2a2320;
+      --low-emphasis: #b7a77a;
+      --high-emphasis: #7b3f1c;
+    }
+    @media print {
+      html, body { width: 8.5in; height: 11in; }
+    }
+    body {
+      font-family: 'Oswald', 'IM Fell English', 'Times New Roman', serif;
+      color: var(--text-color);
+      background: #fff;
+      margin: 0 auto;
+      width: 8.5in;
+      min-height: 11in;
+      padding: 1.2in 0.8in 0.8in 0.8in;
+      box-sizing: border-box;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+    .subtitle {
+      font-style: italic;
+      color: var(--text-color);
+      margin-bottom: 0.5em;
+    }
+    .location {
+      text-align: center;
+      font-size: 1.1em;
+      color: var(--high-emphasis);
+      margin-bottom: 1em;
+    }
+    .divider {
+      display: flex;
+      justify-content: center;
+      margin: 1.2em 0 1em 0;
+    }
+    .divider svg {
+      display: block;
+      width: 2.5in;
+      height: 0.25in;
+      fill: var(--low-emphasis);
+    }
+    h2, h3 {
+      color: var(--text-color);
+      font-family: 'Oswald', serif;
+      margin-bottom: 0.2em;
+      margin-top: 1em;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .items {
+      margin-bottom: 1.2em;
+    }
+    .item {
+      margin-bottom: 0.5em;
+      padding-left: 1em;
+      position: relative;
+      font-size: 1.08em;
+    }
+    .item:before {
+      content: none;
+    }
+    .item span {
+      font-style: italic;
+      font-size: 0.97em;
+      letter-spacing: 0.01em;
+      display: block;
+      margin-top: 0.1em;
+    }
+    .featured {
+      border: 2px solid var(--high-emphasis);
+      background: none;
+      padding: 0.7em 1em;
+      margin: 1em 0;
+      font-weight: bold;
+      font-size: 1.1em;
+      text-align: center;
+      box-shadow: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured .shimmer {
+      display: none;
+    }
+    .challenge {
+      border: 2px dashed var(--high-emphasis);
+      background: none;
+      padding: 0.7em 1em;
+      margin: 1em 0;
+      font-weight: bold;
+      font-size: 1.08em;
+      text-align: center;
+      color: var(--text-color);
+    }
+    .event {
+      border: 1.5px solid var(--low-emphasis);
+      background: none;
+      padding: 0.5em 1em;
+      margin: 1em 0;
+      font-size: 1.05em;
+      text-align: center;
+      color: var(--text-color);
+    }
+    .directions {
+      font-style: italic;
+      color: var(--text-color);
+      margin-bottom: 1em;
+    }
+    .coupons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 2em;
+      border-top: 2px dotted var(--low-emphasis);
+      padding-top: 0.7em;
+      gap: 0.4em 2%;
+    }
+    .coupon {
+      border: 1.5px dashed var(--low-emphasis);
+      background: none;
+      padding: 0.5em 0.8em;
+      margin-right: 0;
+      margin-bottom: 0.7em;
+      font-size: 0.98em;
+      width: 48%;
+      min-width: unset;
+      text-align: center;
+      position: relative;
+      font-family: 'Oswald', serif;
+      box-sizing: border-box;
+    }
+    .coupon:last-child { margin-right: 0; }
+    .coupon .label {
+      font-size: 1.2em;
+      color: var(--text-color);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.2em;
+    }
+    .footer {
+      text-align: center;
+      color: var(--text-color);
+      font-size: 0.95em;
+      margin-top: 1.5em;
+    }
+    .anvil-doodle {
+      display: block;
+      margin: 0.5em auto 1em auto;
+      width: 1.5in;
+      height: 0.5in;
+    }
+    body, .item, .featured, .coupon, .footer, .location, .subtitle, h2, h3 {
+      color: var(--text-color) !important;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=IM+Fell+English&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>THE SHIELD & SHEATH: FORGE BULLETIN</h1>
+    <div class="subtitle">Weapons, Armor, and Repairs—Ironarm Quality, Marsh Prices!</div>
+  </header>
+  <div class="location">Past the market square, beside the roaring forge. Listen for the hammer and the laughter.</div>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><rect x="0" y="8" width="300" height="4" rx="2"/></svg>
+  </div>
+  <h2>Nilse’s Moon Blacksmith’s Special!</h2>
+  <div style="margin-bottom:0.5em;">All prices “30% OFF!” (See in-forge for details.)</div>
+  <div class="items">
+    <div class="item"><b>Shortsword</b> — 10gp, 30% OFF!<br><span>Balanced, sharp, and ready for a scrap.</span></div>
+    <div class="item"><b>Shield</b> — 10gp, 30% OFF!<br><span>Steel, custom crest—stand tall!</span></div>
+    <div class="item"><b>Chain Shirt</b> — 50gp, 30% OFF!<br><span>Light, flexible, and tough as a mountain goat.</span></div>
+    <div class="item"><b>Warhammer</b> — 15gp, 30% OFF!<br><span>Dwarven make, built to last.</span></div>
+    <div class="item"><b>Custom Gear Commission</b> — Varies, 30% OFF labor!<br><span>Got a wild idea? Let’s talk.</span></div>
+    <div class="item"><b>Armor Repair (per item)</b> — 2gp, 30% OFF!<br><span>Quick, quality, and no grumbling.</span></div>
+    <div class="featured">
+      <span style="font-size:1.2em;">Mithral Shirt</span> — 200gp, 30% OFF!<br>
+      <span>Light as a feather, strong as steel. No stealth penalty!</span>
+    </div>
+    <div class="item"><b>+1 Weapon (any)</b> — 150gp, 30% OFF!<br><span>Magic, +1 to attack and damage. Limited stock!</span></div>
+    <div class="item"><b>Ice Axe</b> — 12gp, 30% OFF!<br><span>Climb or fight—your choice.</span></div>
+    <div class="item"><b>Spiked Boots</b> — 8gp, 30% OFF!<br><span>Advantage on ice and snow. Trade in your old boots for a discount!</span></div>
+  </div>
+  <div class="challenge">
+    Ironarm’s Challenge:<br>
+    Think you can break a Mithral Shirt? I’ll give you a free repair if you do. (No one’s managed yet!)
+  </div>
+  <div class="event">
+    Sole Swap Event:<br>
+    Trade in your old boots for a discount on new Spiked Boots—this week only!
+  </div>
+  <div class="directions">
+    Follow the sound of the anvil from the main square. Sparks flying, best deals in town.
+  </div>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><rect x="0" y="8" width="300" height="4" rx="2"/></svg>
+  </div>
+  <h3 style="text-align:center;">Ironarm’s Chits (Tear-Off Coupons)</h3>
+  <div class="coupons">
+    <div class="coupon"><span class="label">2gp OFF</span>Any purchase over 10gp</div>
+    <div class="coupon"><span class="label">Free Armor Repair</span>With any Chain Shirt purchase</div>
+    <div class="coupon"><span class="label">10% OFF</span>Custom Gear Commission (limit 1)</div>
+    <div class="coupon"><span class="label">Free Boot Trade-In</span>With any Spiked Boots purchase</div>
+  </div>
+  <div class="footer">
+    Bring this bulletin for a deal. Sale ends at the close of Nilse’s Moon.<br>
+  </div>
+</body>
+</html>

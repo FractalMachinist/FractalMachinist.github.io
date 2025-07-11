@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Scented Satchel Flyer</title>
+  <meta name="viewport" content="width=850">
+  <style>
+    :root {
+      --text-color: #3a2d1a;
+      --low-emphasis: #b6b6a6;
+      --high-emphasis: #7a9c6c;
+    }
+    @media print {
+      html, body { width: 8.5in; height: 11in; }
+    }
+    body {
+      font-family: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+      color: var(--text-color);
+      background: #fff;
+      margin: 0 auto;
+      width: 8.5in;
+      min-height: 11in;
+      padding: 1.2in 0.8in 0.8in 0.8in;
+      box-sizing: border-box;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+    .subtitle {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-bottom: 0.5em;
+    }
+    .location {
+      text-align: center;
+      font-size: 1.1em;
+      color: var(--high-emphasis);
+      margin-bottom: 1em;
+    }
+    .divider {
+      display: flex;
+      justify-content: center;
+      margin: 1.2em 0 1em 0;
+    }
+    .divider svg {
+      display: block;
+      width: 2.5in;
+      height: 0.25in;
+      fill: var(--low-emphasis);
+    }
+    h2, h3 {
+      color: var(--high-emphasis);
+      font-family: 'Cormorant Garamond', serif;
+      margin-bottom: 0.2em;
+      margin-top: 1em;
+      letter-spacing: 0.02em;
+    }
+    .items {
+      margin-bottom: 1.2em;
+    }
+    .item {
+      margin-bottom: 0.5em;
+      padding-left: 1em;
+      position: relative;
+    }
+    .item:before {
+      content: "\1F338"; /* cherry blossom emoji */
+      position: absolute;
+      left: 0;
+      color: var(--high-emphasis);
+    }
+    .featured {
+      border: 2px solid var(--high-emphasis);
+      background: #f7faf7;
+      padding: 0.7em 1em;
+      margin: 1em 0;
+      font-weight: bold;
+      font-size: 1.1em;
+      text-align: center;
+      box-shadow: 0 0 0.2em 0.05em var(--low-emphasis) inset;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured .glimmer {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent 60%, var(--high-emphasis) 80%, transparent 100%);
+      opacity: 0.13;
+      animation: glimmer 3s infinite linear;
+    }
+    @keyframes glimmer {
+      0% { background-position: -200px 0; }
+      100% { background-position: 200px 0; }
+    }
+    .rituals {
+      margin: 1em 0;
+      font-style: italic;
+      color: var(--low-emphasis);
+    }
+    .directions {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-bottom: 1em;
+    }
+    .coupons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 2em;
+      border-top: 2px dotted var(--low-emphasis);
+      padding-top: 0.7em;
+      gap: 0.4em 2%;
+    }
+    .coupon {
+      border: 1.5px dashed var(--low-emphasis);
+      background: #f8faf7;
+      padding: 0.5em 0.8em;
+      margin-right: 0;
+      margin-bottom: 0.7em;
+      font-size: 0.98em;
+      width: 48%;
+      min-width: unset;
+      text-align: center;
+      position: relative;
+      font-family: 'Cormorant Garamond', serif;
+      box-sizing: border-box;
+    }
+    .coupon:last-child { margin-right: 0; }
+    .coupon .label {
+      font-size: 1.2em;
+      color: var(--high-emphasis);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.2em;
+    }
+    .footer {
+      text-align: center;
+      color: var(--low-emphasis);
+      font-size: 0.95em;
+      margin-top: 1.5em;
+    }
+    .flower-doodle {
+      display: block;
+      margin: 0.5em auto 1em auto;
+      width: 1.5in;
+      height: 0.5in;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>THE SCENTED SATCHEL: A GUIDE TO SERENITY</h1>
+    <div class="subtitle">Herbs, Remedies, and Aromatics for Body and Spirit</div>
+  </header>
+  <div class="location">Along the marsh path, near the willow grove. Let the scent of flowers guide you.</div>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><ellipse cx="60" cy="10" rx="28" ry="7"/><ellipse cx="150" cy="10" rx="28" ry="7"/><ellipse cx="240" cy="10" rx="28" ry="7"/></svg>
+  </div>
+  <h2>🌸 Remedies for the Season 🌸</h2>
+  <div style="color:var(--low-emphasis);margin-bottom:0.5em;">All prices “18% OFF—Nilse’s Moon Tranquility Special!”</div>
+  <div class="items">
+    <div class="item"><b>Herbal Remedy (potion)</b> — 10gp, 18% OFF!<br><span style="color:var(--low-emphasis)">For gentle healing and renewal. Use as needed for body and spirit.</span></div>
+    <div class="item"><b>Calming Incense (bundle)</b> — 3gp, 18% OFF!<br><span style="color:var(--low-emphasis)">Light to ease the mind and soothe the heart.</span></div>
+    <div class="item"><b>Travel Sachet (set of 3)</b> — 2gp, 18% OFF!<br><span style="color:var(--low-emphasis)">Carry for freshness and subtle protection.</span></div>
+    <div class="item"><b>Sleep Aid Tea</b> — 2gp, 18% OFF!<br><span style="color:var(--low-emphasis)">Brew before bed for restful dreams.</span></div>
+    <div class="item"><b>Scented Candle</b> — 1gp, 18% OFF!<br><span style="color:var(--low-emphasis)">Light to create a peaceful space.</span></div>
+    <div class="item"><b>Aromatic Oil (vial)</b> — 3gp, 18% OFF!<br><span style="color:var(--low-emphasis)">For massage, ritual, or relaxation.</span></div>
+    <div class="featured">
+      <span style="font-size:1.2em;">Elixir of Mind Shielding</span> — 90gp, 18% OFF!<br>
+      <span style="color:var(--high-emphasis)">For privacy and peace of mind.<br>Trusted by diplomats, adventurers, and sages alike.</span>
+      <div class="glimmer"></div>
+    </div>
+    <div class="item"><b>Incense of Tranquility</b> — 60gp, 18% OFF!<br><span style="color:var(--low-emphasis)">Calms all within 30 ft. for gatherings or meditation.</span></div>
+    <div class="item"><b>Mountain Mint Salve</b> — 4gp, 18% OFF!<br><span style="color:var(--low-emphasis)">Eases breathing at high altitudes.</span></div>
+    <div class="item"><b>Hand Warmer Charms (pair)</b> — 3gp, 18% OFF!<br><span style="color:var(--low-emphasis)">Keep close for warmth and comfort.</span></div>
+  </div>
+  <div class="rituals">
+    Begin each day with a breath of fresh air and a cup of herbal tea.<br>
+    Light incense to mark moments of rest or reflection.<br>
+    Carry a sachet as a reminder to pause and breathe.
+  </div>
+  <div class="directions">
+    From the willow grove, follow the scent of lavender and the sound of wind chimes. Open dawn to dusk, every day of Nilse’s Moon.
+  </div>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><ellipse cx="60" cy="10" rx="28" ry="7"/><ellipse cx="150" cy="10" rx="28" ry="7"/><ellipse cx="240" cy="10" rx="28" ry="7"/></svg>
+  </div>
+  <h3 style="text-align:center;">Tokens of Tranquility (Tear-Off Coupons)</h3>
+  <div class="coupons">
+    <div class="coupon"><span class="label">🌿 1gp OFF</span>Any purchase over 5gp</div>
+    <div class="coupon"><span class="label">🌿 Free Candle</span>With any Herbal Remedy</div>
+    <div class="coupon"><span class="label">🌿 10% OFF</span>Incense of Tranquility (limit 1)</div>
+    <div class="coupon"><span class="label">🌿 Free Tea Sample</span>With any Mountain Mint Salve</div>
+  </div>
+  <div class="footer">
+    Bring this guide for a moment of peace. Sale ends at the close of Nilse’s Moon.<br>
+  </div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wychwood Wonders Flyer</title>
+  <meta name="viewport" content="width=850">
+  <style>
+    :root {
+      --text-color: #2d2340;
+      --low-emphasis: #b7a7d6;
+      --high-emphasis: #7b4fa3;
+    }
+    @media print {
+      html, body { width: 8.5in; height: 11in; }
+    }
+    body {
+      font-family: 'UnifrakturCook', 'EB Garamond', 'Times New Roman', serif;
+      color: var(--text-color);
+      background: #fff;
+      margin: 0 auto;
+      width: 8.5in;
+      min-height: 11in;
+      padding: 1.2in 0.8in 0.8in 0.8in;
+      box-sizing: border-box;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+    .subtitle {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-bottom: 0.5em;
+    }
+    .location {
+      text-align: center;
+      font-size: 1.1em;
+      color: var(--high-emphasis);
+      margin-bottom: 1em;
+    }
+    .divider {
+      display: flex;
+      justify-content: center;
+      margin: 1.2em 0 1em 0;
+    }
+    .divider svg {
+      display: block;
+      width: 2.5in;
+      height: 0.25in;
+      fill: var(--low-emphasis);
+    }
+    h2, h3 {
+      color: var(--high-emphasis);
+      font-family: 'UnifrakturCook', serif;
+      margin-bottom: 0.2em;
+      margin-top: 1em;
+      letter-spacing: 0.02em;
+    }
+    .items {
+      margin-bottom: 1.2em;
+    }
+    .item {
+      margin-bottom: 0.5em;
+      padding-left: 1em;
+      position: relative;
+      font-size: 1.08em;
+    }
+    .item:before {
+      content: ""; /* removed sparkle emoji */
+      position: absolute;
+      left: 0;
+      color: var(--high-emphasis);
+    }
+    .featured {
+      border: 2px solid var(--high-emphasis);
+      background: #f8f6fa;
+      padding: 0.7em 1em;
+      margin: 1em 0;
+      font-weight: bold;
+      font-size: 1.1em;
+      text-align: center;
+      box-shadow: 0 0 0.2em 0.05em var(--low-emphasis) inset;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured .shimmer {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent 60%, var(--high-emphasis) 80%, transparent 100%);
+      opacity: 0.18;
+      animation: shimmer 2.5s infinite linear;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200px 0; }
+      100% { background-position: 200px 0; }
+    }
+    .riddle, .tale, .directions, .poem {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin: 1em 0;
+      text-align: center;
+    }
+    .coupons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 2em;
+      border-top: 2px dotted var(--low-emphasis);
+      padding-top: 0.7em;
+      gap: 0.4em 2%;
+    }
+    .coupon {
+      border: 1.5px dashed var(--low-emphasis);
+      background: #f8f6fa;
+      padding: 0.5em 0.8em;
+      margin-right: 0;
+      margin-bottom: 0.7em;
+      font-size: 0.98em;
+      width: 48%;
+      min-width: unset;
+      text-align: center;
+      position: relative;
+      font-family: 'EB Garamond', serif;
+      box-sizing: border-box;
+    }
+    .coupon:last-child { margin-right: 0; }
+    .coupon .label {
+      font-size: 1.2em;
+      color: var(--high-emphasis);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.2em;
+    }
+    .footer {
+      text-align: center;
+      color: var(--low-emphasis);
+      font-size: 0.95em;
+      margin-top: 1.5em;
+    }
+    .moon-doodle {
+      display: block;
+      margin: 0.5em auto 1em auto;
+      width: 1.5in;
+      height: 0.5in;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>A MOONLIT INVITATION FROM WYCHWOOD WONDERS</h1>
+    <div class="subtitle">Somewhere between the chime and the shadow, a door awaits...</div>
+  </header>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><ellipse cx="60" cy="10" rx="28" ry="7"/><ellipse cx="150" cy="10" rx="28" ry="7"/><ellipse cx="240" cy="10" rx="28" ry="7"/></svg>
+  </div>
+  <h2>What Will You Find?</h2>
+  <div class="items">
+    <div class="item"><b>A bauble that hums with luck</b> (Fey Trinket, 10gp, 15% OFF!)</div>
+    <div class="item"><b>A stone that floats or sings</b> (Enchanted Stone, 15gp, 15% OFF!)</div>
+    <div class="item"><b>A charm for the wild-hearted</b> (Druidic Charm, 8gp, 15% OFF!)</div>
+    <div class="item"><b>A pendant that glows in moonlight</b> (Moonlit Pendant, 20gp, 15% OFF!)</div>
+    <div class="item"><b>A token for fortune’s favor</b> (Nature’s Token, 5gp, 15% OFF!)</div>
+    <div class="featured">
+      <span style="font-size:1.2em;">A box of secrets (no peeking!)</span> (Mystery Box, 25gp, 15% OFF!)<br>
+      <span style="color:var(--high-emphasis)">What will you find? Only the fey know...</span>
+      <div class="shimmer"></div>
+    </div>
+    <div class="item"><b>A cloak that laughs at the wind</b> (Windproof Cloak, 22gp, 15% OFF!)</div>
+    <div class="item"><b>A charm to keep yetis at bay</b> (“Yeti Repellent” Amulet, 7gp, 15% OFF!)</div>
+  </div>
+  <div class="riddle">
+    “If you would find the badge of the Ebcansu, seek the cloak that dances in storms. If you would taste luck, ask for the trinket with a secret name. If you would walk unseen, follow the path of the moon’s shadow.”
+  </div>
+  <div class="directions">
+    Follow the lantern-lit path, listen for wind chimes, and trust your feet. If you reach the willow that whispers, you’re nearly there. Or are you?
+  </div>
+  <div class="tale">
+    Once, a traveler braved the wildest storm, wrapped in a cloak woven from fey laughter. The wind howled, but the cloak only shimmered brighter. When dawn broke, the traveler found a badge pinned to their heart: “I Survived the Ebcansu.” Will you?
+  </div>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><ellipse cx="60" cy="10" rx="28" ry="7"/><ellipse cx="150" cy="10" rx="28" ry="7"/><ellipse cx="240" cy="10" rx="28" ry="7"/></svg>
+  </div>
+  <h3 style="text-align:center;">Hidden Coupons (Solve to Redeem)</h3>
+  <div class="coupons">
+    <div class="coupon"><span class="label">2gp OFF</span>Bring a mushroom and a smile: any purchase over 10gp</div>
+    <div class="coupon"><span class="label">Free Fey Trinket</span>Speak the word ‘Moonshadow’ with any Mystery Box</div>
+    <div class="coupon"><span class="label">10% OFF</span>If you can recite a riddle: Windproof Cloak (limit 1)</div>
+    <div class="coupon"><span class="label">Free Yeti Repellent</span>Ask for Lirael’s secret with any purchase</div>
+  </div>
+  <div class="footer">
+    The moon is waxing, the sale is fleeting. Bring this flyer, or a clever riddle, before the next full moon.<br>
+  </div>
+</body>
+</html>

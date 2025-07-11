@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Letter from Vandell to the Party</title>
+  <meta name="viewport" content="width=850">
+  <style>
+    body {
+      font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
+      color: #2d2316;
+      background: #fff;
+      margin: 0 auto;
+      width: 8.5in;
+      min-height: 11in;
+      padding: 1.2in 0.8in 0.8in 0.8in;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .letter {
+      font-size: 1.13em;
+      line-height: 1.6;
+      margin-bottom: 1.2em;
+    }
+
+    .signature {
+      font-family: 'Dancing Script', cursive, serif;
+      font-size: 1.3em;
+      color: #4e6b2c;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+
+    .ps {
+      font-style: italic;
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+      font-size: 1.05em;
+      font-family: 'Dancing Script', cursive, serif;
+    }
+
+    .stamp {
+      position: absolute;
+      top: 0.5em;
+      left: 0.5em;
+      transform: rotate(-10deg);
+      opacity: 0.82;
+      z-index: 2;
+    }
+  </style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Dancing+Script:wght@700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="stamp">
+    <svg width="90" height="60" viewBox="0 0 90 62" xmlns="http://www.w3.org/2000/svg">
+      <!-- Cheap stamp texture -->
+      <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" result="turb" />
+        <feDisplacementMap in2="turb" in="SourceGraphic" scale="2" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <!-- Outer rectangle -->
+      <rect x="15" y="3" width="55" height="57" rx="7" fill="none" stroke="#7a6842" stroke-width="3"
+        filter="url(#rough)" />
+      <g transform="scale(1.6) translate(-8,-13)">
+        <!-- Simple crown -->
+        <g filter="url(#rough)">
+          <polygon points="25,28 30,18 35,28 40,18 45,28" fill="none" stroke="#7a6842" stroke-width="2" />
+          <circle cx="30" cy="18" r="1.2" fill="#7a6842" />
+          <circle cx="40" cy="18" r="1.2" fill="#7a6842" />
+        </g>
+        <!-- Simple eye -->
+        <g filter="url(#rough)">
+          <ellipse cx="35" cy="36" rx="10" ry="5" fill="none" stroke="#7a6842" stroke-width="2" />
+          <ellipse cx="35" cy="36" rx="2.5" ry="2.5" fill="#7a6842" />
+        </g>
+      </g>
+
+      <!-- Letters below -->
+      <text x="45" y="55" text-anchor="middle" font-family="serif" font-size="11" fill="#7a6842" font-weight="bold"
+        letter-spacing="2" filter="url(#rough)">
+        ICWE
+      </text>
+    </svg>
+  </div>
+  <div class="letter">
+    To the Esteemed Couriers,<br><br>
+    I trust this letter finds you in good health and high spirits. Allow me to extend my deepest gratitude for your
+    continued service and professionalism. The safe and timely delivery of the chest to Nexus Laboratory is of the
+    utmost importance to all parties involved.<br><br>
+    Upon your arrival in Usalama, you will be met at the docks by my trusted associate, Mr. Rellin. He will provide
+    you with a letter of commendation and ensure you receive your full payment, as agreed. Please present yourselves
+    to him without delay.<br><br>
+    I must stress the importance of proceeding directly to Nexus Laboratory. The path ahead is not without its
+    perils—do not lose your footing, for the journey is as important as the destination.<br><br>
+    With warmest regards,<br>
+    <span class="signature">Vandell Pierce</span>
+    <div class="ps">
+      P.S. Have you seen the new Early Bird Flyer Co. in Usalama? Ingenious! Their crows delivered this very letter, and I hear they’re revolutionizing how news and offers reach incoming ships. Do take a look at their flyers—one never knows what opportunities might flutter your way.
+    </div>
+  </div>
+</body>
+
+</html>

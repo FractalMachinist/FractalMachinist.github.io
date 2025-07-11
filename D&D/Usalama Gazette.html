@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Usalama Gazette</title>
+  <style>
+    :root {
+      --text-color: #222222;
+      --low-emphasis: #888888;
+      --high-emphasis: #0a3a5a;
+    }
+    body {
+      color: var(--text-color);
+      background: #fff;
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 1.5em 1.5em 1em 1.5em;
+    }
+    .masthead {
+      text-align: center;
+      font-size: 3em;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      color: var(--high-emphasis);
+      margin-bottom: 0.1em;
+      margin-top: 0.2em;
+      text-transform: uppercase;
+      border-bottom: 3px double var(--high-emphasis);
+      padding-bottom: 0.1em;
+    }
+    .newspaper-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1em;
+      color: var(--low-emphasis);
+      margin-bottom: 0.5em;
+      font-family: 'Georgia', serif;
+      border-bottom: 1px solid var(--low-emphasis);
+      padding-bottom: 0.2em;
+    }
+    .edition {
+      font-style: italic;
+      font-size: 1em;
+    }
+    .date {
+      font-weight: bold;
+      font-size: 1em;
+    }
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      margin-top: 1.5em;
+    }
+    .column {
+      flex: 1 1 350px;
+      min-width: 320px;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .headline {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: var(--high-emphasis);
+      margin-top: 0.5em;
+      margin-bottom: 0.2em;
+      font-family: 'Times New Roman', Times, serif;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .subhead {
+      font-size: 1.1em;
+      color: var(--high-emphasis);
+      font-style: italic;
+      margin-bottom: 0.2em;
+    }
+    .byline {
+      font-size: 0.95em;
+      color: var(--low-emphasis);
+      text-align: right;
+      margin-bottom: 0.5em;
+      font-style: italic;
+    }
+    .article {
+      font-size: 1em;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+      font-family: 'Georgia', serif;
+    }
+    ul, ol {
+      margin-left: 0;
+      padding-left: 0.8em;
+      list-style: none;
+    }
+    blockquote {
+      border: none;
+      margin: 1em 0;
+      padding-left: 0;
+      color: var(--low-emphasis);
+      font-style: normal;
+      font-family: 'Georgia', serif;
+      background: none;
+    }
+    .rumor, .lostfound {
+      font-style: normal;
+      color: var(--low-emphasis);
+      margin: 0.5em 0;
+    }
+    @media print {
+      body {
+        box-shadow: none;
+        background: #fff;
+      }
+    }
+    .main-content, .column, .article, ul, ol {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+    .masthead, .headline, .newspaper-meta, h1, h2, h3 {
+      text-align: center;
+      text-justify: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="masthead">Usalama Gazette</div>
+  <div class="newspaper-meta">
+    <span class="edition">Special Edition</span>
+    <span class="date">18th day of Nilse's Moon, 489 of L'smere</span>
+    <span class="city">Usalama</span>
+  </div>
+  <div class="main-content">
+    <div class="column">
+      <div class="headline">Council Watch Uncovers Plot Against Academy</div>
+      <div class="article">
+        In a stunning turn of events, the Royal Council’s automata intercepted a coded message from Lord Halvyr, revealing a plot against the prestigious Royal Mirabilis Academy. Sources within the Council Watch report that the message detailed plans to disrupt the Academy’s upcoming convocation, with the aim of undermining the city’s magical leadership. Swift action by the Council’s agents led to the apprehension of several conspirators, though Lord Halvyr himself remains at large.
+      </div>
+      <blockquote>
+        “All correspondence is subject to review by the Crown’s Watchful Eye.”
+      </blockquote>
+      <div class="article">
+        Officials urge vigilance and encourage anyone with information regarding Lord Halvyr’s whereabouts to come forward. Security has been increased around the Academy, and additional patrols are monitoring key locations throughout Usalama.
+      </div>
+      <div class="article">
+        Let this serve as a warning to those who would conspire in secret—no message is truly private. The safety of Usalama depends on the watchfulness of its people and the diligence of its guardians.
+      </div>
+      <div class="byline">By Gazette Staff</div>
+      <div class="headline">Rare Scrolls Stolen from Librarium Arcanum</div>
+      <div class="article">
+        Guards are baffled after several rare scrolls vanished from the Librarium Arcanum under mysterious circumstances. Authorities are seeking Horatio Altarim, a young wizard last seen near the restricted stacks.<br>
+        If you have information on Horatio’s whereabouts, please contact Marie Petola at the library.
+        <div class="byline">By Gazette Reporter</div>
+      </div>
+      <div class="headline">Lost and Found: Locket Near Ebcansu Footbridge</div>
+      <div class="lostfound">
+        <b>Found:</b> Silver locket near the Ebcansu footbridge. Describe to claim your reward.
+        <div class="byline">By Community Notice</div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="headline">Letters: Is Our Magical Heritage Safe?</div>
+      <blockquote>
+        <b>To the Editor:</b><br>
+        What is the city doing to protect our magical heritage? If scrolls can vanish from the Arcanum, are any of us safe?<br>
+        — Concerned Scholar
+      </blockquote>
+      <div class="headline">Weather and Magical Alerts for Usalama</div>
+      <ul class="article">
+        <li><b>Weather Warning:</b> Beware: Unseasonal fogs have been reported upriver. Travelers are urged to consult their local druid before setting out, as visibility is poor and magical disturbances have been noted.</li>
+        <li><b>Magical Alert:</b> Arcane residue has been detected near the old willow. Children and pets are advised to avoid the area until further notice. The Council’s mages are investigating.</li>
+      </ul>
+      <div class="headline">Spotlight: The Goblin Hob’s Magic Chowder</div>
+      <div class="article">
+        <b>The Goblin Hob: Usalama’s Newest Sensation!</b><br>
+        Chef Kaz Kardwall’s fried fish fritters and spicy oysters are the talk of the town. Visit the old tackle store on the docks for a taste of tradition with a twist.<br>
+        <i>Locals recommend the chowder—some say it’s magic!</i>
+      </div>
+      <div class="article">
+        <b>Coupon:</b> Show this flyer for a free side of pickled kelp with any meal at The Goblin Hob!
+      </div>
+      <div class="article">
+        <b>Travel & Guide Services:</b> Need a guide upriver? Scholar and naturalist Ahonen Aleksi offers safe passage and expert knowledge of the Thornscale wilds. Inquire at the riverside market or leave a note with the Early Bird Flyer Co.<br>
+        <i>Ahonen is renowned for his tales of the northern wilds and his uncanny knack for finding rare herbs.</i>
+      </div>
+      <div class="headline">Events: Market Festival and Personal Notices</div>
+      <ul class="article">
+        <li><b>Open Market Festival — This Starday!</b> Enjoy music, food, and magical demonstrations on the main square. Vendors from across the region will be present. Don’t miss the enchanted fireworks at dusk!</li>
+        <li><b>Personal Notices:</b> Happy birthday, Tamsin! — from the Reed twins.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Lawful Ledger Flyer</title>
+  <meta name="viewport" content="width=850">
+  <style>
+    :root {
+      --text-color: #232323;
+      --low-emphasis: #b0b0b0;
+      --high-emphasis: #2a4a7b;
+    }
+    body {
+      font-family: 'IM Fell English', 'Times New Roman', Times, serif;
+      color: var(--text-color);
+      background: #fff;
+      margin: 0 auto;
+      width: 8.5in;
+      min-height: 11in;
+      padding: 1.2in 0.8in 0.8in 0.8in;
+      box-sizing: border-box;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 0.5em;
+    }
+    .subtitle {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-bottom: 0.5em;
+    }
+    .location {
+      text-align: center;
+      font-size: 1.1em;
+      color: var(--high-emphasis);
+      margin-bottom: 1em;
+    }
+    .divider {
+      display: flex;
+      justify-content: center;
+      margin: 1.2em 0 1em 0;
+    }
+    .divider svg {
+      display: block;
+      width: 2.5in;
+      height: 0.25in;
+      fill: var(--low-emphasis);
+    }
+    .columns {
+      display: flex;
+      gap: 2em;
+      margin-bottom: 1.5em;
+    }
+    .col {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    h2, h3 {
+      color: var(--high-emphasis);
+      font-family: 'IM Fell English SC', serif;
+      margin-bottom: 0.2em;
+      margin-top: 1em;
+      letter-spacing: 0.02em;
+    }
+    ul, .supplies-list {
+      margin: 0 0 1em 0.5em;
+      padding: 0;
+      list-style: none;
+      font-size: 1.05em;
+    }
+    .supplies-list li {
+      margin-bottom: 0.5em;
+      padding-left: 1.2em;
+      position: relative;
+    }
+    .supplies-list li:before {
+      content: "\2696";
+      position: absolute;
+      left: 0;
+      color: var(--high-emphasis);
+      font-size: 1.1em;
+    }
+    .certified {
+      border: 2px solid var(--high-emphasis);
+      background: #f7f7f7;
+      padding: 0.7em 1em;
+      margin: 1em 0;
+      font-weight: bold;
+      font-size: 1.1em;
+      text-align: center;
+      box-shadow: 0 0 0.2em 0.05em var(--low-emphasis) inset;
+    }
+    .directions {
+      font-style: italic;
+      color: var(--low-emphasis);
+      margin-bottom: 1em;
+    }
+    .footer {
+      text-align: center;
+      color: var(--low-emphasis);
+      font-size: 0.95em;
+      margin-top: 1.5em;
+    }
+    .seal {
+      display: block;
+      margin: 0.5em auto 1em auto;
+      width: 1.2in;
+      height: 1.2in;
+    }
+    .legal {
+      font-size: 0.95em;
+      color: var(--low-emphasis);
+      margin-top: 1.2em;
+      text-align: center;
+    }
+    .case-section {
+      border: 1.5px solid var(--low-emphasis);
+      background: #f8f8fa;
+      padding: 1em 1.2em;
+      margin: 2em auto 1.5em auto;
+      max-width: 700px;
+      font-size: 1.04em;
+    }
+    .case-section h2 {
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
+      color: var(--high-emphasis);
+      text-align: center;
+    }
+    .case-list {
+      margin: 0.5em 0 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .case-list li {
+      margin-bottom: 0.7em;
+      padding-left: 0.2em;
+    }
+    .case-id {
+      color: var(--high-emphasis);
+      font-weight: bold;
+      font-family: 'IM Fell English SC', serif;
+    }
+    .case-impact {
+      color: #3a6a2b;
+      font-style: italic;
+      margin-left: 0.2em;
+    }
+    .disclaimer-list {
+      margin: 0.7em auto 0.2em auto;
+      padding: 0 0 0 1.2em;
+      max-width: 700px;
+      text-align: left;
+      font-size: 0.97em;
+      color: var(--low-emphasis);
+    }
+    .disclaimer-list li {
+      margin-bottom: 0.3em;
+      list-style: disc;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:wght@400;700&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>PUBLIC NOTICE: THE LAWFUL LEDGER</h1>
+    <div class="subtitle">Official Stationer and Legal Supplier of Usalama</div>
+    <div style="font-size:1.02em;color:var(--low-emphasis);margin:1em auto 1.5em auto;max-width:700px;text-align:left;">
+      <span style="font-size:1.02em;line-height:1.5;margin:0.1em;padding:0.1em;">Herein are described the commercial status, pricing, and temporary promotional irregularities of The Lawful Ledger, Incorporated ("The Store", "The Lawful Ledger", "We", "Us"), a duly registered and regulated entity under the statutes of Usalama.</span>
+      <span style="font-size:0.95em;line-height:1.3;margin:0.1em;padding:0.1em;"> For the purposes of this document, "Customer" refers to any individual or party seeking to engage in lawful commerce with The Store.</span>
+      <span style="font-size:0.88em;line-height:1.15;margin:0.1em;padding:0.1em;"> "Goods" refers to all items listed below and any additional wares as may be offered at the discretion of The Store.</span>
+      <span style="font-size:0.81em;line-height:1.05;margin:0.1em;padding:0.1em;"> "Document" refers to this printed notice, which must be presented in physical form to invoke any and all commercial loopholes, discounts, or advisories described herein.</span>
+      <span style="font-size:0.74em;line-height:0.85;margin:0.1em;padding:0.1em;"> All transactions are subject to the prevailing laws and ordinances of Usalama.</span>
+      <span style="font-size:0.67em;line-height:0.1;margin:0.1em;padding:0.1em;"> The Store is not responsible for typographical errors, misinterpretations, or the consequences of reading this notice aloud in a crowded marketplace.</span>
+      <span style="font-size:0.6em;line-height:0.1;margin:0.1em;padding:0.1em;"> By reading further, Customer agrees to abide by all posted regulations, including but not limited to the proper disposal of this document after use.</span>
+      <span style="font-size:0.53em;line-height:0.1;margin:0.1em;padding:0.1em;"> The Lawful Ledger reserves the right to amend, revoke, or ignore any clause at its sole discretion, except where prohibited by law.</span>
+      <span style="font-size:0.46em;line-height:0.1;margin:0.1em;padding:0.1em;"> If you can still read this, congratulations: you may be eligible for a free magnifying glass (while supplies last).</span>
+    </div>
+  </header>
+  <div class="location">Adjacent to the bell tower, beneath the sign of the golden scales. Entry permitted during posted business hours only.</div>
+  <div class="seal">
+    <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" stroke="var(--high-emphasis)" stroke-width="4" fill="none"/><text x="50" y="60" text-anchor="middle" font-size="38" fill="var(--high-emphasis)" font-family="serif">⚖️</text></svg>
+  </div>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><rect x="0" y="8" width="300" height="4" rx="2"/></svg>
+  </div>
+  <div class="columns">
+    <div class="col">
+      <h2>Inventory Reduction—Nilse’s Moon Statutory Sale</h2>
+      <div style="color:var(--low-emphasis);margin-bottom:0.5em;">All prices reflect a temporary “20% OFF” as authorized by the Office of Commerce.</div>
+      <h3>Official Supplies for Lawful Conduct:</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:1.05em;margin-bottom:1em;">
+        <thead>
+          <tr style="background:#f5f5f5;color:var(--high-emphasis);">
+            <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Item</th>
+            <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Price</th>
+            <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Discount</th>
+            <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Journal (blank)</td><td>2gp</td><td>20% OFF</td><td>For the recording of lawful transactions and personal accounts. 100 pages, leather-bound.</td></tr>
+          <tr><td>Map Case</td><td>5gp</td><td>20% OFF</td><td>Waterproof, suitable for the protection of official documents.</td></tr>
+          <tr><td>Official Forms (set)</td><td>1gp</td><td>20% OFF</td><td>Permits, contracts, and licenses. Required for most business dealings.</td></tr>
+          <tr><td>Ink & Quill Set</td><td>2gp</td><td>20% OFF</td><td>Black or colored ink. For signatures and official correspondence.</td></tr>
+          <tr><td>Field Logbook</td><td>3gp</td><td>20% OFF</td><td>Weatherproof. For field notes and expedition records.</td></tr>
+          <tr><td>Rulebook (local laws)</td><td>5gp</td><td>20% OFF</td><td>Current statutes and regulations of Usalama. Ignorance of the law is not a defense.</td></tr>
+          <tr><td>Expedition Waiver Forms</td><td>1gp</td><td>20% OFF</td><td>“No liability for avalanches or other hazards.”</td></tr>
+          <tr><td>Notarized Proof of Summit</td><td>2gp</td><td>20% OFF</td><td>Certified documentation for recognition of achievement.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="certified" style="max-width:600px;margin:1.5em auto 1.5em auto;">
+    Notarized Proof of Summit:<br>
+    Officially recognized by all reputable establishments.<br>
+    Present for verification of accomplishment.
+  </div>
+  <div class="directions">
+    From the main docks, proceed to the bell tower. The Lawful Ledger is the third door on the left, past the statue of Lady Justice. Entry subject to capacity limits.
+  </div>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><rect x="0" y="8" width="300" height="4" rx="2"/></svg>
+  </div>
+  <h3 style="text-align:center;">Official Vouchers (Tear-Off Section)</h3>
+  <div style="max-width:700px;margin:0 auto 2em auto;font-size:1.05em;">
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f5f5f5;color:var(--high-emphasis);">
+          <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Voucher</th>
+          <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>🏷️ 1gp OFF</td><td>Any purchase over 5gp (limit one per customer)</td></tr>
+        <tr><td>🏷️ Complimentary Pen</td><td>With Journal purchase (while supplies last)</td></tr>
+        <tr><td>🏷️ 10% OFF</td><td>Expedition Waiver Forms (limit 3 per party)</td></tr>
+        <tr><td>🏷️ Free Notary Seal</td><td>With Proof of Summit (must present ID)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><rect x="0" y="8" width="300" height="4" rx="2"/></svg>
+  </div>
+  <section class="case-section">
+    <h2>Recent Judicial Proceedings & Impactful Cases</h2>
+    <ul class="case-list">
+      <li>
+        <span class="case-id">Case ID 489-084:</span>
+        <span>Academy Students’ Union v. Royal Mirabilis Academy</span>
+        <span class="case-impact">("Petition for increased fieldwork stipends"): Decision—academy to review stipend policy; further hearings set.</span>
+      </li>
+      <li>
+        <span class="case-id">Case ID 489-085:</span>
+        <span>Coalition for Fair Trade v. Royal Council</span>
+        <span class="case-impact">("Challenge to artifact registration and taxation statutes"): Decision—case dismissed; appeal filed.</span>
+      </li>
+      <li>
+        <span class="case-id">Case ID 489-086:</span>
+        <span>River Glaindrop Clans v. Mirabilis Mining Guild</span>
+        <span class="case-impact">("Alleged waterway contamination and disruption of merfolk sanctuaries"): Status—remains pending before High Tribunal.</span>
+      </li>
+      <li>
+        <span class="case-id">Case ID 489-087:</span>
+        <span>Guild of Honest Trades v. Illusionist’s Consortium</span>
+        <span class="case-impact">("Unmarked illusion magic in commercial signage"): Decision—consortium fined, compliance monitoring ongoing.</span>
+      </li>
+      <li>
+        <span class="case-id">Case ID 489-088:</span>
+        <span>Usalama Fishers’ Cooperative v. City Watch</span>
+        <span class="case-impact">("Dispute over fishing rights during magical fog events"): Decision—temporary injunction issued; mediation scheduled.</span>
+      </li>
+      <li>
+        <span class="case-id">Case ID 489-089:</span>
+        <span>Verdant Accord v. Royal Council</span>
+        <span class="case-impact">("Petition for expanded protections of ancient marshland groves"): petition granted</span>
+      </li>
+      <li>
+        <span class="case-id">Case ID 489-090:</span>
+        <span>Old Man Virello v. Kaz Kardwall</span>
+        <span class="case-impact">("Alleged misappropriation of secret chowder recipe"): Status—settled out of court, terms confidential.</span>
+      </li>
+    </ul>
+  </section>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><rect x="0" y="8" width="300" height="4" rx="2"/></svg>
+  </div>
+  <section class="case-section">
+    <h2>Legal Notices & Statutory Updates</h2>
+    <ul class="case-list">
+      <li><span class="case-id">MACC §101.3a:</span> All magical research and artifact trade must be registered with the Royal Council.</li>
+      <li><span class="case-id">MACC §221.8q:</span> All magical creatures imported into Mirabilis must undergo a health and temperament assessment by the Office of Arcane Fauna.</li>
+      <li><span class="case-id">MACC §309.2c:</span> Magical salvage recovered from rivers, marshes, or ruins is considered taxable income according to a valuation by the Royal Appraisers Guild.</li>
+      <li><span class="case-id">MACC §309.2d:</span> Tax exemptions may apply for magical salvage used in public works or educational projects, pending approval.</li>
+      <li><span class="case-id">MACC §412.1e:</span> All arcane experiments involving transfiguration or planar energies require prior approval from the Office of Magical Oversight.</li>
+      <li><span class="case-id">MACC §518.9m:</span> The import and sale of rare magical flora are subject to new licensing requirements.</li>
+      <li><span class="case-id">MACC §530.4p:</span> Annual reporting of magical income and holdings is required for all licensed practitioners; late filings incur penalties.</li>
+      <li><span class="case-id">MACC §602.4r:</span> River Glaindrop shipping lanes are under increased patrol; cooperation with customs officials is mandatory.</li>
+      <li><span class="case-id">MACC §710.6x:</span> Use of illusion magic for commercial advertising must be clearly marked and registered with the Guild of Honest Trades.</li>
+      <li><span class="case-id">MACC §999.0z:</span> Violations of these statutes may result in fines, confiscation, or imprisonment as determined by the Royal Council.</li>
+    </ul>
+    <div style="font-size:0.98em;color:var(--low-emphasis);margin-top:0.8em;text-align:center;">
+      For further details or to register magical activities, consult your local magistrate or the Royal Registry. Reference the full Mirabilis Arcane & Civic Code for comprehensive legal language.
+    </div>
+  </section>
+  <div class="divider">
+    <svg viewBox="0 0 300 20"><rect x="0" y="8" width="300" height="4" rx="2"/></svg>
+  </div>
+  <ul class="disclaimer-list">
+    <li>This document is presented for entertainment purposes only and does not constitute legal or financial advice.</li>
+    <li>The Lawful Ledger and its affiliates are not responsible for typographical errors, misprints, or omissions.</li>
+    <li>No liability is assumed for slander, libel, or the consequences of reliance on the information herein.</li>
+    <li>All case summaries are unofficial and for public information only; consult the official court record for authoritative details.</li>
+    <li>Offers, statutes, and case outcomes are subject to change without notice. Void where prohibited.</li>
+    <li>By reading this document, you agree to hold The Lawful Ledger harmless for any and all damages, real or imagined.</li>
+  </ul>
+  <div class="footer">
+    <div class="legal">
+      Legal Disclaimer: All offers valid through the end of Nilse’s Moon. Terms and conditions apply. The Lawful Ledger reserves the right to refuse service to unruly or noncompliant individuals.
+    </div>
+  </div>
