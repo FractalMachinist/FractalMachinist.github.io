@@ -53,8 +53,102 @@
             font-weight: bold;
             font-size: 1.08em;
             text-decoration: none;
-            transition: background 0.2s, box-shadow 0.2s, color 0.2s;
             box-shadow: 0 2px 8px rgba(180,150,80,0.07);
+        }
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2em 1em;
+            margin: 2em 0 0 0;
+        }
+        ul li {
+            margin: 0;
+            display: flex;
+            align-items: stretch;
+            height: 100%;
+        }
+        ul li a {
+            position: relative;
+            background: linear-gradient(180deg, #f7e7c1 85%, #e9d6b0 100%);
+            border: 2px solid #bfa76f;
+            border-radius: 10px 10px 16px 16px;
+            color: #5a3e1b;
+            font-weight: bold;
+            font-size: 1.08em;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(180,150,80,0.10);
+            padding: 2.2em 1.2em 1.2em 1.2em;
+            min-height: 110px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        ul li a:before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2.2em;
+            background: linear-gradient(180deg, #f3e1b2 80%, #e9d6b0 100%);
+            border-bottom: 2px solid #bfa76f;
+            border-radius: 10px 10px 0 0;
+            z-index: 1;
+        }
+        ul li a:after {
+            content: "";
+            position: absolute;
+            top: 0.7em; left: 50%;
+            transform: translateX(-50%);
+            width: 2.2em; height: 1.1em;
+            background: #fffbe8;
+            border: 1px solid #e2cfa2;
+            border-radius: 0 0 1.1em 1.1em;
+            box-shadow: 0 2px 6px rgba(200,170,90,0.08);
+            z-index: 2;
+        }
+        ul li a span {
+            position: relative;
+            z-index: 3;
+        }
+        ul li a:visited {
+            color: #d3b588;
+            background: linear-gradient(180deg, #e9d6b0 85%, #d3b588 100%);
+        }
+        ul li a:visited:before {
+            /* Show a letter (paper) instead of an envelope */
+            content: "";
+            position: absolute;
+            top: 0.5em; left: 50%;
+            transform: translateX(-50%);
+            width: 2.2em; height: 1.4em;
+            background: #fffbe8;
+            border: 1px solid #e2cfa2;
+            border-radius: 0.2em 0.2em 0.4em 0.4em;
+            box-shadow: 0 2px 6px rgba(200,170,90,0.10);
+            z-index: 3;
+        }
+        ul li a:visited:after {
+            /* Add faint "writing lines" to the letter */
+            content: "";
+            position: absolute;
+            top: 1em; left: 50%;
+            transform: translateX(-50%);
+            width: 1.6em; height: 0.08em;
+            background: #e9d6b0;
+            border-radius: 0.04em;
+            box-shadow:
+            0 0.25em 0 0 #e9d6b0,
+            0 0.5em 0 0 #e9d6b0;
+            z-index: 4;
+        }
+        ul li a:hover, ul li a:focus {
+            background: #f3e1b2;
+            color: #a67c2d;
+            box-shadow: 0 6px 20px rgba(180,150,80,0.18);
+            transform: translateY(-2px) scale(1.03) rotate(-1deg);
         }
         ul li a:hover {
             background: #e9d6b0;
@@ -82,20 +176,20 @@
         </div>
         <ul>
             <li><a href="Letter from Vandell to the Party.html">Letter from Vandell to the Party</a></li>
-            <li><a href="Beast & Burrow Flyer.html">Beast & Burrow Flyer</a></li>
-            <li><a href="Soap & Circumstance Flyer.html">Soap & Circumstance Flyer</a></li>
-            <li><a href="The Arrows Rest Flyer.html">The Arrow's Rest Flyer</a></li>
-            <li><a href="The Foragers Basket Flyer.html">The Forager's Basket Flyer</a></li>
-            <li><a href="The Lawful Ledger Flyer.html">The Lawful Ledger Flyer</a></li>
+            <li><a href="Beast & Burrow Flyer.html">Beast & Burrow</a></li>
+            <li><a href="Soap & Circumstance Flyer.html">Soap & Circumstance</a></li>
+            <li><a href="The Arrows Rest Flyer.html">The Arrow's Rest</a></li>
+            <li><a href="The Foragers Basket Flyer.html">The Forager's Basket</a></li>
+            <li><a href="The Lawful Ledger Flyer.html">The Lawful Ledger</a></li>
             <li><a href="The Marshland Academic.html">The Marshland Academic</a></li>
-            <li><a href="The Rivers Quill Flyer.html">The River's Quill Flyer</a></li>
-            <li><a href="The Scented Satchel Flyer.html">The Scented Satchel Flyer</a></li>
-            <li><a href="The Shield and Sheath Flyer.html">The Shield and Sheath Flyer</a></li>
+            <li><a href="The Rivers Quill Flyer.html">The River's Quill</a></li>
+            <li><a href="The Scented Satchel Flyer.html">The Scented Satchel</a></li>
+            <li><a href="The Shield and Sheath Flyer.html">The Shield and Sheath</a></li>
             <li><a href="The Waterfront Whisper.html">The Waterfront Whisper</a></li>
             <li><a href="Usalama Gazette.html">Usalama Gazette</a></li>
             <li><a href="Usalama Theory and Practice.html">Usalama Theory and Practice</a></li>
-            <li><a href="Verdant Nook Flyer.html">Verdant Nook Flyer</a></li>
-            <li><a href="Wychwood Wonders Flyer.html">Wychwood Wonders Flyer</a></li>
+            <li><a href="Verdant Nook Flyer.html">Verdant Nook</a></li>
+            <li><a href="Wychwood Wonders Flyer.html">Wychwood Wonders</a></li>
         </ul>
     </div>
 </body>
