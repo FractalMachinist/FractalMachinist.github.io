@@ -41,12 +41,35 @@ function renderCartSummary() {
         cartDiv.innerHTML = '<b>Your cart is empty.</b>';
         return;
     }
-    let html = '<b>Your Cart:</b><ul style="list-style:none;padding:0;">';
-    cart.forEach((item, idx) => {
-        html += `<li style='margin-bottom:0.5em;'>${item.name} <span style='color:#888;'>(${item.shop})</span> - <b>${item.price}gp</b> <button onclick="removeFromCart(${idx})" style='margin-left:0.5em;'>Remove</button></li>`;
+    // Group items by name/shop/price
+    const grouped = {};
+    cart.forEach(item => {
+        const key = item.name + '|' + item.shop + '|' + item.price;
+        if (!grouped[key]) grouped[key] = { ...item, qty: 0 };
+        grouped[key].qty++;
     });
-    html += '</ul>';
-    html += `<div style='margin-top:0.5em;'><b>Total: ${getTotal()}gp</b></div>`;
+    let html = '<b>Your Cart:</b>';
+    html += '<table style="width:100%;border-collapse:collapse;margin-top:0.5em;">';
+    html += '<thead><tr><th style="text-align:left;padding:0.3em 0.5em;">Item</th><th style="text-align:left;padding:0.3em 0.5em;">Shop</th><th style="text-align:right;padding:0.3em 0.5em;">Price</th><th style="text-align:right;padding:0.3em 0.5em;">Qty</th><th style="text-align:right;padding:0.3em 0.5em;">Subtotal</th><th></th></tr></thead>';
+    html += '<tbody>';
+    let total = 0;
+    let idx = 0;
+    Object.values(grouped).forEach(item => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        html += `<tr>` +
+            `<td>${item.name}</td>` +
+            `<td style='color:#888;'>${item.shop}</td>` +
+            `<td style='text-align:right;'>${item.price}gp</td>` +
+            `<td style='text-align:right;'>${item.qty}</td>` +
+            `<td style='text-align:right;'><b>${subtotal}gp</b></td>` +
+            `<td><button onclick="removeFromCart(${idx})" style='margin-left:0.5em;'>Remove</button></td>` +
+            `</tr>`;
+        idx += item.qty;
+    });
+    html += '</tbody>';
+    html += `<tfoot><tr><td colspan="4" style="text-align:right;"><b>Total:</b></td><td style="text-align:right;"><b>${total}gp</b></td><td></td></tr></tfoot>`;
+    html += '</table>';
     cartDiv.innerHTML = html;
 }
 
