@@ -219,47 +219,58 @@ HTML Flyer for Print (8.5x11")
     </div>
   </div>
   <div class="main">
+    <div id="cart-summary" style="border:2px solid var(--low-emphasis);padding:0.7em 1em;margin-bottom:1.5em;background:#f9f7f3;"></div>
     <div class="callout">
       “Precision, patience, and preparation—these are the marks of a true scout.”
     </div>
     <h2>For Hunters & Scouts</h2>
-    <div class="item"><span class="name">Longbow</span> <span class="price">50gp <span style="font-size:0.9em;">(Autumn Special! 20% Off!)</span></span><br>
+    <div class="item"><span class="name">Longbow</span> <span class="price">50gp <span style="font-size:0.9em;">(Autumn Special! 20% Off!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Longbow" data-cart-price="50" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       Elven-crafted for accuracy and grace. The bow of choice for those who value range and reliability.<br>
       <span class="pro-tip">Pro Tip: Ask about our custom grip fitting—free this month!</span>
     </div>
-    <div class="item"><span class="name">Shortbow</span> <span class="price">25gp <span style="font-size:0.9em;">(Now Only! 15% Off!)</span></span><br>
+    <div class="item"><span class="name">Shortbow</span> <span class="price">25gp <span style="font-size:0.9em;">(Now Only! 15% Off!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Shortbow" data-cart-price="25" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       Compact and sturdy, perfect for quick shots in dense woods or on the move.
     </div>
-    <div class="item"><span class="name">Custom Arrows (Set of 10)</span> <span class="price">2gp <span style="font-size:0.9em;">(Special: 10% Off!)</span></span><br>
+    <div class="item"><span class="name">Custom Arrows (Set of 10)</span> <span class="price">2gp <span style="font-size:0.9em;">(Special: 10% Off!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Custom Arrows (Set of 10)" data-cart-price="2" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       Choose your tip: blunt, barbed, or silvered. Each set hand-fletched for true flight.
     </div>
-    <div class="item"><span class="name">Hunting Trap</span> <span class="price">5gp <span style="font-size:0.9em;">(Seasonal Discount!)</span></span><br>
+    <div class="item"><span class="name">Hunting Trap</span> <span class="price">5gp <span style="font-size:0.9em;">(Seasonal Discount!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Hunting Trap" data-cart-price="5" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       Reliable for small or medium game. Easy to set, easy to reset—just like Thalioren taught the rangers.
     </div>
     <h2>For the Well-Equipped</h2>
-    <div class="item"><span class="name">Quiver</span> <span class="price">1gp <span style="font-size:0.9em;">(Stock Up!)</span></span><br>
+    <div class="item"><span class="name">Quiver</span> <span class="price">1gp <span style="font-size:0.9em;">(Stock Up!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Quiver" data-cart-price="1" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       Holds 20 arrows. Lightweight, durable, and easy to sling over your shoulder.
     </div>
-    <div class="item"><span class="name">Camouflage Cloak</span> <span class="price">15gp <span style="font-size:0.9em;">(Forest Special! 10% Off!)</span></span><br>
+    <div class="item"><span class="name">Camouflage Cloak</span> <span class="price">15gp <span style="font-size:0.9em;">(Forest Special! 10% Off!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Camouflage Cloak" data-cart-price="15" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       Blend into the autumn foliage. Advantage on Stealth in forests—tested by Thalioren himself.
     </div>
     <div class="signature">
-      <span class="name shimmer">Quiver of Ehlonna</span> <span class="price">180gp <span style="font-size:0.9em;">(Rare Find!)</span></span><br>
+      <span class="name shimmer">Quiver of Ehlonna</span> <span class="price">180gp <span style="font-size:0.9em;">(Rare Find!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Quiver of Ehlonna" data-cart-price="180" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       Legendary storage: holds 60 arrows, 18 javelins, or 6 bows. Never be caught unprepared.
     </div>
     <div class="signature">
-      <span class="name shimmer">Arrow of Slaying</span> <span class="price">150gp <span style="font-size:0.9em;">(One Shot, One Legend!)</span></span><br>
+      <span class="name shimmer">Arrow of Slaying</span> <span class="price">150gp <span style="font-size:0.9em;">(One Shot, One Legend!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Arrow of Slaying" data-cart-price="150" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       A single, enchanted arrow—deal devastating damage to your chosen foe.<br>
       <span class="pro-tip">Pro Tip: Consult Thalioren for advice on choosing your target.</span>
     </div>
     <h2>For Climbers & Winter Wanderers</h2>
     <div class="signature">
-      <span class="name">Climbing Pitons (Set of 10)</span> <span class="price">3gp <span style="font-size:0.9em;">(“Guaranteed not to bend—unless you’re a giant!”)</span></span><br>
+      <span class="name">Climbing Pitons (Set of 10)</span> <span class="price">3gp <span style="font-size:0.9em;">(“Guaranteed not to bend—unless you’re a giant!”)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Climbing Pitons (Set of 10)" data-cart-price="3" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       <strong>Signature Item!</strong><br>
       Sturdy, reliable, and field-tested in the northern peaks. Trade in your bent pitons for store credit—proof of heroic use required!
     </div>
     <div class="signature">
-      <span class="name">Snow Camo Cloak</span> <span class="price">18gp <span style="font-size:0.9em;">(Winter Ready! 10% Off!)</span></span><br>
+      <span class="name">Snow Camo Cloak</span> <span class="price">18gp <span style="font-size:0.9em;">(Winter Ready! 10% Off!)</span></span>
+      <input type="number" min="0" style="width:3em;" data-cart-name="Snow Camo Cloak" data-cart-price="18" data-cart-shop="The Arrow's Rest"> <button class="add-to-cart-btn">Add</button><br>
       Stay hidden in snowy terrain. Magically treated for warmth and stealth.<br>
       <span class="pro-tip">Pro Tip: Layer with our Camouflage Cloak for all-season concealment.</span>
     </div>
@@ -289,5 +300,6 @@ HTML Flyer for Print (8.5x11")
       Shop hours: Dawn to Dusk, every day but Sabent’s Rest.
     </div>
   </div>
+  <script src="cart.js"></script>
 </body>
 </html>

@@ -177,19 +177,47 @@
   <h2>Nilse’s Moon Blacksmith’s Special!</h2>
   <div style="margin-bottom:0.5em;">All prices “30% OFF!” (See in-forge for details.)</div>
   <div class="items">
-    <div class="item"><b>Shortsword</b> — 10gp, 30% OFF!<br><span>Balanced, sharp, and ready for a scrap.</span></div>
-    <div class="item"><b>Shield</b> — 10gp, 30% OFF!<br><span>Steel, custom crest—stand tall!</span></div>
-    <div class="item"><b>Chain Shirt</b> — 50gp, 30% OFF!<br><span>Light, flexible, and tough as a mountain goat.</span></div>
-    <div class="item"><b>Warhammer</b> — 15gp, 30% OFF!<br><span>Dwarven make, built to last.</span></div>
-    <div class="item"><b>Custom Gear Commission</b> — Varies, 30% OFF labor!<br><span>Got a wild idea? Let’s talk.</span></div>
-    <div class="item"><b>Armor Repair (per item)</b> — 2gp, 30% OFF!<br><span>Quick, quality, and no grumbling.</span></div>
+    <div class="item"><b>Shortsword</b> — 10gp, 30% OFF!<br><span>Balanced, sharp, and ready for a scrap.</span>
+      <input type="number" min="0" value="0" data-cart-name="Shortsword" data-cart-price="10" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
+    </div>
+    <div class="item"><b>Shield</b> — 10gp, 30% OFF!<br><span>Steel, custom crest—stand tall!</span>
+      <input type="number" min="0" value="0" data-cart-name="Shield" data-cart-price="10" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
+    </div>
+    <div class="item"><b>Chain Shirt</b> — 50gp, 30% OFF!<br><span>Light, flexible, and tough as a mountain goat.</span>
+      <input type="number" min="0" value="0" data-cart-name="Chain Shirt" data-cart-price="50" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
+    </div>
+    <div class="item"><b>Warhammer</b> — 15gp, 30% OFF!<br><span>Dwarven make, built to last.</span>
+      <input type="number" min="0" value="0" data-cart-name="Warhammer" data-cart-price="15" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
+    </div>
+    <div class="item"><b>Custom Gear Commission</b> — Varies, 30% OFF labor!<br><span>Got a wild idea? Let’s talk.</span>
+      <!-- No add-to-cart for custom commissions -->
+    </div>
+    <div class="item"><b>Armor Repair (per item)</b> — 2gp, 30% OFF!<br><span>Quick, quality, and no grumbling.</span>
+      <input type="number" min="0" value="0" data-cart-name="Armor Repair" data-cart-price="2" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
+    </div>
     <div class="featured">
       <span style="font-size:1.2em;">Mithral Shirt</span> — 200gp, 30% OFF!<br>
       <span>Light as a feather, strong as dragon scales. No stealth penalty!</span>
+      <input type="number" min="0" value="0" data-cart-name="Mithral Shirt" data-cart-price="200" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
     </div>
-    <div class="item"><b>+1 Weapon (any)</b> — 150gp, 30% OFF!<br><span>Magic, +1 to attack and damage. Limited stock!</span></div>
-    <div class="item"><b>Ice Axe</b> — 12gp, 30% OFF!<br><span>Climb or fight—your choice.</span></div>
-    <div class="item"><b>Spiked Boots</b> — 8gp, 30% OFF!<br><span>Advantage on ice and snow. Trade in your old boots for a discount!</span></div>
+    <div class="item"><b>+1 Weapon (any)</b> — 150gp, 30% OFF!<br><span>Magic, +1 to attack and damage. Limited stock!</span>
+      <input type="number" min="0" value="0" data-cart-name="+1 Weapon" data-cart-price="150" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
+    </div>
+    <div class="item"><b>Ice Axe</b> — 12gp, 30% OFF!<br><span>Climb or fight—your choice.</span>
+      <input type="number" min="0" value="0" data-cart-name="Ice Axe" data-cart-price="12" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
+    </div>
+    <div class="item"><b>Spiked Boots</b> — 8gp, 30% OFF!<br><span>Advantage on ice and snow. Trade in your old boots for a discount!</span>
+      <input type="number" min="0" value="0" data-cart-name="Spiked Boots" data-cart-price="8" data-cart-shop="The Shield & Sheath">
+      <button class="add-to-cart-btn">Add</button>
+    </div>
   </div>
   <div class="challenge">
     Ironarm’s Challenge:<br>
@@ -215,5 +243,6 @@
   <div class="footer">
     Bring this bulletin for a deal. Sale ends at the close of Nilse’s Moon.<br>
   </div>
+  <script src="cart.js"></script>
 </body>
 </html>

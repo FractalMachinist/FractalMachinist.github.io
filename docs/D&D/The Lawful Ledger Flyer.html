@@ -197,17 +197,18 @@
             <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Price</th>
             <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Discount</th>
             <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Description</th>
+            <th style="border:1px solid var(--low-emphasis);padding:0.3em 0.5em;">Qty</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Journal (blank)</td><td>2gp</td><td>20% OFF</td><td>For the recording of lawful transactions and personal accounts. 100 pages, leather-bound.</td></tr>
-          <tr><td>Map Case</td><td>5gp</td><td>20% OFF</td><td>Waterproof, suitable for the protection of official documents.</td></tr>
-          <tr><td>Official Forms (set)</td><td>1gp</td><td>20% OFF</td><td>Permits, contracts, and licenses. Required for most business dealings.</td></tr>
-          <tr><td>Ink & Quill Set</td><td>2gp</td><td>20% OFF</td><td>Black or colored ink. For signatures and official correspondence.</td></tr>
-          <tr><td>Field Logbook</td><td>3gp</td><td>20% OFF</td><td>Weatherproof. For field notes and expedition records.</td></tr>
-          <tr><td>Rulebook (local laws)</td><td>5gp</td><td>20% OFF</td><td>Current statutes and regulations of Usalama. Ignorance of the law is not a defense.</td></tr>
-          <tr><td>Expedition Waiver Forms</td><td>1gp</td><td>20% OFF</td><td>“No liability for avalanches or other hazards.”</td></tr>
-          <tr><td>Notarized Proof of Summit</td><td>2gp</td><td>20% OFF</td><td>Certified documentation for recognition of achievement.</td></tr>
+          <tr><td>Journal (blank)</td><td>2gp</td><td>20% OFF</td><td>For the recording of lawful transactions and personal accounts. 100 pages, leather-bound.</td><td><input type="number" min="0" style="width:3em;" data-cart-name="Journal (blank)" data-cart-price="2" data-cart-shop="The Lawful Ledger"> <button class="add-to-cart-btn">Add</button></td></tr>
+          <tr><td>Map Case</td><td>5gp</td><td>20% OFF</td><td>Waterproof, suitable for the protection of official documents.</td><td><input type="number" min="0" style="width:3em;" data-cart-name="Map Case" data-cart-price="5" data-cart-shop="The Lawful Ledger"> <button class="add-to-cart-btn">Add</button></td></tr>
+          <tr><td>Official Forms (set)</td><td>1gp</td><td>20% OFF</td><td>Permits, contracts, and licenses. Required for most business dealings.</td><td><input type="number" min="0" style="width:3em;" data-cart-name="Official Forms (set)" data-cart-price="1" data-cart-shop="The Lawful Ledger"> <button class="add-to-cart-btn">Add</button></td></tr>
+          <tr><td>Ink & Quill Set</td><td>2gp</td><td>20% OFF</td><td>Black or colored ink. For signatures and official correspondence.</td><td><input type="number" min="0" style="width:3em;" data-cart-name="Ink & Quill Set" data-cart-price="2" data-cart-shop="The Lawful Ledger"> <button class="add-to-cart-btn">Add</button></td></tr>
+          <tr><td>Field Logbook</td><td>3gp</td><td>20% OFF</td><td>Weatherproof. For field notes and expedition records.</td><td><input type="number" min="0" style="width:3em;" data-cart-name="Field Logbook" data-cart-price="3" data-cart-shop="The Lawful Ledger"> <button class="add-to-cart-btn">Add</button></td></tr>
+          <tr><td>Rulebook (local laws)</td><td>5gp</td><td>20% OFF</td><td>Current statutes and regulations of Usalama. Ignorance of the law is not a defense.</td><td><input type="number" min="0" style="width:3em;" data-cart-name="Rulebook (local laws)" data-cart-price="5" data-cart-shop="The Lawful Ledger"> <button class="add-to-cart-btn">Add</button></td></tr>
+          <tr><td>Expedition Waiver Forms</td><td>1gp</td><td>20% OFF</td><td>“No liability for avalanches or other hazards.”</td><td><input type="number" min="0" style="width:3em;" data-cart-name="Expedition Waiver Forms" data-cart-price="1" data-cart-shop="The Lawful Ledger"> <button class="add-to-cart-btn">Add</button></td></tr>
+          <tr><td>Notarized Proof of Summit</td><td>2gp</td><td>20% OFF</td><td>Certified documentation for recognition of achievement.</td><td><input type="number" min="0" style="width:3em;" data-cart-name="Notarized Proof of Summit" data-cart-price="2" data-cart-shop="The Lawful Ledger"> <button class="add-to-cart-btn">Add</button></td></tr>
         </tbody>
       </table>
     </div>
@@ -315,3 +316,21 @@
       Legal Disclaimer: All offers valid through the end of Nilse’s Moon. Terms and conditions apply. The Lawful Ledger reserves the right to refuse service to unruly or noncompliant individuals.
     </div>
   </div>
+  <script>
+    // Sample cart.js integration script
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const name = row.querySelector('td[data-cart-name]').getAttribute('data-cart-name');
+        const price = row.querySelector('td[data-cart-price]').getAttribute('data-cart-price');
+        const qty = row.querySelector('input[type="number"]').value;
+        const shop = row.querySelector('td[data-cart-shop]').getAttribute('data-cart-shop');
+
+        // Add to cart logic here
+        console.log(`Added to cart: ${name}, Price: ${price}, Quantity: ${qty}, Shop: ${shop}`);
+      });
+    });
+  </script>
+  <script src="cart.js"></script>
+</body>
+</html>
