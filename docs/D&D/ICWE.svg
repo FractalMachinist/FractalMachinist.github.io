@@ -1,0 +1,29 @@
+<svg width="90" height="60" viewBox="0 0 90 62" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cheap stamp texture -->
+  <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" result="turb" />
+    <feDisplacementMap in2="turb" in="SourceGraphic" scale="2" xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+  <!-- Outer rectangle -->
+  <rect x="15" y="3" width="55" height="57" rx="7" fill="none" stroke="#7a6842" stroke-width="3"
+    filter="url(#rough)" />
+  <g transform="scale(1.6) translate(-8,-13)">
+    <!-- Simple crown -->
+    <g filter="url(#rough)">
+      <polygon points="25,28 30,18 35,28 40,18 45,28" fill="none" stroke="#7a6842" stroke-width="2" />
+      <circle cx="30" cy="18" r="1.2" fill="#7a6842" />
+      <circle cx="40" cy="18" r="1.2" fill="#7a6842" />
+    </g>
+    <!-- Simple eye -->
+    <g filter="url(#rough)">
+      <ellipse cx="35" cy="36" rx="10" ry="5" fill="none" stroke="#7a6842" stroke-width="2" />
+      <ellipse cx="35" cy="36" rx="2.5" ry="2.5" fill="#7a6842" />
+    </g>
+  </g>
+
+  <!-- Letters below -->
+  <text x="45" y="55" text-anchor="middle" font-family="serif" font-size="11" fill="#7a6842" font-weight="bold"
+    letter-spacing="2" filter="url(#rough)">
+    ICWE
+  </text>
+</svg>
