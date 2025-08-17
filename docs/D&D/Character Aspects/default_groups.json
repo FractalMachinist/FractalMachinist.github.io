@@ -1,0 +1,225 @@
+[
+  {
+    "name": "Identity / Background",
+    "required": false,
+    "aspects": [
+      "But of course, I'm French!",
+      "\"Half-Canadian\"",
+      "Still Loyal to the Crown (and the half crown)",
+      "My Father is a Genre-Savvy Lawful Evil Tyrant",
+      "My Crazy Grandmother’s Apprentice",
+      "There was that one time in...",
+      "The One Who Lived.",
+      "Whispered Inheritance",
+      "Academy Exile",
+      "Chosen by Mistake",
+      "My Family is More Precious Than Gold",
+      "Friends in need can always find me and I them",
+      "Wolf-Brother in Arms",
+      "Still Loyal to the Crown (and the half crown)",
+      "I've Never Had Friends Before",
+      "Aren't You Somebody's Cousin's Nephew?",
+      "Found Family",
+      "Debt Collector"
+    ]
+  },
+  {
+    "name": "Physical Traits & Presence",
+    "required": false,
+    "aspects": [
+      "Agile as a cat... but twice as curious.",
+      "Mountain of a Man",
+      "Bigger Than I Thought",
+      "Legs Up to Here",
+      "Eyes of Infinite Midnight Blackness",
+      "\"Don't worry, it's supposed to look like that\"",
+      "Unplaceable Accent",
+      "Scar That Smiles",
+      "Small, Loud Package"
+    ]
+  },
+  {
+    "name": "Innate / Supernatural Identity",
+    "required": false,
+    "aspects": [
+      "EVERYTHING Talks to Me",
+      "The Monster Within",
+      "The One Who Lived.",
+      "Covert Biologist",
+      "Wizard with a Needle",
+      "Branded by Fate",
+      "Patchwork Soul",
+      "Living Relic"
+    ]
+  },
+  {
+    "name": "Skills-as-Identity / Signature Items",
+    "required": false,
+    "aspects": [
+      "A most immodest talent",
+      "The Wings of Hermes: Best. Souvenir. Evar!",
+      "Reluctant Icon",
+      "Memory Tattoo",
+      "Luggage of Small Horrors"
+    ]
+  },
+  {
+    "name": "Worldview & Long-term Outlook",
+    "required": false,
+    "aspects": [
+      "Always Surviving, Never Living",
+      "It's Not Paranoia IF...",
+      "Too smart for his own good",
+      "Pragmatic Idealist",
+      "Sees Stories, Not People",
+      "Fatalist with a Plan"
+    ]
+  },
+  {
+    "name": "Mobility, Reflexes & Combat",
+    "required": false,
+    "aspects": [
+      "It's All in the Reflexes",
+      "Don't f--- with the fastest Otaku in Queens.",
+      "If BS Fails, Sprinting Works Fine",
+      "I have many knives",
+      "Legs Up to Here",
+      "Lightning Rod",
+      "Showboat"
+    ]
+  },
+  {
+    "name": "Tinkering, Tools & Tech",
+    "required": false,
+    "aspects": [
+      "It Moves? I Can Drive That.",
+      "\"Everythings better with rockets!\"",
+      "\"Wire, pliers and duct-tape!\"",
+      "\"Don't worry, it's supposed to look like that\"",
+      "Wizard with a Needle",
+      "Broken Things Are Friends",
+      "Deus Ex Gadget"
+    ]
+  },
+  {
+    "name": "Improviser vs Planner",
+    "required": false,
+    "aspects": [
+      "That's all right sir, I have a cunning plan",
+      "Heh, I just had a really cool idea.",
+      "Screw physics, I'm Pinkie Pie!",
+      "No But I Can Fake It",
+      "\"A Wall is Just a Door That Doesn't Know It\"",
+      "Gamble Architect",
+      "Failsafe Hoarder"
+    ]
+  },
+  {
+    "name": "Face / Social Tools & Manipulation",
+    "required": false,
+    "aspects": [
+      "Insults are an art form.",
+      "I can please everyone, all of the time.",
+      "\"This conversation is over.\"",
+      "\"I just happen to be walking by....\"",
+      "I love it when someone insults me. That means I don't have to be nice anymore.",
+      "\"Don't worry, it's supposed to look like that\"",
+      "Disingenuous Guardian",
+      "The Mirror"
+    ]
+  },
+  {
+    "name": "Scavenger / Rogue / Con Tactics",
+    "required": false,
+    "aspects": [
+      "I Picked This Up Earlier. I Thought It Might Come In Handy",
+      "Kleptomaniac",
+      "Two Halflings in a Long Coat",
+      "A Fool and His Money Are My Stock in Trade",
+      "\"Get in the Van!\"",
+      "Don't f--- with the fastest Otaku in Queens.",
+      "Urban Myth",
+      "Fishing for Red Herrings"
+    ]
+  },
+  {
+    "name": "Investigation & Information",
+    "required": false,
+    "aspects": [
+      "Anything For the Scoop",
+      "Things Are Not What They Seem",
+      "\"I just happen to be walking by....\"",
+      "\"Lose\" is a Stupid Rule",
+      "Library of Faces",
+      "Cross-Referenceer"
+    ]
+  },
+  {
+    "name": "Motivation-as-Method",
+    "required": false,
+    "aspects": [
+      "Greed is Eternal",
+      "The Way of Profit",
+      "Profit of the White Court",
+      "Enough... Is Never Enough",
+      "War is Good Business",
+      "Peace is Good Business",
+      "Every Man Has His Price",
+      "Trail of Destruction + XTC = Balance",
+      "Proper debauchery is hard work, and hard work is it's own reward.",
+      "Mythic Debt",
+      "Bargain-Maker"
+    ]
+  },
+  {
+    "name": "Exit Strategy",
+    "required": false,
+    "aspects": [
+      "If BS Fails, Sprinting Works Fine",
+      "\"Get in the Van!\"",
+      "\"This conversation is over.\""
+    ]
+  },
+  {
+    "name": "Affiliations & Contacts",
+    "required": false,
+    "aspects": [
+      "The Secret Service's Secret Servant",
+      "Profit of the White Court",
+      "Covert Biologist",
+      "Wolf-Brother in Arms",
+      "Double Ledger",
+      "Quiet Sponsor"
+    ]
+  },
+  {
+    "name": "Romantic & Personal Hooks",
+    "required": false,
+    "aspects": [
+      "That Girl's Gonna Get Me Killed",
+      "Don't you think you've got a bit of a saving people thing?",
+      "Unfinished Song",
+      "Forbidden Taste"
+    ]
+  },
+  {
+    "name": "Vendettas, Grudges & Reputation Hooks",
+    "required": false,
+    "aspects": [
+      "Holds His Grudges With an Iron Fist",
+      "Revenge is a Dish Best Served. Hot, cold, whatever, so long as it's served.",
+      "Long Ledger",
+      "Reputation as Deterrent"
+    ]
+  },
+  {
+    "name": "Social Quirks Useful as Hooks",
+    "required": false,
+    "aspects": [
+      "Aren't You Somebody's Cousin's Nephew?",
+      "There was that one time in...",
+      "I just happen to be walking by....",
+      "Speaks in Proverbs"
+    ]
+  }
+]
