@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Aspect Builder</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -13,9 +13,9 @@
     <h1>Aspect Builder</h1>
     <div class="header-actions">
       <button id="toggle-library" title="Show aspects" class="icon-btn">☰ Aspects</button>
-      <button id="new-character" title="Create a new character">➕ New</button>
-      <button id="clone-character" title="Clone the currently selected character">📋 Clone</button>
-      <button id="random-character" title="Create a random character">🎲 Random</button>
+      <button id="new-character" title="Create a new character">➕<span> New</span></button>
+      <button id="clone-character" title="Clone the currently selected character">📋<span>Clone</span></button>
+      <button id="random-character" title="Create a random character">🎲<span> Random</span></button>
       <button id="toggle-cast" title="Show cast" class="icon-btn">☰ Cast</button>
     </div>
   </header>
@@ -57,21 +57,14 @@
         <input id="character-color" type="color" title="Character color">
       </div>
 
-      <div class="active-tabs">
-        <button id="tab-aspects" class="tab-btn active">Aspects</button>
-        <button id="tab-details" class="tab-btn">Details</button>
-      </div>
-
-      <div class="tab-content aspects-tab">
-        <div class="aspects-area">
-          <h3>Aspects</h3>
-          <ul id="active-aspects" class="aspect-list" data-droppable="character"
-            title="Drop aspects here to add to character"></ul>
-        </div>
-      </div>
-
-      <div class="tab-content details-tab hidden">
+      <div class="details-area">
         <textarea id="character-desc" placeholder="Character description" rows="3"></textarea>
+      </div>
+
+      <div class="aspects-area">
+        <h3>Aspects</h3>
+        <ul id="active-aspects" class="aspect-list" data-droppable="character"
+          title="Drop aspects here to add to character"></ul>
       </div>
     </section>
 
@@ -127,7 +120,7 @@
     </li>
   </template>
 
-  <script src="./app.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 
 </html>

@@ -122,7 +122,7 @@ function randomChoice(arr) { return arr[Math.floor(Math.random() * arr.length)];
 // helper: small chance to elongate a vowel in a token
 function elongate(s) {
     if (typeof s !== 'string' || !s) return s;
-    if (Math.random() < 0.04) {
+    if (Math.random() < 0.01) {
         // Only elongate vowels not preceded by 'q' (case-insensitive)
         return s.replace(/(?<!q)([aeiouy])/i, m => m + m.repeat(Math.floor(Math.random() * 4) + 2));
     }
@@ -277,7 +277,12 @@ function generateSillyName(aspects) {
             name = sfx ? `${base} ${sfx}` : base;
         } else if (pattern < 0.85) {
             const mid = randomChoice(middles);
-            name = `${k1} ${mid === "O'" ? mid + randomChoice(cores) : mid + ' ' + randomChoice(cores)}`;
+            // If the middle part ends with a non-letter (like "O'", "ath-", etc), don't add a space
+            if (/[^a-zA-Z]$/.test(mid)) {
+                name = `${k1} ${mid}${randomChoice(cores)}`;
+            } else {
+                name = `${k1} ${mid} ${randomChoice(cores)}`;
+            }
         } else {
             name = `${randomChoice(prefixes)} ${elongate(k1)}`;
         }
@@ -543,8 +548,19 @@ function renderAspect(text, opts = {}) {
 }
 
 function renderActive() {
+    // If cast is empty, create a new character and set as active
+    if (!state.cast || state.cast.length === 0) {
+        const c = { id: genId('c'), name: '', desc: '', color: '#fff', aspects: [] };
+        state.cast.push(c);
+        state.activeId = c.id;
+    }
     if (!state.activeId) { characterName.value = ''; characterDesc.value = ''; activeAspects.innerHTML = ''; characterColor.value = '#ffffff'; return }
-    const active = state.cast.find(c => c.id === state.activeId);
+    let active = state.cast.find(c => c.id === state.activeId);
+    // If activeId is set but not found in cast, pick the first character
+    if (!active && state.cast.length > 0) {
+        active = state.cast[0];
+        state.activeId = active.id;
+    }
     if (!active) return;
     characterName.value = active.name || '';
     characterDesc.value = active.desc || '';
@@ -553,7 +569,7 @@ function renderActive() {
     // If the active character has no explicit name, show a suggested silly name
     if (!active.name || !active.name.trim()) {
         try {
-            characterName.placeholder = generateSillyName(active.aspects || []);
+            characterName.placeholder = "Name (\"" + generateSillyName(active.aspects || []) + "\")";
         } catch (e) { /* ignore generator errors */ }
     } else {
         // restore default placeholder when a name exists
@@ -574,8 +590,12 @@ function renderCast() {
         li.dataset.id = c.id;
         li.style.setProperty('--character-color', c.color || '#eeeeee');
         li.style.cursor = 'pointer';
+        // Highlight active character
+        if (c.id === state.activeId) {
+            li.classList.add('active-character');
+        }
         const left = document.createElement('div');
-        left.textContent = c.name || '(untitled)';
+        left.textContent = c.name || '(nameless)';
         left.style.flex = '1';
         li.appendChild(left);
         const btns = document.createElement('div');
@@ -911,37 +931,37 @@ function clearRandomDebounceVisual() {
 }
 
 // Inject minimal CSS for the visual (a circular border that wipes clockwise)
-// Keep it small and optional; if the button has existing styles this will gracefully degrade.
+// and for highlighting the active character in the cast list
 try {
-        const style = document.createElement('style');
-                style.textContent = `
-                /* debounce visual: a left-to-right background wipe on the Random button.
-                     We animate a pseudo-element's background-size from 100%->0% so it looks
-                     like a reverse progress bar (background disappearing left-to-right).
-                */
-                #random-character.debounce-active {
-                    position: relative;
-                    overflow: hidden;
-                    /* ensure a stacking context for the pseudo-element */
-                    z-index: 0;
-                }
-                #random-character.debounce-active::before {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    z-index: -1;
-                    /* background color for the fill; pick a subtle highlight */
-                    background: linear-gradient(90deg, rgba(0,150,200,0.12), rgba(0,150,200,0.12));
-                    /* start full width and shrink to 0 to appear as a left-to-right wipe */
-                    background-size: 100% 100%;
-                    background-repeat: no-repeat;
-                    transform-origin: left center;
-                    /* allow JS to override duration via --rb-duration */
-                    animation: rb-wipe var(--rb-duration, ${RANDOM_DEBOUNCE_MS}ms) linear forwards;
-                }
-                @keyframes rb-wipe { from { background-size: 100% 100%; } to { background-size: 0% 100%; } }
-                `;
-        document.head.appendChild(style);
+    const style = document.createElement('style');
+    style.textContent = `
+        /* debounce visual: a left-to-right background wipe on the Random button. */
+        #random-character.debounce-active {
+            position: relative;
+            overflow: hidden;
+            z-index: 0;
+        }
+        #random-character.debounce-active::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(90deg, rgba(0,150,200,0.12), rgba(0,150,200,0.12));
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            transform-origin: left center;
+            animation: rb-wipe var(--rb-duration, ${RANDOM_DEBOUNCE_MS}ms) linear forwards;
+        }
+        @keyframes rb-wipe { from { background-size: 100% 100%; } to { background-size: 0% 100%; } }
+
+        /* Highlight the active character in the cast list */
+        #cast-list li.active-character {
+            border: 2.5px solid #1e90ff;
+            border-radius: 7px;
+            box-shadow: 0 0 0 2px rgba(30,144,255,0.10);
+        }
+    `;
+    document.head.appendChild(style);
 } catch (err) { /* ignore in non-DOM environments */ }
 
 // groups storage helpers (aspects)
