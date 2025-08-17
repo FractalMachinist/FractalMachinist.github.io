@@ -368,6 +368,14 @@ const characterName = document.getElementById('character-name');
 const characterDesc = document.getElementById('character-desc');
 const characterColor = document.getElementById('character-color');
 const castList = document.getElementById('cast-list');
+const libraryAside = document.getElementById('library');
+const castAside = document.getElementById('cast');
+const toggleLibraryBtn = document.getElementById('toggle-library');
+const toggleCastBtn = document.getElementById('toggle-cast');
+const tabAspectsBtn = document.getElementById('tab-aspects');
+const tabDetailsBtn = document.getElementById('tab-details');
+const libraryCloseBtn = document.querySelector('#library .sidebar-close');
+const castCloseBtn = document.querySelector('#cast .sidebar-close');
 
 // init
 loadState();
@@ -376,7 +384,7 @@ loadState();
 // returns the loaded array (mapped) or null on failure.
 async function loadDefaults({ merge = false } = {}) {
     try {
-    const resp = await fetch('./default_groups.json');
+        const resp = await fetch('./default_groups.json');
         if (!resp.ok) { console.warn('could not fetch default_groups.json'); return null }
         const data = await resp.json();
         if (!Array.isArray(data)) return null;
@@ -456,7 +464,7 @@ function renderGroups() {
     attachDragHandlers();
 }
 
-function renderAspect(text) {
+function renderAspect(text, opts = {}) {
     const n = aspectTemplate.content.cloneNode(true);
     const li = n.querySelector('li.aspect');
     li.querySelector('.aspect-text').textContent = text;
@@ -510,6 +518,27 @@ function renderAspect(text) {
         });
     }
 
+    // mobile-friendly: add-to-character button (if present in template).
+    // Hide/disable when rendering aspects that already belong to the active character.
+    const addBtn = li.querySelector('.add-aspect-to-character');
+    if (addBtn) {
+        if (opts.forCharacter) {
+            // remove the button entirely for active-character aspects
+            addBtn.remove();
+        } else {
+            addBtn.title = 'Add to active character';
+            addBtn.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                if (!state.activeId) document.getElementById('new-character').click();
+                const active = state.cast.find(c => c.id === state.activeId);
+                if (!active) return;
+                active.aspects = active.aspects || [];
+                if (!active.aspects.includes(text)) active.aspects.push(text);
+                render();
+            });
+        }
+    }
+
     return li;
 }
 
@@ -532,9 +561,10 @@ function renderActive() {
     }
     // ensure the active list is a droppable area
     activeAspects.dataset.droppable = 'character';
-    (active.aspects || []).forEach(a => activeAspects.appendChild(renderAspect(a)));
+    (active.aspects || []).forEach(a => activeAspects.appendChild(renderAspect(a, { forCharacter: true })));
     // reattach drag handlers so the new items are draggable
     attachDragHandlers();
+    // renderAspect already hides add button for active-character aspects
 }
 
 function renderCast() {
@@ -602,6 +632,13 @@ function attachDragHandlers() {
         el.addEventListener('dragenter', onDragEnter);
         el.addEventListener('dragleave', onDragLeave);
     });
+
+    // On small screens, disable native drag-drop so users use the add button instead
+    if (window.innerWidth <= 900) {
+        document.querySelectorAll('[draggable="true"]').forEach(d => d.setAttribute('draggable', 'false'));
+    } else {
+        document.querySelectorAll('[data-droppable] [draggable="false"]').forEach(d => d.setAttribute('draggable', 'true'));
+    }
 }
 
 function delegatedDragStart(e) {
@@ -759,6 +796,71 @@ characterColor.addEventListener('change', clearRandomDebounce);
 // select via hash
 window.addEventListener('hashchange', () => { const id = location.hash.slice(1); if (id) { if (state.cast.find(c => c.id === id)) state.activeId = id; render(); } });
 if (location.hash.slice(1)) { const id = location.hash.slice(1); if (state.cast.find(c => c.id === id)) state.activeId = id }
+
+// Sidebar toggle handlers (mobile)
+if (toggleLibraryBtn) {
+    toggleLibraryBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        libraryAside.classList.toggle('open');
+        if (libraryAside.classList.contains('open')) castAside.classList.remove('open');
+    });
+}
+if (toggleCastBtn) {
+    toggleCastBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        castAside.classList.toggle('open');
+        if (castAside.classList.contains('open')) libraryAside.classList.remove('open');
+    });
+}
+
+// close buttons inside sidebars
+if (libraryCloseBtn) libraryCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); libraryAside.classList.remove('open'); });
+if (castCloseBtn) castCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); castAside.classList.remove('open'); });
+
+// Tabs in active panel
+if (tabAspectsBtn && tabDetailsBtn) {
+    function activateTab(which) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+        if (which === 'aspects') {
+            tabAspectsBtn.classList.add('active');
+            document.querySelector('.aspects-tab').classList.remove('hidden');
+        } else {
+            tabDetailsBtn.classList.add('active');
+            document.querySelector('.details-tab').classList.remove('hidden');
+        }
+    }
+    tabAspectsBtn.addEventListener('click', () => activateTab('aspects'));
+    tabDetailsBtn.addEventListener('click', () => activateTab('details'));
+}
+
+// Improved: Use event propagation to detect true outside clicks for sidebars
+let sidebarClickFlag = false;
+function markSidebarClick() { sidebarClickFlag = true; }
+if (libraryAside) libraryAside.addEventListener('mousedown', markSidebarClick);
+if (castAside) castAside.addEventListener('mousedown', markSidebarClick);
+if (toggleLibraryBtn) toggleLibraryBtn.addEventListener('mousedown', markSidebarClick);
+if (toggleCastBtn) toggleCastBtn.addEventListener('mousedown', markSidebarClick);
+
+document.addEventListener('mousedown', () => { sidebarClickFlag = false; }, true);
+document.addEventListener('click', (e) => {
+    const w = window.innerWidth;
+    if (w > 900) return; // on large screens sidebars are inline
+    if (sidebarClickFlag) { sidebarClickFlag = false; return; }
+    // Only close if the click was not inside any sidebar or toggle
+    if (libraryAside.classList.contains('open')) libraryAside.classList.remove('open');
+    if (castAside.classList.contains('open')) castAside.classList.remove('open');
+});
+
+// Close sidebars with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+        let changed = false;
+        if (libraryAside.classList.contains('open')) { libraryAside.classList.remove('open'); changed = true; }
+        if (castAside.classList.contains('open')) { castAside.classList.remove('open'); changed = true; }
+        if (changed) e.stopPropagation();
+    }
+});
 
 // local save/load (exposed via menus)
 function clearBrowserCast() {

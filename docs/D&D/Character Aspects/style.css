@@ -11,11 +11,17 @@ body {
 
 header {
     display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
+    padding: 12px 12px;
     background: #2b3850;
-    color: #fff
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
 }
 
 header h1 {
@@ -23,10 +29,28 @@ header h1 {
     font-size: 18px
 }
 
+.header-actions {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of buttons */
+    gap: 8px; /* Add spacing between buttons */
+    justify-content: flex-start; /* Keep buttons left-aligned */
+    margin-top: 8px; /* Add spacing when wrapped */
+}
+
 .header-actions button,
 .file-label {
     margin-left: 8px
 }
+
+/* Make the navbar toggle buttons readable on the dark header */
+.header-actions .icon-btn {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+.header-actions .icon-btn:hover { background: rgba(255,255,255,0.12) }
 
 .file-label input {
     display: none
@@ -36,7 +60,7 @@ main {
     display: grid;
     grid-template-columns: 300px 1fr 240px;
     gap: 12px;
-    padding: 12px
+    padding: 72px 12px 12px 12px; /* account for fixed header */
 }
 
 /* full-height layout so sections can stretch vertically */
@@ -56,6 +80,52 @@ aside#cast {
     padding: 12px;
     min-height: 300px;
     overflow: auto
+}
+
+/* Mobile: popover panels */
+@media (max-width: 900px) {
+    main {
+        grid-template-columns: 1fr;
+        padding: 84px 8px 12px 8px;
+    }
+    aside#library,
+    aside#cast {
+        position: fixed;
+        top: 64px;
+        bottom: 0;
+        width: 92%;
+        max-width: 420px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        transform: translateX(-110%);
+        transition: transform 220ms ease;
+        z-index: 50;
+        border-radius: 0 12px 12px 0;
+    }
+    aside#cast {
+        right: 0;
+        left: auto;
+        transform: translateX(110%);
+        border-radius: 12px 0 0 12px;
+    }
+    aside#library.open { transform: translateX(0); }
+    aside#cast.open { transform: translateX(0); }
+    header .header-actions button.icon-btn { display: inline-block }
+    aside .sidebar-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(0,0,0,0.06);
+        color: #222;
+        border: none;
+        padding: 6px 8px;
+        border-radius: 6px;
+        z-index: 60;
+    }
+}
+
+/* Larger screens: hide toggle buttons */
+@media (min-width: 901px) {
+    header .header-actions button.icon-btn { display: none }
 }
 
 section#active {
@@ -166,6 +236,18 @@ section#active {
     border: 1px solid #e6e9ef
 }
 
+.aspect .add-aspect-to-character {
+    margin-right: 8px;
+    background: #1f6feb;
+    color: white;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.aspect .add-aspect-to-character:hover { filter: brightness(1.05) }
+.aspect .edit-aspect, .aspect .delete-aspect { margin-left: 6px }
+
 .add-row {
     display: flex;
     gap: 8px;
@@ -231,6 +313,11 @@ section#active {
     gap: 8px;
     margin-bottom: 8px
 }
+
+.active-tabs { display: flex; gap: 8px; margin-bottom: 8px }
+.tab-btn { padding: 6px 10px; border-radius: 6px; border: 1px solid transparent; background: #f3f4f6 }
+.tab-btn.active { background: white; border-color: #e6e9ef; font-weight: 700 }
+.tab-content.hidden { display: none }
 
 #character-name {
     flex: 1;

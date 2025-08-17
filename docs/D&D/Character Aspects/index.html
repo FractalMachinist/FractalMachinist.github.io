@@ -1,60 +1,88 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Aspect Builder</title>
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <header>
     <h1>Aspect Builder</h1>
     <div class="header-actions">
+      <button id="toggle-library" title="Show aspects" class="icon-btn">☰ Aspects</button>
       <button id="new-character" title="Create a new character">➕ New</button>
       <button id="clone-character" title="Clone the currently selected character">📋 Clone</button>
       <button id="random-character" title="Create a random character">🎲 Random</button>
+      <button id="toggle-cast" title="Show cast" class="icon-btn">☰ Cast</button>
     </div>
   </header>
 
   <main>
     <aside id="library">
       <h2>Aspects <span class="inline-controls">
-          <button id="groups-menu-btn" class="icon-btn" aria-haspopup="true" aria-expanded="false" title="Save / Load groups">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V8a1 1 0 0 0 1 1h4.5L13 3.5zM12 12a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+          <button id="groups-menu-btn" class="icon-btn" aria-haspopup="true" aria-expanded="false"
+            title="Save / Load groups">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path fill="currentColor"
+                d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V8a1 1 0 0 0 1 1h4.5L13 3.5zM12 12a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+            </svg>
           </button>
           <div id="groups-menu" class="cast-menu hidden" role="menu" aria-hidden="true">
-            <button class="menu-item" data-action="save-browser" role="menuitem" title="Save to browser storage">Save to Browser</button>
+            <button class="menu-item" data-action="save-browser" role="menuitem" title="Save to browser storage">Save to
+              Browser</button>
             <button class="menu-item" data-action="clear-browser" role="menuitem">Clear Browser</button>
-            <button class="menu-item" data-action="save-file" role="menuitem" title="Download JSON file">Save to File</button>
-            <button class="menu-item" data-action="load-file" role="menuitem" title="Load JSON file from disk">Load from File</button>
-            <button class="menu-item" data-action="load-defaults" role="menuitem" title="Fetch and merge default groups">Load Defaults</button>
+            <button class="menu-item" data-action="save-file" role="menuitem" title="Download JSON file">Save to
+              File</button>
+            <button class="menu-item" data-action="load-file" role="menuitem" title="Load JSON file from disk">Load from
+              File</button>
+            <button class="menu-item" data-action="load-defaults" role="menuitem"
+              title="Fetch and merge default groups">Load Defaults</button>
           </div>
           <input id="load-groups" type="file" accept="application/json" style="display:none">
         </span></h2>
+      <button class="sidebar-close" aria-label="Close">✕</button>
       <div id="groups"></div>
       <div class="add-row">
-  <input id="new-group-name" placeholder="New group name">
-  <button id="add-group" title="Add a new aspect group">Add Group</button>
+        <input id="new-group-name" placeholder="New group name">
+        <button id="add-group" title="Add a new aspect group">Add Group</button>
       </div>
     </aside>
 
     <section id="active">
       <div class="active-header">
-  <input id="character-name" placeholder="Unnamed character" title="Character name">
-  <input id="character-color" type="color" title="Character color">
+        <input id="character-name" placeholder="Unnamed character" title="Character name">
+        <input id="character-color" type="color" title="Character color">
       </div>
-      <textarea id="character-desc" placeholder="Character description" rows="3"></textarea>
 
-      <div class="aspects-area">
-        <h3>Aspects</h3>
-    <ul id="active-aspects" class="aspect-list" data-droppable="character" title="Drop aspects here to add to character"></ul>
+      <div class="active-tabs">
+        <button id="tab-aspects" class="tab-btn active">Aspects</button>
+        <button id="tab-details" class="tab-btn">Details</button>
+      </div>
+
+      <div class="tab-content aspects-tab">
+        <div class="aspects-area">
+          <h3>Aspects</h3>
+          <ul id="active-aspects" class="aspect-list" data-droppable="character"
+            title="Drop aspects here to add to character"></ul>
+        </div>
+      </div>
+
+      <div class="tab-content details-tab hidden">
+        <textarea id="character-desc" placeholder="Character description" rows="3"></textarea>
       </div>
     </section>
 
     <aside id="cast">
       <h2>Cast <span class="inline-controls">
-          <button id="cast-menu-btn" class="icon-btn" aria-haspopup="true" aria-expanded="false" title="Save / Load cast">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V8a1 1 0 0 0 1 1h4.5L13 3.5zM12 12a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+          <button id="cast-menu-btn" class="icon-btn" aria-haspopup="true" aria-expanded="false"
+            title="Save / Load cast">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path fill="currentColor"
+                d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V8a1 1 0 0 0 1 1h4.5L13 3.5zM12 12a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+            </svg>
           </button>
           <div id="cast-menu" class="cast-menu hidden" role="menu" aria-hidden="true">
             <button class="menu-item" data-action="save-browser" role="menuitem">Save to Browser</button>
@@ -64,6 +92,7 @@
           </div>
           <input id="load-cast" type="file" accept="application/json" style="display:none">
         </span></h2>
+      <button class="sidebar-close" aria-label="Close">✕</button>
       <div class="cast-actions">
       </div>
       <ul id="cast-list"></ul>
@@ -92,6 +121,7 @@
   <template id="aspect-template">
     <li class="aspect" draggable="true">
       <span class="aspect-text"></span>
+      <button class="add-aspect-to-character" title="Add to active character">＋</button>
       <button class="edit-aspect">✎</button>
       <button class="delete-aspect">✕</button>
     </li>
@@ -99,4 +129,5 @@
 
   <script src="./app.js" defer></script>
 </body>
+
 </html>
