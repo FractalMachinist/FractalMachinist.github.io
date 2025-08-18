@@ -320,6 +320,11 @@ section#active {
     font-weight: 600;
 }
 .aspect .add-aspect-to-character:hover { filter: brightness(1.05) }
+.aspect .add-aspect-to-character.already-on-character {
+    background: #28a745;
+    color: white;
+}
+.aspect .add-aspect-to-character.already-on-character:hover { filter: brightness(1.05) }
 .aspect .edit-aspect, .aspect .delete-aspect { margin-left: 6px }
 
 .add-row {

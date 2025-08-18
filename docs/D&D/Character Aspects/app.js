@@ -531,7 +531,20 @@ function renderAspect(text, opts = {}) {
             // remove the button entirely for active-character aspects
             addBtn.remove();
         } else {
-            addBtn.title = 'Add to active character';
+            // Check if active character already has this aspect
+            const active = state.cast.find(c => c.id === state.activeId);
+            const already = !!(active && (active.aspects || []).includes(text));
+            
+            if (already) {
+                addBtn.textContent = '✓';
+                addBtn.title = 'Already on active character';
+                addBtn.classList.add('already-on-character');
+            } else {
+                addBtn.textContent = '＋';
+                addBtn.title = 'Add to active character';
+                addBtn.classList.remove('already-on-character');
+            }
+            
             addBtn.addEventListener('click', (ev) => {
                 ev.stopPropagation();
                 if (!state.activeId) document.getElementById('new-character').click();
